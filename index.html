@@ -64,6 +64,9 @@
 
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
     color:var(--teal);font-weight:600}
+  .hero-name{font-family:var(--serif);font-weight:600;font-size:clamp(17px,1.6vw,20px);
+    letter-spacing:-.005em;color:var(--ink);margin-bottom:10px}
+  .hero-name .dot{color:var(--coral)}
   .grad{background:linear-gradient(96deg,var(--teal),var(--violet),var(--coral),var(--teal));
     background-size:280% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
     animation:hue 9s ease infinite}
@@ -286,6 +289,7 @@
   <div class="wrap">
     <div class="hero-grid">
       <div>
+        <div class="hero-name">Murat Tikic<span class="dot">.</span></div>
         <div class="eyebrow" data-i18n="hero_eyebrow">Enterprise Sales · SaaS & Technologie</div>
         <h1 data-i18n="hero_h1">Enterprise Sales. <span class="grad">Mit technischer Tiefe.</span></h1>
         <p class="lead" data-i18n="hero_bridge">7+ Jahre Enterprise-B2B-Vertrieb: C-Level-Verhandlungen, internationale Märkte, messbare Ergebnisse. Mein Unterschied: <b>Ich baue eigene Software</b> — und verstehe dadurch, wie die Produkte, die ich verkaufe, wirklich funktionieren.</p>
@@ -470,6 +474,7 @@
       <label><span data-i18n="f_name">Name</span><input name="name" autocomplete="name" required></label>
       <label><span data-i18n="f_from">E-Mail (optional)</span><input name="from" type="email" autocomplete="email"></label>
       <label><span data-i18n="f_company">Firma &amp; Rolle</span><input name="company" autocomplete="organization"></label>
+      <label><span data-i18n="f_msg">Nachricht an mich</span><textarea name="msg" rows="4"></textarea></label>
       <button class="btn primary" type="submit" data-i18n="f_submit">Senden</button>
     </form>
     <p class="modal-sent" id="cm-sent" hidden data-i18n="modal_sent">Danke! Ich melde mich.</p>
@@ -546,6 +551,7 @@
     modal_sent:{de:`Danke! Ich melde mich.`,en:`Thanks! I'll be in touch.`},
     f_name:{de:`Name`,en:`Name`},f_from:{de:`E-Mail (optional)`,en:`Email (optional)`},
     f_company:{de:`Firma &amp; Rolle`,en:`Company &amp; role`},
+    f_msg:{de:`Nachricht an mich`,en:`Message to me`},
     f_submit:{de:`Senden`,en:`Send`},
     footer:{de:`Murat Tikic · Enterprise Sales · SaaS &amp; Technology · Wien, Österreich`,en:`Murat Tikic · Enterprise Sales · SaaS &amp; Technology · Vienna, Austria`}
   };
@@ -632,10 +638,10 @@
   document.getElementById('contactForm').addEventListener('submit',(e)=>{
     e.preventDefault();
     const form=e.target,d=new FormData(form);
-    const name=(d.get('name')||'').trim(),from=(d.get('from')||'').trim(),comp=(d.get('company')||'').trim();
+    const name=(d.get('name')||'').trim(),from=(d.get('from')||'').trim(),comp=(d.get('company')||'').trim(),msg=(d.get('msg')||'').trim();
     const btn=form.querySelector('button[type="submit"]');
     btn.disabled=true;
-    fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams({name,email:from,company:comp,lang:LANG})})
+    fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams({name,email:from,company:comp,msg,lang:LANG})})
       .then(()=>{form.hidden=true;document.getElementById('cm-sent').hidden=false;})
       .catch(()=>{btn.disabled=false;alert(LANG==='en'?'Something went wrong — please try again.':'Etwas ist schiefgelaufen — bitte nochmal versuchen.');});
   });
