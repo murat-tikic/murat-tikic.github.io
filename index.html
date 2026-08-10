@@ -234,6 +234,7 @@
   .modal-x:hover{color:var(--ink)}
   .modal-card h3{font-family:var(--serif);font-size:24px;margin:10px 0 8px;color:var(--ink);font-weight:600}
   .modal-sub{font-size:13px;color:var(--muted);margin:0 0 20px;line-height:1.5}
+  .modal-sent{font-size:15px;color:var(--teal);font-weight:600;padding:20px 0;text-align:center}
   #contactForm{display:flex;flex-direction:column;gap:14px}
   #contactForm label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:var(--ink);text-transform:uppercase;letter-spacing:.04em}
   #contactForm input,#contactForm textarea{font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--bg2);
@@ -462,16 +463,16 @@
   <div class="modal-overlay" data-close></div>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="cm-title">
     <button class="modal-x" data-close aria-label="Schließen / Close" type="button">×</button>
-    <div class="sec-label" data-i18n="modal_label">Gespräch anfragen</div>
+    <div class="sec-label" data-i18n="modal_label">Mich direkt kontaktieren</div>
     <h3 id="cm-title" data-i18n="modal_h3">Kurz vorstellen — ich melde mich.</h3>
-    <p class="modal-sub" data-i18n="modal_sub">Ihre Angaben öffnen eine vorausgefüllte E-Mail.</p>
+    <p class="modal-sub" data-i18n="modal_sub">Geht direkt an mich — kein E-Mail-Programm nötig.</p>
     <form id="contactForm">
       <label><span data-i18n="f_name">Name</span><input name="name" autocomplete="name" required></label>
-      <label><span data-i18n="f_from">E-Mail</span><input name="from" type="email" autocomplete="email" required></label>
+      <label><span data-i18n="f_from">E-Mail (optional)</span><input name="from" type="email" autocomplete="email"></label>
       <label><span data-i18n="f_company">Firma &amp; Rolle</span><input name="company" autocomplete="organization"></label>
-      <label><span data-i18n="f_msg">Worum geht es?</span><textarea name="msg" rows="4" required></textarea></label>
-      <button class="btn primary" type="submit" data-i18n="f_submit">E-Mail senden →</button>
+      <button class="btn primary" type="submit" data-i18n="f_submit">Senden</button>
     </form>
+    <p class="modal-sent" id="cm-sent" hidden data-i18n="modal_sent">Danke! Ich melde mich.</p>
   </div>
 </div>
 
@@ -485,7 +486,7 @@
     hero_h1:{de:`Enterprise Sales. <span class="grad">Mit technischer Tiefe.</span>`,en:`Enterprise Sales. <span class="grad">With technical depth.</span>`},
     hero_bridge:{de:`7+ Jahre Enterprise-B2B-Vertrieb: C-Level-Verhandlungen, internationale Märkte, messbare Ergebnisse. Mein Unterschied: <b>Ich baue eigene Software</b> — und verstehe dadurch, wie die Produkte, die ich verkaufe, wirklich funktionieren.`,en:`7+ years of enterprise B2B sales: C-level negotiations, international markets, measurable results. What sets me apart: <b>I build my own software</b> — so I understand how the products I sell actually work.`},
     btn_cv:{de:`Lebenslauf ansehen →`,en:`View résumé →`},
-    btn_talk:{de:`Gespräch anfragen`,en:`Request a call`},
+    btn_talk:{de:`Mich direkt kontaktieren`,en:`Contact me directly`},
     badge:{de:`<b>7+ Jahre</b> Enterprise Sales`,en:`<b>7+ yrs</b> Enterprise Sales`},
     hook_label:{de:`Antrieb`,en:`Drive`},
     hook_h2:{de:`Neugier als Prinzip.`,en:`Curiosity as a principle.`},
@@ -538,13 +539,14 @@
     c_label:{de:`Kontakt`,en:`Contact`},
     c_h2:{de:`Sprechen wir über Ergebnisse.`,en:`Let's talk about results.`},
     c_sub:{de:`Vertrieb mit Substanz und echter technischer Kompetenz? Zwanzig Minuten zeigen, ob wir zueinander passen.`,en:`Sales with substance and real technical competence? Twenty minutes show whether we match.`},
-    btn_talk2:{de:`Gespräch anfragen →`,en:`Request a call →`},
-    modal_label:{de:`Gespräch anfragen`,en:`Request a call`},
+    btn_talk2:{de:`Mich direkt kontaktieren →`,en:`Contact me directly →`},
+    modal_label:{de:`Mich direkt kontaktieren`,en:`Contact me directly`},
     modal_h3:{de:`Kurz vorstellen — ich melde mich.`,en:`Introduce yourself — I'll be in touch.`},
-    modal_sub:{de:`Ihre Angaben öffnen eine vorausgefüllte E-Mail.`,en:`Your details open a pre-filled email.`},
-    f_name:{de:`Name`,en:`Name`},f_from:{de:`E-Mail`,en:`Email`},
-    f_company:{de:`Firma &amp; Rolle`,en:`Company &amp; role`},f_msg:{de:`Worum geht es?`,en:`What's it about?`},
-    f_submit:{de:`E-Mail senden →`,en:`Send email →`},
+    modal_sub:{de:`Geht direkt an mich — kein E-Mail-Programm nötig.`,en:`Goes straight to me — no email app needed.`},
+    modal_sent:{de:`Danke! Ich melde mich.`,en:`Thanks! I'll be in touch.`},
+    f_name:{de:`Name`,en:`Name`},f_from:{de:`E-Mail (optional)`,en:`Email (optional)`},
+    f_company:{de:`Firma &amp; Rolle`,en:`Company &amp; role`},
+    f_submit:{de:`Senden`,en:`Send`},
     footer:{de:`Murat Tikic · Enterprise Sales · SaaS &amp; Technology · Wien, Österreich`,en:`Murat Tikic · Enterprise Sales · SaaS &amp; Technology · Vienna, Austria`}
   };
   let LANG='de';
@@ -610,18 +612,32 @@
 
   /* ---------- contact modal ---------- */
   const modal=document.getElementById('contactModal');
-  const open=()=>{modal.classList.add('open');modal.setAttribute('aria-hidden','false');const f=modal.querySelector('input');if(f)setTimeout(()=>f.focus(),50);};
+  const open=()=>{modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+    const form=document.getElementById('contactForm');form.hidden=false;form.reset();
+    form.querySelector('button[type="submit"]').disabled=false;
+    document.getElementById('cm-sent').hidden=true;
+    const f=modal.querySelector('input');if(f)setTimeout(()=>f.focus(),50);};
   const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');};
   document.querySelectorAll('.js-contact').forEach(b=>b.addEventListener('click',open));
   modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',close));
   addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  /* Google Sheet "Murat Landingpage Nachrichten" as the backend — no mail client needed
+     on the visitor's side. SHEET_ENDPOINT is the Apps Script Web App URL deployed from
+     that sheet (Extensions > Apps Script > doPost > Deploy > Web app). fetch fires with
+     mode:'no-cors' because Apps Script web apps don't return CORS headers for a foreign
+     origin like this one — the request still reaches the script and the row still gets
+     appended, we just can't read a response back, so success is assumed once the fetch
+     promise resolves without a network error. */
+  const SHEET_ENDPOINT='https://script.google.com/macros/s/AKfycbxp_eLkpDnR4WroJs-oN-Ko5Ga57HxgUp1-j0G7DIarym194kPoZSSr0TTfbn8bR_CnOQ/exec';
   document.getElementById('contactForm').addEventListener('submit',(e)=>{
-    e.preventDefault();const d=new FormData(e.target);
-    const name=(d.get('name')||'').trim(),from=(d.get('from')||'').trim(),comp=(d.get('company')||'').trim(),msg=(d.get('msg')||'').trim();
-    let subject,body;
-    if(LANG==='en'){subject=`Inquiry via your landing page — ${name}`;body=`Name: ${name}\nCompany & role: ${comp}\nSender email: ${from}\n\n${msg}`;}
-    else{subject=`Anfrage über Ihre Landingpage — ${name}`;body=`Name: ${name}\nFirma & Rolle: ${comp}\nAbsender-E-Mail: ${from}\n\n${msg}`;}
-    window.location.href=`mailto:tikic.murat@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;close();
+    e.preventDefault();
+    const form=e.target,d=new FormData(form);
+    const name=(d.get('name')||'').trim(),from=(d.get('from')||'').trim(),comp=(d.get('company')||'').trim();
+    const btn=form.querySelector('button[type="submit"]');
+    btn.disabled=true;
+    fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams({name,email:from,company:comp,lang:LANG})})
+      .then(()=>{form.hidden=true;document.getElementById('cm-sent').hidden=false;})
+      .catch(()=>{btn.disabled=false;alert(LANG==='en'?'Something went wrong — please try again.':'Etwas ist schiefgelaufen — bitte nochmal versuchen.');});
   });
 })();
 </script>
