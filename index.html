@@ -237,7 +237,9 @@
   .modal-x:hover{color:var(--ink)}
   .modal-card h3{font-family:var(--serif);font-size:24px;margin:10px 0 8px;color:var(--ink);font-weight:600}
   .modal-sub{font-size:13px;color:var(--muted);margin:0 0 20px;line-height:1.5}
-  .modal-sent{font-size:15px;color:var(--teal);font-weight:600;padding:20px 0;text-align:center}
+  .modal-card-sm{width:min(320px,100%);padding:28px 26px;text-align:center}
+  .modal-sent{font-size:15px;color:var(--ink);font-weight:600;margin:0 0 20px;line-height:1.5}
+  .modal-card-sm .btn{width:100%;justify-content:center}
   #contactForm{display:flex;flex-direction:column;gap:14px}
   #contactForm label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:var(--ink);text-transform:uppercase;letter-spacing:.04em}
   #contactForm input,#contactForm textarea{font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--bg2);
@@ -472,12 +474,20 @@
     <p class="modal-sub" data-i18n="modal_sub">Geht direkt an mich — kein E-Mail-Programm nötig.</p>
     <form id="contactForm">
       <label><span data-i18n="f_name">Name</span><input name="name" autocomplete="name" required></label>
-      <label><span data-i18n="f_from">E-Mail (optional)</span><input name="from" type="email" autocomplete="email"></label>
+      <label><span data-i18n="f_from">E-Mail</span><input name="from" type="email" autocomplete="email" required></label>
+      <label><span data-i18n="f_phone">Telefon (optional)</span><input name="phone" type="tel" autocomplete="tel"></label>
       <label><span data-i18n="f_company">Firma &amp; Rolle</span><input name="company" autocomplete="organization"></label>
       <label><span data-i18n="f_msg">Nachricht an mich</span><textarea name="msg" rows="4"></textarea></label>
       <button class="btn primary" type="submit" data-i18n="f_submit">Senden</button>
     </form>
-    <p class="modal-sent" id="cm-sent" hidden data-i18n="modal_sent">Danke! Ich melde mich.</p>
+  </div>
+</div>
+
+<div class="modal" id="thanksModal" aria-hidden="true">
+  <div class="modal-overlay" data-close-thanks></div>
+  <div class="modal-card modal-card-sm" role="dialog" aria-modal="true">
+    <p class="modal-sent" data-i18n="modal_sent">Danke! Ich melde mich.</p>
+    <button class="btn primary" type="button" id="thanksOk" data-i18n="modal_ok">Okay</button>
   </div>
 </div>
 
@@ -549,7 +559,9 @@
     modal_h3:{de:`Kurz vorstellen — ich melde mich.`,en:`Introduce yourself — I'll be in touch.`},
     modal_sub:{de:`Geht direkt an mich — kein E-Mail-Programm nötig.`,en:`Goes straight to me — no email app needed.`},
     modal_sent:{de:`Danke! Ich melde mich.`,en:`Thanks! I'll be in touch.`},
-    f_name:{de:`Name`,en:`Name`},f_from:{de:`E-Mail (optional)`,en:`Email (optional)`},
+    modal_ok:{de:`Okay`,en:`Okay`},
+    f_name:{de:`Name`,en:`Name`},f_from:{de:`E-Mail`,en:`Email`},
+    f_phone:{de:`Telefon (optional)`,en:`Phone (optional)`},
     f_company:{de:`Firma &amp; Rolle`,en:`Company &amp; role`},
     f_msg:{de:`Nachricht an mich`,en:`Message to me`},
     f_submit:{de:`Senden`,en:`Send`},
@@ -616,17 +628,21 @@
     const dur=1200,t0=performance.now();(function step(t){const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3),v=target*e;
       el.textContent=dec?String(v.toFixed(dec)).replace('.',','):Math.round(v);if(p<1)requestAnimationFrame(step);})(t0);}
 
-  /* ---------- contact modal ---------- */
+  /* ---------- contact modal + small thanks confirmation ---------- */
   const modal=document.getElementById('contactModal');
+  const thanks=document.getElementById('thanksModal');
   const open=()=>{modal.classList.add('open');modal.setAttribute('aria-hidden','false');
     const form=document.getElementById('contactForm');form.hidden=false;form.reset();
     form.querySelector('button[type="submit"]').disabled=false;
-    document.getElementById('cm-sent').hidden=true;
     const f=modal.querySelector('input');if(f)setTimeout(()=>f.focus(),50);};
   const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');};
+  const openThanks=()=>{thanks.classList.add('open');thanks.setAttribute('aria-hidden','false');};
+  const closeThanks=()=>{thanks.classList.remove('open');thanks.setAttribute('aria-hidden','true');};
   document.querySelectorAll('.js-contact').forEach(b=>b.addEventListener('click',open));
   modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',close));
-  addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  thanks.querySelectorAll('[data-close-thanks]').forEach(b=>b.addEventListener('click',closeThanks));
+  document.getElementById('thanksOk').addEventListener('click',closeThanks);
+  addEventListener('keydown',e=>{if(e.key==='Escape'){close();closeThanks();}});
   /* Google Sheet "Murat Landingpage Nachrichten" as the backend — no mail client needed
      on the visitor's side. SHEET_ENDPOINT is the Apps Script Web App URL deployed from
      that sheet (Extensions > Apps Script > doPost > Deploy > Web app). fetch fires with
@@ -638,11 +654,11 @@
   document.getElementById('contactForm').addEventListener('submit',(e)=>{
     e.preventDefault();
     const form=e.target,d=new FormData(form);
-    const name=(d.get('name')||'').trim(),from=(d.get('from')||'').trim(),comp=(d.get('company')||'').trim(),msg=(d.get('msg')||'').trim();
+    const name=(d.get('name')||'').trim(),from=(d.get('from')||'').trim(),phone=(d.get('phone')||'').trim(),comp=(d.get('company')||'').trim(),msg=(d.get('msg')||'').trim();
     const btn=form.querySelector('button[type="submit"]');
     btn.disabled=true;
-    fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams({name,email:from,company:comp,msg,lang:LANG})})
-      .then(()=>{form.hidden=true;document.getElementById('cm-sent').hidden=false;})
+    fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams({name,email:from,phone,company:comp,msg,lang:LANG})})
+      .then(()=>{close();openThanks();})
       .catch(()=>{btn.disabled=false;alert(LANG==='en'?'Something went wrong — please try again.':'Etwas ist schiefgelaufen — bitte nochmal versuchen.');});
   });
 })();
