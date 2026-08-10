@@ -8,6 +8,9 @@
     --serif:"Palatino Linotype","Book Antiqua","Iowan Old Style",Georgia,serif;
     --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
     --mono:"Cascadia Code",Consolas,"SF Mono",ui-monospace,Menlo,monospace;
+    /* Solid "chapter" panel — deliberately theme-independent (always dark), so it reads
+       as a hard section break instead of another soft tint of the page's own bg/bg2. */
+    --panel:#12181B; --panel-surface:#1B2225; --panel-ink:#F3F6F5; --panel-muted:#AAB5B2; --panel-line:rgba(255,255,255,.10);
   }
   @media (prefers-color-scheme:dark){
     :root{
@@ -114,6 +117,36 @@
     color:var(--teal);margin-bottom:22px;display:flex;align-items:center;gap:12px}
   .sec-label::before{content:"";width:28px;height:2px;border-radius:2px;
     background:linear-gradient(90deg,var(--teal),var(--coral))}
+
+  /* ---- PANEL — a flat, fully opaque "chapter" background instead of another soft
+     tint. Blocks the fixed aurora blur completely (no fade at the edges), so scrolling
+     into one of these reads as a hard cut, not a continuation of the same wash. Text/
+     labels swap to the panel-specific tokens; the teal/coral/violet accents stay the
+     same hue so it's still unmistakably the same site, just a bolder page. ---- */
+  /* Redefine the core tokens inside .panel instead of re-fighting every descendant
+     selector's specificity one by one (.node .t, .prose b, .card, .stat, … all already
+     read var(--ink)/--muted/--line/--bg/--surface — scoping those four names is enough
+     for the whole subtree to relabel itself, with nothing left that can be missed). */
+  .panel{--ink:var(--panel-ink);--muted:var(--panel-muted);--line:var(--panel-line);
+    --surface:var(--panel-surface);--bg:var(--panel);--bg2:var(--panel-surface);
+    background:var(--panel);color:var(--panel-ink)}
+
+  /* ---- STICKY-HEAD — used on a couple of the longer sections only (career arc, built
+     tools): the label/heading pins in place while the body content beside it scrolls,
+     so there's always a fixed anchor to read against instead of everything drifting past
+     at the same speed. Desktop only — a two-column pin doesn't translate to a stacked
+     mobile layout, so it just becomes a normal static block under 900px. ---- */
+  .sticky-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
+  .sticky-head{position:sticky;top:88px;align-self:start}
+  .sticky-head h2{margin-bottom:16px}
+  .sticky-grid .arc{grid-template-columns:repeat(2,1fr);row-gap:28px}
+  .sticky-grid .arc::before{display:none}
+  .sticky-grid .cards{grid-template-columns:1fr;gap:16px}
+  @media (max-width:900px){
+    .sticky-grid{display:block}
+    .sticky-head{position:static}
+    .sticky-grid .arc{grid-template-columns:1fr 1fr}
+  }
   h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4.4vw,44px);line-height:1.12;
     margin:0 0 26px;letter-spacing:-.01em;text-wrap:balance;max-width:22ch}
   .prose{font-size:clamp(16px,1.35vw,18px);color:var(--muted);max-width:65ch;line-height:1.72}
@@ -288,15 +321,17 @@
   </section>
 
   <!-- WHO I AM + TIMELINE -->
-  <section class="tint">
-    <div class="wrap reveal">
-      <div class="sec-label" data-i18n="who_label">Wer ich bin</div>
-      <h2 data-i18n="who_h2">Vom Werkzeugmechaniker zum Software-Vertrieb.</h2>
-      <p class="prose" style="margin-bottom:44px" data-i18n="who_p">Kein geradliniger Lebenslauf: Werkzeugmechaniker,
-      dann Vertrieb, heute Enterprise-Software.
-      <b>An der Werkbank angefangen, jeden Schritt selbst erarbeitet</b> — diese Spanne ist mein Vorteil,
-      keine Ausnahme.</p>
-      <div class="arc">
+  <section class="panel">
+    <div class="wrap reveal sticky-grid">
+      <div class="sticky-head">
+        <div class="sec-label" data-i18n="who_label">Wer ich bin</div>
+        <h2 data-i18n="who_h2">Vom Werkzeugmechaniker zum Software-Vertrieb.</h2>
+        <p class="prose" data-i18n="who_p">Kein geradliniger Lebenslauf: Werkzeugmechaniker,
+        dann Vertrieb, heute Enterprise-Software.
+        <b>An der Werkbank angefangen, jeden Schritt selbst erarbeitet</b> — diese Spanne ist mein Vorteil,
+        keine Ausnahme.</p>
+      </div>
+      <div class="arc" style="margin-top:0">
         <div class="node"><div class="yr">2001 – 2009</div><div class="t" data-i18n="n1t">Industrie</div><div class="d" data-i18n="n1d">Werkzeugmechaniker · Audi, Daimler</div></div>
         <div class="node"><div class="yr">2013 – 2018</div><div class="t" data-i18n="n2t">Retail</div><div class="d" data-i18n="n2d">Sales Consultant · LG, Sky, MediaMarkt</div></div>
         <div class="node"><div class="yr">2018 – 2025</div><div class="t" data-i18n="n3t">Enterprise Sales</div><div class="d" data-i18n="n3d">Sales Trainer → Account Director (DACH)</div></div>
@@ -336,7 +371,7 @@
   </section>
 
   <!-- RESULT: mini-story + stats -->
-  <section class="tint">
+  <section class="panel">
     <div class="wrap reveal">
       <div class="sec-label" data-i18n="res_label">Ergebnisse</div>
       <div class="story-grid" style="margin-bottom:44px">
@@ -356,10 +391,12 @@
 
   <!-- WORKS -->
   <section>
-    <div class="wrap reveal">
-      <div class="sec-label" data-i18n="works_label">Selbst gebaut</div>
-      <h2 data-i18n="works_h2">Der Beweis in Produktform.</h2>
-      <p class="prose" style="margin-bottom:36px" data-i18n="works_intro">Drei Tools, drei verschiedene Domänen — das zeigt, dass die technische Fähigkeit nicht an ein einzelnes Thema gebunden ist:</p>
+    <div class="wrap reveal sticky-grid">
+      <div class="sticky-head">
+        <div class="sec-label" data-i18n="works_label">Selbst gebaut</div>
+        <h2 data-i18n="works_h2">Der Beweis in Produktform.</h2>
+        <p class="prose" data-i18n="works_intro">Drei Tools, drei verschiedene Domänen — das zeigt, dass die technische Fähigkeit nicht an ein einzelnes Thema gebunden ist:</p>
+      </div>
       <div class="cards">
         <div class="card">
           <div class="kicker">Sales Intelligence</div>
@@ -384,7 +421,7 @@
   </section>
 
   <!-- WHAT I BRING -->
-  <section class="tint">
+  <section class="panel">
     <div class="wrap reveal">
       <div class="sec-label" data-i18n="bring_label">Was ich einbringe</div>
       <h2 data-i18n="bring_h2">Drei Dinge, die selten zusammenkommen.</h2>
