@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://murat-tikic.github.io/sitemap.xml
