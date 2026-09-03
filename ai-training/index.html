@@ -259,20 +259,46 @@
   .diff h3{font-family:var(--serif);font-size:21px;margin:12px 0 10px;font-weight:600;color:var(--ink)}
   .diff p{font-size:14.5px;color:var(--muted);margin:0;line-height:1.62}
 
-  .buzz-chaos{position:relative;width:100%;max-width:560px;aspect-ratio:1/1;margin:34px 0 0;overflow:hidden;
-    border-radius:16px;background:url(../assets/illustrations/buzz-chaos.jpg) center/cover no-repeat}
-  @media (max-width:600px){.buzz-chaos{max-width:100%}}
-  .buzz{position:absolute;font-family:var(--mono);font-weight:600;white-space:nowrap;
-    font-size:var(--fs,16px);color:var(--muted);opacity:.85;line-height:1;
-    transform:rotate(var(--r,0deg));animation:buzzfloat 7s ease-in-out infinite;
-    text-shadow:0 1px 3px rgba(249,250,248,.8)}
-  .buzz.hl{color:var(--teal);opacity:.95}
-  @keyframes buzzfloat{
-    0%,100%{transform:rotate(var(--r,0deg)) translateY(0)}
-    50%{transform:rotate(var(--r,0deg)) translateY(-10px)}
-  }
-  @media (max-width:600px){.buzz{font-size:calc(var(--fs,16px) * .58)}}
-  @media (prefers-reduced-motion:reduce){.buzz{animation:none}}
+  /* Signal-im-Rauschen Kreislauf — reuses .panel's remapped --bg/--surface/--ink/--muted/--faint/--line,
+     so it inherits the page's existing dark "chapter break" look instead of a second dark palette. */
+  .sk-cycle{display:flex;flex-direction:column;gap:clamp(18px,2.6vw,26px);margin-top:8px}
+  .sk-cycle *{box-sizing:border-box}
+
+  .sk-panel{border:1px solid var(--line);border-radius:18px;background:var(--surface);
+    padding:clamp(8px,1.2vw,12px);box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 30px 60px -30px rgba(0,0,0,.6)}
+
+  .sk-canvas-wrap{position:relative;border-radius:12px;overflow:hidden;
+    background:radial-gradient(circle at 50% 50%,rgba(243,246,245,.05),rgba(243,246,245,0) 55%),var(--bg);
+    min-height:clamp(340px,32vw,430px)}
+  @media (max-width:640px){.sk-canvas-wrap{min-height:460px}}
+  .sk-canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+  .sk-ring-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;
+    z-index:2;transform:rotate(-90deg)}
+
+  .sk-node{position:absolute;transform:translate(-50%,-50%);width:min(138px,34vw);padding:8px 10px;
+    border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--surface) 74%,transparent);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;flex-direction:column;gap:2px;
+    text-align:center;align-items:center;pointer-events:none;z-index:3;
+    transition:border-color .45s ease,box-shadow .45s ease,background-color .45s ease,transform .45s ease}
+  .sk-node-index{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--faint);transition:color .45s ease}
+  .sk-node-title{font-family:var(--serif);font-weight:600;font-size:11px;line-height:1.25;color:var(--ink)}
+  .sk-node-sub{font-family:var(--mono);font-size:7.8px;line-height:1.4;color:var(--faint);transition:color .45s ease}
+  .sk-node.sk-lit{border-color:color-mix(in srgb,var(--teal) 65%,transparent);
+    background:color-mix(in srgb,var(--surface) 88%,var(--teal) 12%);
+    box-shadow:0 0 24px color-mix(in srgb,var(--teal) 35%,transparent),0 0 0 1px color-mix(in srgb,var(--teal) 18%,transparent) inset;
+    transform:translate(-50%,-50%) scale(1.05)}
+  .sk-node.sk-lit .sk-node-index{color:var(--teal)}
+  .sk-node.sk-lit .sk-node-sub{color:var(--muted)}
+
+  .sk-core-label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--mono);
+    font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);opacity:.6;
+    pointer-events:none;z-index:3;text-align:center;white-space:nowrap}
+
+  .sk-caption{font-size:11.5px;color:var(--faint);border-top:1px solid var(--line);padding-top:12px;max-width:72ch}
+  .sk-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  @media (prefers-reduced-motion:reduce){.sk-node{transition:none}}
 
   .refs-band{background:#E7E8E3}
   .refs-band h2{color:#20241F}
@@ -474,45 +500,50 @@
     </div>
   </section>
 
-  <!-- WORKS: buzzword chaos -> structured tools -->
-  <section>
+  <!-- WORKS: Signal-im-Rauschen Kreislauf -->
+  <section class="panel">
     <div class="wrap reveal">
-      <div class="sec-label" data-i18n="works_label">Klartext statt Buzzwords</div>
-      <h2 data-i18n="works_h2">Was Sie hören. Was Sie bekommen.</h2>
-      <p class="prose" data-i18n="works_intro">Jede Woche ein neuer Begriff, jede Konferenz ein neues Versprechen — und am Ende bleibt offen, was davon Ihrem Betrieb tatsächlich Zeit zurückgibt. Ich übersetze das Rauschen in drei Werkzeuge, die es bereits tun:</p>
+      <div class="sk-cycle">
+        <header>
+          <div class="sec-label" data-i18n="works_label">Die Frage jedes Entscheiders</div>
+          <h2 data-i18n="works_h2">„Ja, wir wollen KI nutzen. Aber wie?“</h2>
+          <p class="prose" data-i18n="works_intro">Der Markt dreht sich im Kreis aus immer neuen Begriffen. <b>Wir haben unseren eigenen Kreislauf</b> — und der bringt Sie tatsächlich weiter.</p>
+        </header>
 
-      <div class="buzz-chaos" aria-hidden="true">
-        <span class="buzz" style="top:8%;left:9%;--fs:20px;--r:-9deg;animation-delay:-0.6s">GPT</span>
-        <span class="buzz" style="top:38%;left:4%;--fs:25px;--r:6deg;animation-delay:-2.1s">KI</span>
-        <span class="buzz" style="top:22%;left:16%;--fs:13px;--r:11deg;animation-delay:-3.4s">Automatisierung</span>
-        <span class="buzz" style="top:56%;left:11%;--fs:15px;--r:-13deg;animation-delay:-1.2s">Multi-Agent</span>
-        <span class="buzz" style="top:14%;left:33%;--fs:13px;--r:15deg;animation-delay:-4.4s">No-Code</span>
-        <span class="buzz" style="top:31%;left:37%;--fs:14px;--r:-6deg;animation-delay:-0.2s">Cloud-native</span>
-        <span class="buzz" style="top:70%;left:26%;--fs:13px;--r:8deg;animation-delay:-3.9s">Skalierbar</span>
-        <span class="buzz" style="top:48%;left:35%;--fs:12px;--r:-12deg;animation-delay:-1.6s">Prompt Engineering</span>
-        <span class="buzz" style="top:80%;left:9%;--fs:14px;--r:5deg;animation-delay:-2.7s">Big Data</span>
-      </div>
-      <div class="sec-label" style="margin:8px 0 0" data-i18n="works_arrow">↓ Wird zu drei Werkzeugen, die tatsächlich laufen</div>
+        <div class="sk-panel">
+          <div class="sk-canvas-wrap" id="sk-canvas-wrap" role="img" aria-label="Animierte Visualisierung: Hunderte KI- und IT-Fachbegriffe kreisen in mehreren Ringen chaotisch um ein ruhiges Zentrum – abwechselnd im und gegen den Uhrzeigersinn, wie endloses Marktrauschen. In der Mitte, in einer klaren Zone, dreht sich ein stetiger Lichtpuls im Kreis und aktiviert dabei nacheinander vier feste Stationen: Ihre Systeme, KI gezielt eingesetzt, Automatisierte Prozesse, Freiraum für Ihr Tagesgeschäft. Danach beginnt der Kreislauf von vorn – ein sich selbst erneuernder Prozess inmitten des Begriffs-Rauschens.">
+            <canvas id="sk-noise-canvas"></canvas>
+            <svg class="sk-ring-svg" id="sk-ring-svg" aria-hidden="true">
+              <circle id="sk-ring-base" fill="none" stroke="rgba(243,246,245,.14)" stroke-width="1.2" />
+              <circle id="sk-ring-comet-glow" fill="none" stroke="rgba(14,163,148,.45)" stroke-width="9" stroke-linecap="round" />
+              <circle id="sk-ring-comet" fill="none" stroke="rgba(14,163,148,.95)" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <div class="sk-core-label" data-i18n="works_core">Kreislauf</div>
+            <div class="sk-node" id="sk-node-0">
+              <span class="sk-node-index">01</span>
+              <span class="sk-node-title" data-i18n="works_n1t">Ihre Systeme</span>
+              <span class="sk-node-sub" data-i18n="works_n1s">Microsoft, Google, Linux — der Ausgangspunkt</span>
+            </div>
+            <div class="sk-node" id="sk-node-1">
+              <span class="sk-node-index">02</span>
+              <span class="sk-node-title" data-i18n="works_n2t">KI, gezielt eingesetzt</span>
+              <span class="sk-node-sub" data-i18n="works_n2s">Nicht jeder Trend. Nur was wirkt.</span>
+            </div>
+            <div class="sk-node" id="sk-node-2">
+              <span class="sk-node-index">03</span>
+              <span class="sk-node-title" data-i18n="works_n3t">Automatisierte Prozesse</span>
+              <span class="sk-node-sub" data-i18n="works_n3s">Mails, Reports, eigene Tools</span>
+            </div>
+            <div class="sk-node" id="sk-node-3">
+              <span class="sk-node-index">04</span>
+              <span class="sk-node-title" data-i18n="works_n4t">Freiraum fürs Tagesgeschäft</span>
+              <span class="sk-node-sub" data-i18n="works_n4s">Zeit für das, was zählt — und die nächste Idee</span>
+            </div>
+            <noscript><p class="sk-sr-only">Diese Visualisierung benötigt JavaScript.</p></noscript>
+          </div>
+        </div>
 
-      <div class="cards" style="margin-top:26px">
-        <div class="card">
-          <div class="kicker">Sales Intelligence</div>
-          <h3>HUNTER</h3>
-          <p data-i18n="hunter_p">Vertriebs-Recherche: findet &amp; qualifiziert Firmen &amp; Ansprechpartner — mit Scoring, Anreicherung, Multi-Agent-Automation.</p>
-          <div class="tags"><span class="tag">Multi-Agent</span><span class="tag">Claude Code</span><span class="tag">Scoring</span></div>
-        </div>
-        <div class="card">
-          <div class="kicker">HR-Tech · DE/EN</div>
-          <h3>TalentBridge</h3>
-          <p data-i18n="tb_p">Zweisprachiges Kandidaten-Rollen-Matching mit Ampel-Logik — aus meiner Personalvertriebs-Zeit, technisch selbst umgesetzt.</p>
-          <div class="tags"><span class="tag">LLM-Matching</span><span class="tag">DE/EN</span><span class="tag" data-i18n="t_demo">Demo-Modus</span></div>
-        </div>
-        <div class="card">
-          <div class="kicker">Compliance</div>
-          <h3>WächterScan</h3>
-          <p data-i18n="ws_p">Sanktions- &amp; PEP-Screening: prüft Geschäftspartner gegen offizielle Listen mit quellenbelegtem Urteil.</p>
-          <div class="tags"><span class="tag" data-i18n="t_sanc">Sanktionslisten</span><span class="tag" data-i18n="t_eulaw">EU-Recht</span><span class="tag">RAG</span></div>
-        </div>
+        <p class="sk-caption" data-i18n="works_caption">Kein einmaliges Projekt. Ein Kreislauf: Aus mehr Automatisierung entsteht mehr Freiraum — und aus mehr Freiraum die nächste sinnvolle Automatisierung.</p>
       </div>
     </div>
   </section>
@@ -673,14 +704,19 @@
     stat3:{de:`Preisrahmen je nach Format &amp; Teilnehmerzahl`,en:`Price range depending on format &amp; group size`},
     stat4:{de:`Eigene Tools im produktiven Einsatz — HUNTER, TalentBridge, WächterScan`,en:`Own tools in production use — HUNTER, TalentBridge, WächterScan`},
     u_yrs:{de:`+ J.`,en:`+ yrs`},
-    works_label:{de:`Klartext statt Buzzwords`,en:`Plain talk, not buzzwords`},
-    works_h2:{de:`Was Sie hören. Was Sie bekommen.`,en:`What you hear. What you get.`},
-    works_intro:{de:`Jede Woche ein neuer Begriff, jede Konferenz ein neues Versprechen — und am Ende bleibt offen, was davon Ihrem Betrieb tatsächlich Zeit zurückgibt. Ich übersetze das Rauschen in drei Werkzeuge, die es bereits tun:`,en:`A new term every week, a new promise at every conference — and in the end it's unclear which of it actually gives your business time back. I translate the noise into three tools that already do:`},
-    works_arrow:{de:`↓ Wird zu drei Werkzeugen, die tatsächlich laufen`,en:`↓ Becomes three tools that actually run`},
-    hunter_p:{de:`Vertriebs-Recherche: findet &amp; qualifiziert Firmen &amp; Ansprechpartner — mit Scoring, Anreicherung, Multi-Agent-Automation.`,en:`Sales research: finds & qualifies companies & contacts — with scoring, enrichment, multi-agent automation.`},
-    tb_p:{de:`Zweisprachiges Kandidaten-Rollen-Matching mit Ampel-Logik — aus meiner Personalvertriebs-Zeit, technisch selbst umgesetzt.`,en:`Bilingual candidate-role matching with traffic-light logic — from my staffing years, built by myself.`},
-    ws_p:{de:`Sanktions- &amp; PEP-Screening: prüft Geschäftspartner gegen offizielle Listen mit quellenbelegtem Urteil.`,en:`Sanctions & PEP screening: checks partners against official lists with source-backed verdict.`},
-    t_demo:{de:`Demo-Modus`,en:`Demo mode`},t_sanc:{de:`Sanktionslisten`,en:`Sanctions lists`},t_eulaw:{de:`EU-Recht`,en:`EU law`},
+    works_label:{de:`Die Frage jedes Entscheiders`,en:`The question every decision-maker asks`},
+    works_h2:{de:`„Ja, wir wollen KI nutzen. Aber wie?“`,en:`“Yes, we want to use AI. But how?”`},
+    works_intro:{de:`Der Markt dreht sich im Kreis aus immer neuen Begriffen. <b>Wir haben unseren eigenen Kreislauf</b> — und der bringt Sie tatsächlich weiter.`,en:`The market spins in circles of ever-new buzzwords. <b>We have our own cycle</b> — and it actually moves you forward.`},
+    works_core:{de:`Kreislauf`,en:`Cycle`},
+    works_n1t:{de:`Ihre Systeme`,en:`Your systems`},
+    works_n1s:{de:`Microsoft, Google, Linux — der Ausgangspunkt`,en:`Microsoft, Google, Linux — the starting point`},
+    works_n2t:{de:`KI, gezielt eingesetzt`,en:`AI, used deliberately`},
+    works_n2s:{de:`Nicht jeder Trend. Nur was wirkt.`,en:`Not every trend. Only what works.`},
+    works_n3t:{de:`Automatisierte Prozesse`,en:`Automated processes`},
+    works_n3s:{de:`Mails, Reports, eigene Tools`,en:`Emails, reports, custom tools`},
+    works_n4t:{de:`Freiraum fürs Tagesgeschäft`,en:`Freed-up time for the real work`},
+    works_n4s:{de:`Zeit für das, was zählt — und die nächste Idee`,en:`Time for what matters — and the next idea`},
+    works_caption:{de:`Kein einmaliges Projekt. Ein Kreislauf: Aus mehr Automatisierung entsteht mehr Freiraum — und aus mehr Freiraum die nächste sinnvolle Automatisierung.`,en:`Not a one-off project. A cycle: more automation creates more freed-up time — and more freed-up time leads to the next useful automation.`},
     bring_label:{de:`Häufige Fragen`,en:`FAQ`},
     bring_h2:{de:`Kurz beantwortet.`,en:`Quick answers.`},
     b1h:{de:`Was kostet ein KI-Training für Unternehmen?`,en:`What does AI training for companies cost?`},
@@ -817,6 +853,209 @@
       .then(()=>{close();openThanks();})
       .catch(()=>{btn.disabled=false;alert(LANG==='en'?'Something went wrong — please try again.':'Etwas ist schiefgelaufen — bitte nochmal versuchen.');});
   });
+})();
+</script>
+
+<script>
+/* Signal-im-Rauschen Kreislauf — Canvas kann keine CSS-Custom-Properties lesen,
+   Farben/Fonts hier bewusst als Literale identisch zu --teal/--panel-ink/--sans gehalten. */
+(function(){
+  "use strict";
+
+  var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var TERMS = [
+    'Machine Learning','Deep Learning','Neural Network','Large Language Model','Prompt Engineering','Retrieval-Augmented Generation','Fine-Tuning','Transformer','Computer Vision','Natural Language Processing','Reinforcement Learning','AI Agent','Generative AI','Model Training','Inference','Embeddings','Chatbot','Copilot','AutoML','Sprachmodell','Bilderkennung','Textgenerierung','Wissensgraph','Agentic Workflows','Foundation Model','Multimodalität','Halluzination','Token-Limit',
+    'Big Data','Data Lake','Data Warehouse','ETL-Prozesse','Data Pipeline','Vector Database','SQL','NoSQL','Data Mesh','Data Governance','Business Intelligence','Datenqualität','Datenmodellierung','Data Lineage','Realtime Analytics','Data Streaming','Message Queue','Data Catalog','Master Data','Datenintegration','Reporting','Dashboards','Schema-Design','API-Daten','Metadaten','Datenarchitektur',
+    'Cloud-Native','Kubernetes','Docker','Microservices','Serverless','Container','Edge Computing','Load Balancing','Auto-Scaling','Multi-Cloud','Hybrid Cloud','CI/CD','DevOps','Infrastructure as Code','API Gateway','Service Mesh','Terraform','Virtualisierung','Skalierbarkeit','Latenz','Hochverfügbarkeit','Cloud-Migration','Observability','Monitoring','Deployment Pipeline','Systemarchitektur',
+    'Zero Trust','Cybersecurity','Verschlüsselung','Threat Detection','Penetration Testing','Identity Management','Firewall','Zero-Day','DSGVO-Konformität','Access Control','Security Audit','Incident Response','Endpoint Security','Multi-Faktor-Authentifizierung','Datenschutz','Angriffserkennung','Security Operations Center','Risk Assessment','Backup-Strategie','Disaster Recovery','Security by Design','Patch-Management','Netzwerksicherheit',
+    'Digitalisierung','Prozessautomatisierung','Change Management','Roadmap','Skalierung','Enterprise Architecture','Stakeholder Management','Projektmanagement','Agile Methoden','Scrum','Business Case','Return on Investment','Effizienzsteigerung','Systemintegration','Legacy-Migration','Technologieberatung','Proof of Concept','Use-Case-Analyse','Wertschöpfung','Innovationsmanagement','IT-Strategie','Transformationsprozess','Prozessoptimierung','Wissenstransfer'
+  ];
+  var termCursor = 0;
+  function nextTerm(){ return TERMS[(termCursor++) % TERMS.length]; }
+
+  var wrap = document.getElementById('sk-canvas-wrap');
+  if (!wrap) return;
+  var canvas = document.getElementById('sk-noise-canvas');
+  var ctx = canvas.getContext('2d');
+  var ringBase = document.getElementById('sk-ring-base');
+  var ringCometGlow = document.getElementById('sk-ring-comet-glow');
+  var ringComet = document.getElementById('sk-ring-comet');
+  var nodeEls = [
+    document.getElementById('sk-node-0'),
+    document.getElementById('sk-node-1'),
+    document.getElementById('sk-node-2'),
+    document.getElementById('sk-node-3')
+  ];
+
+  var W = 0, H = 0, cx = 0, cy = 0;
+  var coreRadius = 0, circumference = 1;
+  var particles = [];
+  var nodes = [];
+  var litState = [false,false,false,false];
+
+  var COMET_SPEED = REDUCED ? 0.00004 : 0.00042;
+  var BASE_RING_SPEED = REDUCED ? 0.000006 : 0.000028;
+  var START_ANGLE = -Math.PI/2;
+  var FONT_STACK = "'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif";
+
+  function rand(a,b){ return a + Math.random()*(b-a); }
+  function angularDist(a,b){
+    var d = ((a-b+Math.PI) % (Math.PI*2) + Math.PI*2) % (Math.PI*2) - Math.PI;
+    return Math.abs(d);
+  }
+
+  function layoutChaosRings(){
+    particles = [];
+    termCursor = 0;
+    var clearRadius = coreRadius * 1.55;
+    var maxRadius = Math.max(W,H) * 0.6;
+    var ringCount = 5;
+    for (var i=0;i<ringCount;i++){
+      var radius = clearRadius + (maxRadius-clearRadius) * ((i+0.5)/ringCount);
+      var circumf = 2*Math.PI*radius;
+      var spacing = 58;
+      var count = Math.max(6, Math.round(circumf/spacing));
+      var speed = BASE_RING_SPEED * (i%2===0 ? 1 : -1) / (1 + i*0.32);
+      var phase0 = rand(0, Math.PI*2);
+      for (var k=0;k<count;k++){
+        var sizeRoll = Math.random();
+        var size = sizeRoll<0.08 ? rand(15.5,18.5) : (sizeRoll<0.4 ? rand(12,14.5) : rand(9.5,11.8));
+        var opacityBase = sizeRoll<0.08 ? rand(0.32,0.44) : (sizeRoll<0.4 ? rand(0.19,0.28) : rand(0.11,0.19));
+        particles.push({
+          text: nextTerm(),
+          ringRadius: radius,
+          radiusJitter: rand(2,6),
+          radiusPhase: rand(0, Math.PI*2),
+          baseAngle: phase0 + (Math.PI*2/count)*k + rand(-0.04,0.04),
+          angularSpeed: speed,
+          rotJitter: rand(-12,12),
+          size: size,
+          opacityBase: opacityBase
+        });
+      }
+    }
+  }
+
+  function computeGeometry(){
+    var rect = wrap.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = rect.width; H = rect.height;
+    canvas.width = Math.max(1, Math.round(W*dpr));
+    canvas.height = Math.max(1, Math.round(H*dpr));
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    cx = W/2; cy = H/2;
+    coreRadius = Math.max(58, Math.min(W,H) * 0.26);
+
+    var svgEl = document.getElementById('sk-ring-svg');
+    svgEl.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    [ringBase, ringCometGlow, ringComet].forEach(function(el){
+      el.setAttribute('cx', cx);
+      el.setAttribute('cy', cy);
+      el.setAttribute('r', coreRadius);
+    });
+    circumference = 2*Math.PI*coreRadius;
+    var cometLen = circumference * 0.15;
+    var gapLen = circumference - cometLen;
+    ringCometGlow.style.strokeDasharray = cometLen + ' ' + gapLen;
+    ringComet.style.strokeDasharray = cometLen + ' ' + gapLen;
+
+    nodes = [0,1,2,3].map(function(i){
+      var angle = START_ANGLE + i*(Math.PI/2);
+      return {
+        angle: angle,
+        x: cx + coreRadius*Math.cos(angle),
+        y: cy + coreRadius*Math.sin(angle)
+      };
+    });
+    nodes.forEach(function(n,i){
+      nodeEls[i].style.left = n.x + 'px';
+      nodeEls[i].style.top = n.y + 'px';
+    });
+
+    layoutChaosRings();
+  }
+
+  function draw(now){
+    ctx.clearRect(0,0,W,H);
+
+    var cometAngle = START_ANGLE + now*COMET_SPEED;
+
+    for (var i=0;i<particles.length;i++){
+      var p = particles[i];
+      var angle = p.baseAngle + p.angularSpeed*now;
+      var r = p.ringRadius + Math.sin(now*0.0008 + p.radiusPhase)*p.radiusJitter;
+      var x = cx + r*Math.cos(angle);
+      var y = cy + r*Math.sin(angle);
+      var tangentDeg = (angle*180/Math.PI) + 90 + p.rotJitter;
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(tangentDeg * Math.PI/180);
+      ctx.globalAlpha = p.opacityBase;
+      ctx.fillStyle = 'rgb(243,246,245)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = "500 " + p.size + "px " + FONT_STACK;
+      ctx.fillText(p.text, 0, 0);
+      ctx.restore();
+    }
+
+    var cometX = cx + coreRadius*Math.cos(cometAngle);
+    var cometY = cy + coreRadius*Math.sin(cometAngle);
+    var orbR = Math.max(34, coreRadius*0.55);
+    var grad = ctx.createRadialGradient(cometX,cometY,0,cometX,cometY,orbR);
+    grad.addColorStop(0,'rgba(14,163,148,0.38)');
+    grad.addColorStop(1,'rgba(14,163,148,0)');
+    ctx.save();
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cometX, cometY, orbR, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(243,246,245,0.55)';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 2.4, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    var angleNorm = ((cometAngle % (Math.PI*2)) + Math.PI*2) % (Math.PI*2);
+    var arcLen = coreRadius * angleNorm;
+    var dashOffset = -arcLen;
+    ringComet.style.strokeDashoffset = dashOffset;
+    ringCometGlow.style.strokeDashoffset = dashOffset;
+
+    for (var k=0;k<nodes.length;k++){
+      var d = angularDist(cometAngle, nodes[k].angle);
+      var lit = d < 0.42;
+      if (lit !== litState[k]){
+        litState[k] = lit;
+        nodeEls[k].classList.toggle('sk-lit', lit);
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  function init(){
+    computeGeometry();
+
+    if (window.ResizeObserver){
+      new ResizeObserver(function(){ computeGeometry(); }).observe(wrap);
+    } else {
+      window.addEventListener('resize', computeGeometry);
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  init();
 })();
 </script>
 
