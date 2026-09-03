@@ -287,10 +287,14 @@
   .sk-cycle{display:flex;flex-direction:column;gap:clamp(18px,2.6vw,26px);margin-top:8px}
   .sk-cycle *{box-sizing:border-box}
 
-  .sk-canvas-wrap{--sk-bg:#12181B;--sk-surface:#1B2225;--sk-ink:#F3F6F5;--sk-muted:#AAB5B2;--sk-line:rgba(255,255,255,.10);
-    position:relative;border-radius:20px;overflow:hidden;
-    background:radial-gradient(circle at 50% 50%,rgba(243,246,245,.05),rgba(243,246,245,0) 55%),var(--sk-bg);
-    min-height:clamp(340px,32vw,430px);box-shadow:0 24px 48px -30px rgba(20,32,28,.4)}
+  .sk-canvas-wrap{--sk-surface:#FFFFFF;--sk-ink:#14201C;--sk-muted:#53625D;--sk-line:rgba(20,32,28,.14);
+    position:relative;border-radius:20px;overflow:hidden;border:1.5px solid transparent;
+    background-image:radial-gradient(circle at 50% 50%,rgba(20,32,28,.04),rgba(20,32,28,0) 55%),
+      linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.55)),
+      linear-gradient(120deg,var(--teal),var(--coral),var(--violet),var(--teal));
+    background-clip:padding-box,padding-box,border-box;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    min-height:clamp(340px,32vw,430px);box-shadow:0 24px 48px -30px rgba(20,32,28,.18)}
   @media (max-width:640px){.sk-canvas-wrap{min-height:460px}}
   .sk-canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 
@@ -426,7 +430,6 @@
         <p class="hero-micro" data-i18n="hero_micro">Zertifiziert von Anthropic · 7+ Jahre Enterprise-Sales bei internationalen Marken</p>
         <div class="cta">
           <a class="btn primary" href="#angebote" data-i18n="btn_discover">KI-Training entdecken</a>
-          <button class="btn ghost js-contact" type="button" data-i18n="btn_talk">KI-Potenzial besprechen</button>
         </div>
       </div>
       <div class="portrait">
@@ -442,7 +445,7 @@
 
 <main>
   <!-- OFFERS -->
-  <section id="angebote">
+  <section id="angebote" class="panel">
     <div class="wrap reveal">
       <div class="sec-label" data-i18n="offers_label">Die drei Angebote</div>
       <h2 data-i18n="offers_h2">Was möchtest du mit KI erreichen?</h2>
@@ -465,6 +468,20 @@
           <h3 data-i18n="hc3_h">AI Agents</h3>
           <p data-i18n="of3_p">Du hast einen konkreten Anwendungsfall und möchtest eine individuelle Lösung.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section>
+    <div class="wrap reveal">
+      <div class="sec-label" data-i18n="proc_label">Ablauf</div>
+      <h2 data-i18n="proc_h2">Von der Idee zur Lösung.</h2>
+      <div class="arc" style="margin-top:36px">
+        <div class="node"><div class="yr">01</div><div class="t" data-i18n="p1h">Erstgespräch</div><div class="d" data-i18n="p1p">30 Minuten, kostenlos und unverbindlich.</div></div>
+        <div class="node"><div class="yr">02</div><div class="t" data-i18n="p2h">Verstehen</div><div class="d" data-i18n="p2p">Aufgabe, Problem oder Prozess analysieren.</div></div>
+        <div class="node"><div class="yr">03</div><div class="t" data-i18n="p3h">Lösung</div><div class="d" data-i18n="p3p">Training, Beratung oder individuelle KI-Lösung.</div></div>
+        <div class="node dest"><div class="yr">04</div><div class="t" data-i18n="p4h">Umsetzung</div><div class="d" data-i18n="p4p">Gemeinsam anwenden oder technische Lösung entwickeln.</div></div>
       </div>
     </div>
   </section>
@@ -506,7 +523,7 @@
         <div class="sk-canvas-wrap" id="sk-canvas-wrap" role="img" aria-label="Animierte Visualisierung: Hunderte KI- und IT-Fachbegriffe kreisen in mehreren Ringen chaotisch um ein ruhiges Zentrum – abwechselnd im und gegen den Uhrzeigersinn, wie endloses Marktrauschen. In der Mitte, in einer klaren Zone, dreht sich ein stetiger Lichtpuls im Kreis und aktiviert dabei nacheinander vier feste Stationen: Ihr Alltag, KI gezielt eingesetzt, Ein Prozess läuft von selbst, Freiraum für Ihr Tagesgeschäft. Danach beginnt der Kreislauf von vorn – ein sich selbst erneuernder Prozess inmitten des Begriffs-Rauschens.">
           <canvas id="sk-noise-canvas"></canvas>
           <svg class="sk-ring-svg" id="sk-ring-svg" aria-hidden="true">
-            <circle id="sk-ring-base" fill="none" stroke="rgba(243,246,245,.14)" stroke-width="1.2" />
+            <circle id="sk-ring-base" fill="none" stroke="rgba(20,32,28,.16)" stroke-width="1.2" />
             <circle id="sk-ring-comet-glow" fill="none" stroke="rgba(14,163,148,.45)" stroke-width="9" stroke-linecap="round" />
             <circle id="sk-ring-comet" fill="none" stroke="rgba(14,163,148,.95)" stroke-width="1.8" stroke-linecap="round" />
           </svg>
@@ -536,7 +553,6 @@
 
         <div class="sk-tools">
           <div class="sk-tools-eyebrow" data-i18n="works_tools_eyebrow">Auszug — was daraus entsteht, nach Branche</div>
-          <p class="prose" style="max-width:62ch;margin:0 0 22px" data-i18n="works_story">HUNTER ist entstanden, weil ich meine eigene Vertriebs-Recherche nicht auslagern wollte. Das Prinzip hinter jedem dieser Tools: gebaut für einen echten eigenen Anwendungsfall, nicht generisch.</p>
           <div class="sk-filter" id="sk-filter" role="tablist">
             <button class="sk-filter-btn active" data-branch="all" data-i18n="f_all">Alle</button>
             <button class="sk-filter-btn" data-branch="vertrieb" data-i18n="f_vertrieb">Vertrieb</button>
@@ -623,20 +639,6 @@
         <span class="tag">Claude API</span><span class="tag">Claude Code</span><span class="tag">Python</span><span class="tag">n8n</span><span class="tag">AI Agents</span><span class="tag">Multi-Agent</span><span class="tag">RAG</span><span class="tag">MCP</span><span class="tag">SQL</span><span class="tag">APIs</span><span class="tag">Datenbanken</span>
       </div>
       <p class="pullquote" style="margin-top:40px" data-i18n="proof_close">Ich zeige KI, weil ich sie <span class="hl">täglich selbst baue</span>.</p>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section>
-    <div class="wrap reveal">
-      <div class="sec-label" data-i18n="proc_label">Ablauf</div>
-      <h2 data-i18n="proc_h2">Von der Idee zur Lösung.</h2>
-      <div class="arc" style="margin-top:36px">
-        <div class="node"><div class="yr">01</div><div class="t" data-i18n="p1h">Erstgespräch</div><div class="d" data-i18n="p1p">30 Minuten, kostenlos und unverbindlich.</div></div>
-        <div class="node"><div class="yr">02</div><div class="t" data-i18n="p2h">Verstehen</div><div class="d" data-i18n="p2p">Aufgabe, Problem oder Prozess analysieren.</div></div>
-        <div class="node"><div class="yr">03</div><div class="t" data-i18n="p3h">Lösung</div><div class="d" data-i18n="p3p">Training, Beratung oder individuelle KI-Lösung.</div></div>
-        <div class="node dest"><div class="yr">04</div><div class="t" data-i18n="p4h">Umsetzung</div><div class="d" data-i18n="p4p">Gemeinsam anwenden oder technische Lösung entwickeln.</div></div>
-      </div>
     </div>
   </section>
 
@@ -776,7 +778,6 @@
     hero_h1:{de:`Künstliche Intelligenz verstehen. <span class="grad">Richtig einsetzen.</span> Mehr daraus machen.`,en:`Understand artificial intelligence. <span class="grad">Use it right.</span> Get more out of it.`},
     hero_bridge:{de:`Ich unterstütze Privatpersonen und Unternehmen dabei, KI praktisch einzusetzen — mit individuellem <b>KI-Training</b>, persönlicher <b>KI-Beratung</b> und der Entwicklung eigener <b>AI Agents</b> und KI-Automatisierungen.`,en:`I help individuals and companies put AI to practical use — with individual <b>AI training</b>, personal <b>AI consulting</b>, and the development of custom <b>AI agents</b> and AI automations.`},
     btn_discover:{de:`KI-Training entdecken`,en:`Discover AI training`},
-    btn_talk:{de:`KI-Potenzial besprechen`,en:`Discuss your AI potential`},
     hero_micro:{de:`Zertifiziert von Anthropic · 7+ Jahre Enterprise-Sales bei internationalen Marken`,en:`Certified by Anthropic · 7+ years enterprise sales at international brands`},
     hc1_h:{de:`KI-Training`,en:`AI Training`},
     hc2_h:{de:`KI-Beratung`,en:`AI Consulting`},
@@ -839,7 +840,6 @@
     works_n4t:{de:`Freiraum fürs Tagesgeschäft`,en:`Freed-up time for the real work`},
     works_n4s:{de:`Zeit für das, was zählt`,en:`Time for what matters`},
     works_tools_eyebrow:{de:`Auszug — was daraus entsteht, nach Branche`,en:`A sample — what comes out of it, by industry`},
-    works_story:{de:`HUNTER ist entstanden, weil ich meine eigene Vertriebs-Recherche nicht auslagern wollte. Das Prinzip hinter jedem dieser Tools: gebaut für einen echten eigenen Anwendungsfall, nicht generisch.`,en:`HUNTER exists because I didn't want to outsource my own sales research. The principle behind every one of these tools: built for a real use case of my own, not generic.`},
     f_all:{de:`Alle`,en:`All`},
     f_vertrieb:{de:`Vertrieb`,en:`Sales`},
     f_hr:{de:`HR`,en:`HR`},
@@ -1149,7 +1149,7 @@
       ctx.translate(x, y);
       ctx.rotate(tangentDeg * Math.PI/180);
       ctx.globalAlpha = p.opacityBase;
-      ctx.fillStyle = 'rgb(243,246,245)';
+      ctx.fillStyle = 'rgb(20,32,28)';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = "500 " + p.size + "px " + FONT_STACK;
@@ -1171,7 +1171,7 @@
     ctx.restore();
 
     ctx.save();
-    ctx.fillStyle = 'rgba(243,246,245,0.55)';
+    ctx.fillStyle = 'rgba(20,32,28,0.45)';
     ctx.beginPath();
     ctx.arc(cx, cy, 2.4, 0, Math.PI*2);
     ctx.fill();
