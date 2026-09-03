@@ -259,17 +259,16 @@
   .diff h3{font-family:var(--serif);font-size:21px;margin:12px 0 10px;font-weight:600;color:var(--ink)}
   .diff p{font-size:14.5px;color:var(--muted);margin:0;line-height:1.62}
 
-  /* Signal-im-Rauschen Kreislauf — reuses .panel's remapped --bg/--surface/--ink/--muted/--faint/--line,
-     so it inherits the page's existing dark "chapter break" look instead of a second dark palette. */
+  /* Signal-im-Rauschen Kreislauf — Sektion selbst bleibt hell (normale <section>, kein .panel),
+     nur die Visualisierungs-Box ist ihr eigenes dunkles Fenster (feste --sk-* Tokens, unabhängig
+     von der Seiten-Theme-Var, damit sie nicht vom hellen Sektionshintergrund mitgezogen wird). */
   .sk-cycle{display:flex;flex-direction:column;gap:clamp(18px,2.6vw,26px);margin-top:8px}
   .sk-cycle *{box-sizing:border-box}
 
-  .sk-panel{border:1px solid var(--line);border-radius:18px;background:var(--surface);
-    padding:clamp(8px,1.2vw,12px);box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 30px 60px -30px rgba(0,0,0,.6)}
-
-  .sk-canvas-wrap{position:relative;border-radius:12px;overflow:hidden;
-    background:radial-gradient(circle at 50% 50%,rgba(243,246,245,.05),rgba(243,246,245,0) 55%),var(--bg);
-    min-height:clamp(340px,32vw,430px)}
+  .sk-canvas-wrap{--sk-bg:#12181B;--sk-surface:#1B2225;--sk-ink:#F3F6F5;--sk-muted:#AAB5B2;--sk-line:rgba(255,255,255,.10);
+    position:relative;border-radius:20px;overflow:hidden;
+    background:radial-gradient(circle at 50% 50%,rgba(243,246,245,.05),rgba(243,246,245,0) 55%),var(--sk-bg);
+    min-height:clamp(340px,32vw,430px);box-shadow:0 24px 48px -30px rgba(20,32,28,.4)}
   @media (max-width:640px){.sk-canvas-wrap{min-height:460px}}
   .sk-canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 
@@ -277,31 +276,25 @@
     z-index:2;transform:rotate(-90deg)}
 
   .sk-node{position:absolute;transform:translate(-50%,-50%);width:min(138px,34vw);padding:8px 10px;
-    border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--surface) 74%,transparent);
+    border:1px solid var(--sk-line);border-radius:10px;background:color-mix(in srgb,var(--sk-surface) 74%,transparent);
     backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;flex-direction:column;gap:2px;
     text-align:center;align-items:center;pointer-events:none;z-index:3;
     transition:border-color .45s ease,box-shadow .45s ease,background-color .45s ease,transform .45s ease}
-  .sk-node-index{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--faint);transition:color .45s ease}
-  .sk-node-title{font-family:var(--serif);font-weight:600;font-size:11px;line-height:1.25;color:var(--ink)}
-  .sk-node-sub{font-family:var(--mono);font-size:7.8px;line-height:1.4;color:var(--faint);transition:color .45s ease}
+  .sk-node-index{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--sk-muted);transition:color .45s ease}
+  .sk-node-title{font-family:var(--serif);font-weight:600;font-size:11px;line-height:1.25;color:var(--sk-ink)}
+  .sk-node-sub{font-family:var(--mono);font-size:7.8px;line-height:1.4;color:var(--sk-muted);transition:color .45s ease}
   .sk-node.sk-lit{border-color:color-mix(in srgb,var(--teal) 65%,transparent);
-    background:color-mix(in srgb,var(--surface) 88%,var(--teal) 12%);
+    background:color-mix(in srgb,var(--sk-surface) 88%,var(--teal) 12%);
     box-shadow:0 0 24px color-mix(in srgb,var(--teal) 35%,transparent),0 0 0 1px color-mix(in srgb,var(--teal) 18%,transparent) inset;
     transform:translate(-50%,-50%) scale(1.05)}
   .sk-node.sk-lit .sk-node-index{color:var(--teal)}
-  .sk-node.sk-lit .sk-node-sub{color:var(--muted)}
+  .sk-node.sk-lit .sk-node-sub{color:var(--sk-muted)}
 
   .sk-core-label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--mono);
-    font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);opacity:.6;
+    font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sk-muted);opacity:.6;
     pointer-events:none;z-index:3;text-align:center;white-space:nowrap}
 
   .sk-caption{font-size:11.5px;color:var(--faint);border-top:1px solid var(--line);padding-top:12px;max-width:72ch}
-  /* Intro-Absatz bewusst als heller Block im dunklen Panel — Text braucht dafür literale
-     Light-Theme-Farben statt var(--ink)/var(--muted), die .panel auf Dark umbiegt. */
-  .sk-intro-card{background:#FFFFFF;color:#53625D;border:1px solid #E4EAE6;border-radius:14px;
-    padding:18px 22px;box-shadow:0 20px 40px -26px rgba(0,0,0,.55);max-width:65ch}
-  .sk-intro-card b{color:#14201C;font-weight:600}
-  .sk-intro-card .hl{color:var(--teal);font-weight:600}
   .sk-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
     clip:rect(0,0,0,0);white-space:nowrap;border:0}
   @media (prefers-reduced-motion:reduce){.sk-node{transition:none}}
@@ -507,49 +500,47 @@
   </section>
 
   <!-- WORKS: Signal-im-Rauschen Kreislauf -->
-  <section class="panel">
+  <section>
     <div class="wrap reveal">
       <div class="sk-cycle">
         <header>
-          <div class="sec-label" data-i18n="works_label">Die Frage jedes Entscheiders</div>
+          <div class="sec-label" data-i18n="works_label">Das Gefühl, das Sie kennen</div>
           <h2 data-i18n="works_h2">„Ja, wir wollen KI nutzen. Aber wie?“</h2>
-          <p class="prose sk-intro-card" data-i18n="works_intro">Der Markt dreht sich im Kreis aus immer neuen Begriffen. <b>Wir haben unseren eigenen Kreislauf</b> — und der bringt Sie tatsächlich weiter.</p>
+          <p class="prose" data-i18n="works_intro">Genau dieses Rauschen aus immer neuen Begriffen hören Sie ständig. Was Sie brauchen, ist kein weiteres Wort dafür — <b>sondern jemand, der es für Sie ordnet.</b></p>
         </header>
 
-        <div class="sk-panel">
-          <div class="sk-canvas-wrap" id="sk-canvas-wrap" role="img" aria-label="Animierte Visualisierung: Hunderte KI- und IT-Fachbegriffe kreisen in mehreren Ringen chaotisch um ein ruhiges Zentrum – abwechselnd im und gegen den Uhrzeigersinn, wie endloses Marktrauschen. In der Mitte, in einer klaren Zone, dreht sich ein stetiger Lichtpuls im Kreis und aktiviert dabei nacheinander vier feste Stationen: Ihre Systeme, KI gezielt eingesetzt, Automatisierte Prozesse, Freiraum für Ihr Tagesgeschäft. Danach beginnt der Kreislauf von vorn – ein sich selbst erneuernder Prozess inmitten des Begriffs-Rauschens.">
-            <canvas id="sk-noise-canvas"></canvas>
-            <svg class="sk-ring-svg" id="sk-ring-svg" aria-hidden="true">
-              <circle id="sk-ring-base" fill="none" stroke="rgba(243,246,245,.14)" stroke-width="1.2" />
-              <circle id="sk-ring-comet-glow" fill="none" stroke="rgba(14,163,148,.45)" stroke-width="9" stroke-linecap="round" />
-              <circle id="sk-ring-comet" fill="none" stroke="rgba(14,163,148,.95)" stroke-width="1.8" stroke-linecap="round" />
-            </svg>
-            <div class="sk-core-label" data-i18n="works_core">Kreislauf</div>
-            <div class="sk-node" id="sk-node-0">
-              <span class="sk-node-index">01</span>
-              <span class="sk-node-title" data-i18n="works_n1t">Ihre Systeme</span>
-              <span class="sk-node-sub" data-i18n="works_n1s">Microsoft, Google, Linux — der Ausgangspunkt</span>
-            </div>
-            <div class="sk-node" id="sk-node-1">
-              <span class="sk-node-index">02</span>
-              <span class="sk-node-title" data-i18n="works_n2t">KI, gezielt eingesetzt</span>
-              <span class="sk-node-sub" data-i18n="works_n2s">Nicht jeder Trend. Nur was wirkt.</span>
-            </div>
-            <div class="sk-node" id="sk-node-2">
-              <span class="sk-node-index">03</span>
-              <span class="sk-node-title" data-i18n="works_n3t">Automatisierte Prozesse</span>
-              <span class="sk-node-sub" data-i18n="works_n3s">Mails, Reports, eigene Tools</span>
-            </div>
-            <div class="sk-node" id="sk-node-3">
-              <span class="sk-node-index">04</span>
-              <span class="sk-node-title" data-i18n="works_n4t">Freiraum fürs Tagesgeschäft</span>
-              <span class="sk-node-sub" data-i18n="works_n4s">Zeit für das, was zählt — und die nächste Idee</span>
-            </div>
-            <noscript><p class="sk-sr-only">Diese Visualisierung benötigt JavaScript.</p></noscript>
+        <div class="sk-canvas-wrap" id="sk-canvas-wrap" role="img" aria-label="Animierte Visualisierung: Hunderte KI- und IT-Fachbegriffe kreisen in mehreren Ringen chaotisch um ein ruhiges Zentrum – abwechselnd im und gegen den Uhrzeigersinn, wie endloses Marktrauschen. In der Mitte, in einer klaren Zone, dreht sich ein stetiger Lichtpuls im Kreis und aktiviert dabei nacheinander vier feste Stationen: Ihr Alltag, KI gezielt eingesetzt, Ein Prozess läuft von selbst, Freiraum für Ihr Tagesgeschäft. Danach beginnt der Kreislauf von vorn – ein sich selbst erneuernder Prozess inmitten des Begriffs-Rauschens.">
+          <canvas id="sk-noise-canvas"></canvas>
+          <svg class="sk-ring-svg" id="sk-ring-svg" aria-hidden="true">
+            <circle id="sk-ring-base" fill="none" stroke="rgba(243,246,245,.14)" stroke-width="1.2" />
+            <circle id="sk-ring-comet-glow" fill="none" stroke="rgba(14,163,148,.45)" stroke-width="9" stroke-linecap="round" />
+            <circle id="sk-ring-comet" fill="none" stroke="rgba(14,163,148,.95)" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          <div class="sk-core-label" data-i18n="works_core">Kreislauf</div>
+          <div class="sk-node" id="sk-node-0">
+            <span class="sk-node-index">01</span>
+            <span class="sk-node-title" data-i18n="works_n1t">Ihr Alltag</span>
+            <span class="sk-node-sub" data-i18n="works_n1s">Die Werkzeuge, die Sie schon nutzen</span>
           </div>
+          <div class="sk-node" id="sk-node-1">
+            <span class="sk-node-index">02</span>
+            <span class="sk-node-title" data-i18n="works_n2t">KI, gezielt eingesetzt</span>
+            <span class="sk-node-sub" data-i18n="works_n2s">Nicht jeder Trend. Nur was wirkt.</span>
+          </div>
+          <div class="sk-node" id="sk-node-2">
+            <span class="sk-node-index">03</span>
+            <span class="sk-node-title" data-i18n="works_n3t">Ein Prozess läuft von selbst</span>
+            <span class="sk-node-sub" data-i18n="works_n3s">Eine Aufgabe weniger im Kopf</span>
+          </div>
+          <div class="sk-node" id="sk-node-3">
+            <span class="sk-node-index">04</span>
+            <span class="sk-node-title" data-i18n="works_n4t">Freiraum fürs Tagesgeschäft</span>
+            <span class="sk-node-sub" data-i18n="works_n4s">Zeit für das, was zählt</span>
+          </div>
+          <noscript><p class="sk-sr-only">Diese Visualisierung benötigt JavaScript.</p></noscript>
         </div>
 
-        <p class="sk-caption" data-i18n="works_caption">Kein einmaliges Projekt. Ein Kreislauf: Aus mehr Automatisierung entsteht mehr Freiraum — und aus mehr Freiraum die nächste sinnvolle Automatisierung.</p>
+        <p class="sk-caption" data-i18n="works_caption">Keine Einmal-Lösung, sondern ein Prinzip: Klarheit schafft Freiraum — und Freiraum den Kopf für das, was als Nächstes zählt.</p>
       </div>
     </div>
   </section>
@@ -710,19 +701,19 @@
     stat3:{de:`Preisrahmen je nach Format &amp; Teilnehmerzahl`,en:`Price range depending on format &amp; group size`},
     stat4:{de:`Eigene Tools im produktiven Einsatz — HUNTER, TalentBridge, WächterScan`,en:`Own tools in production use — HUNTER, TalentBridge, WächterScan`},
     u_yrs:{de:`+ J.`,en:`+ yrs`},
-    works_label:{de:`Die Frage jedes Entscheiders`,en:`The question every decision-maker asks`},
+    works_label:{de:`Das Gefühl, das Sie kennen`,en:`The feeling you already know`},
     works_h2:{de:`„Ja, wir wollen KI nutzen. Aber wie?“`,en:`“Yes, we want to use AI. But how?”`},
-    works_intro:{de:`Der Markt dreht sich im Kreis aus immer neuen Begriffen. <b>Wir haben unseren eigenen Kreislauf</b> — und der bringt Sie tatsächlich weiter.`,en:`The market spins in circles of ever-new buzzwords. <b>We have our own cycle</b> — and it actually moves you forward.`},
+    works_intro:{de:`Genau dieses Rauschen aus immer neuen Begriffen hören Sie ständig. Was Sie brauchen, ist kein weiteres Wort dafür — <b>sondern jemand, der es für Sie ordnet.</b>`,en:`That exact noise of ever-new terms is what you hear constantly. What you need isn't another word for it — <b>it's someone who brings order to it for you.</b>`},
     works_core:{de:`Kreislauf`,en:`Cycle`},
-    works_n1t:{de:`Ihre Systeme`,en:`Your systems`},
-    works_n1s:{de:`Microsoft, Google, Linux — der Ausgangspunkt`,en:`Microsoft, Google, Linux — the starting point`},
+    works_n1t:{de:`Ihr Alltag`,en:`Your day-to-day`},
+    works_n1s:{de:`Die Werkzeuge, die Sie schon nutzen`,en:`The tools you already use`},
     works_n2t:{de:`KI, gezielt eingesetzt`,en:`AI, used deliberately`},
     works_n2s:{de:`Nicht jeder Trend. Nur was wirkt.`,en:`Not every trend. Only what works.`},
-    works_n3t:{de:`Automatisierte Prozesse`,en:`Automated processes`},
-    works_n3s:{de:`Mails, Reports, eigene Tools`,en:`Emails, reports, custom tools`},
+    works_n3t:{de:`Ein Prozess läuft von selbst`,en:`A process that runs itself`},
+    works_n3s:{de:`Eine Aufgabe weniger im Kopf`,en:`One less thing on your mind`},
     works_n4t:{de:`Freiraum fürs Tagesgeschäft`,en:`Freed-up time for the real work`},
-    works_n4s:{de:`Zeit für das, was zählt — und die nächste Idee`,en:`Time for what matters — and the next idea`},
-    works_caption:{de:`Kein einmaliges Projekt. Ein Kreislauf: Aus mehr Automatisierung entsteht mehr Freiraum — und aus mehr Freiraum die nächste sinnvolle Automatisierung.`,en:`Not a one-off project. A cycle: more automation creates more freed-up time — and more freed-up time leads to the next useful automation.`},
+    works_n4s:{de:`Zeit für das, was zählt`,en:`Time for what matters`},
+    works_caption:{de:`Keine Einmal-Lösung, sondern ein Prinzip: Klarheit schafft Freiraum — und Freiraum den Kopf für das, was als Nächstes zählt.`,en:`Not a one-off fix, but a principle: clarity creates freedom — and freedom, the headspace for what matters next.`},
     bring_label:{de:`Häufige Fragen`,en:`FAQ`},
     bring_h2:{de:`Kurz beantwortet.`,en:`Quick answers.`},
     b1h:{de:`Was kostet ein KI-Training für Unternehmen?`,en:`What does AI training for companies cost?`},
