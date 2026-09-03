@@ -294,7 +294,21 @@
     font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sk-muted);opacity:.6;
     pointer-events:none;z-index:3;text-align:center;white-space:nowrap}
 
-  .sk-caption{font-size:11.5px;color:var(--faint);border-top:1px solid var(--line);padding-top:12px;max-width:72ch}
+  .sk-tools{border-top:1px solid var(--line);padding-top:22px}
+  .sk-tools-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--faint);margin:0 0 16px}
+  .sk-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .sk-filter-btn{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--muted);
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;
+    cursor:pointer;transition:border-color .25s ease,color .25s ease,background-color .25s ease}
+  .sk-filter-btn:hover{border-color:var(--teal);color:var(--ink)}
+  .sk-filter-btn.active{background:var(--teal);border-color:var(--teal);color:#04120F}
+  .sk-tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(216px,1fr));gap:12px}
+  .sk-tool{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .sk-tool.sk-hide{display:none}
+  .sk-tool-name{font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);margin:0 0 6px}
+  .sk-tool-desc{font-size:12.5px;line-height:1.55;color:var(--muted);margin:0 0 10px}
+  .sk-tool-tech{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--faint)}
   .sk-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
     clip:rect(0,0,0,0);white-space:nowrap;border:0}
   @media (prefers-reduced-motion:reduce){.sk-node{transition:none}}
@@ -540,7 +554,81 @@
           <noscript><p class="sk-sr-only">Diese Visualisierung benötigt JavaScript.</p></noscript>
         </div>
 
-        <p class="sk-caption" data-i18n="works_caption">Keine Einmal-Lösung, sondern ein Prinzip: Klarheit schafft Freiraum — und Freiraum den Kopf für das, was als Nächstes zählt.</p>
+        <div class="sk-tools">
+          <div class="sk-tools-eyebrow" data-i18n="works_tools_eyebrow">Auszug — was daraus entsteht, nach Branche</div>
+          <div class="sk-filter" id="sk-filter" role="tablist">
+            <button class="sk-filter-btn active" data-branch="all" data-i18n="f_all">Alle</button>
+            <button class="sk-filter-btn" data-branch="vertrieb" data-i18n="f_vertrieb">Vertrieb</button>
+            <button class="sk-filter-btn" data-branch="hr" data-i18n="f_hr">HR</button>
+            <button class="sk-filter-btn" data-branch="compliance" data-i18n="f_compliance">Compliance</button>
+            <button class="sk-filter-btn" data-branch="finance" data-i18n="f_finance">Finance</button>
+            <button class="sk-filter-btn" data-branch="ecommerce" data-i18n="f_ecommerce">E-Commerce</button>
+            <button class="sk-filter-btn" data-branch="wissen" data-i18n="f_wissen">Wissensmanagement</button>
+            <button class="sk-filter-btn" data-branch="integration" data-i18n="f_integration">Integration</button>
+          </div>
+          <div class="sk-tool-grid" id="sk-tool-grid">
+            <div class="sk-tool" data-branch="vertrieb">
+              <div class="sk-tool-name">HUNTER</div>
+              <p class="sk-tool-desc" data-i18n="t_hunter">Findet &amp; bewertet Firmen und Ansprechpartner automatisiert — von der Suche bis zum fertigen Score.</p>
+              <div class="sk-tool-tech">Python · Multi-Agent · Claude API</div>
+            </div>
+            <div class="sk-tool" data-branch="hr">
+              <div class="sk-tool-name">TalentBridge</div>
+              <p class="sk-tool-desc" data-i18n="t_talentbridge">CV-Parser mit zweisprachigem Kandidaten-Rollen-Matching und Ampel-Bewertung statt Stichwortsuche.</p>
+              <div class="sk-tool-tech">LLM-Matching · DE/EN</div>
+            </div>
+            <div class="sk-tool" data-branch="compliance">
+              <div class="sk-tool-name">WächterScan</div>
+              <p class="sk-tool-desc" data-i18n="t_waechterscan">Prüft Geschäftspartner gegen offizielle Sanktionslisten — mit belegbarer Quelle statt Blackbox.</p>
+              <div class="sk-tool-tech">RAG · EU-Recht</div>
+            </div>
+            <div class="sk-tool" data-branch="finance">
+              <div class="sk-tool-name" data-i18n="t_trading_name">Trading-Bots</div>
+              <p class="sk-tool-desc" data-i18n="t_trading">Vier parallele automatisierte Handelsstrategien für Krypto-Märkte, unabhängig voneinander laufend.</p>
+              <div class="sk-tool-tech">Python · Kraken-API</div>
+            </div>
+            <div class="sk-tool" data-branch="ecommerce">
+              <div class="sk-tool-name" data-i18n="t_marktplatz_name">Marktplatz-Scanner</div>
+              <p class="sk-tool-desc" data-i18n="t_marktplatz">Durchsucht über 30 Plattformen nach Produktkategorien und Umsatzsignalen.</p>
+              <div class="sk-tool-tech">Python · Web-Scraping</div>
+            </div>
+            <div class="sk-tool" data-branch="wissen">
+              <div class="sk-tool-name">MissionControl</div>
+              <p class="sk-tool-desc" data-i18n="t_missioncontrol">Eigener lokaler Wissens-Kern mit Quellenbeleg — wie NotebookLM, nur selbst gehostet.</p>
+              <div class="sk-tool-tech">RAG · lokale Embeddings</div>
+            </div>
+            <div class="sk-tool" data-branch="integration">
+              <div class="sk-tool-name" data-i18n="t_google_name">Google Workspace</div>
+              <p class="sk-tool-desc" data-i18n="t_google">Mail, Kalender und Drive direkt an Agenten angebunden — lesen, anlegen, beantworten.</p>
+              <div class="sk-tool-tech">MCP</div>
+            </div>
+            <div class="sk-tool" data-branch="integration">
+              <div class="sk-tool-name">GitHub</div>
+              <p class="sk-tool-desc" data-i18n="t_github">Code lesen, Branches anlegen, Pull Requests erstellen und mergen — ohne Kontextwechsel.</p>
+              <div class="sk-tool-tech">MCP</div>
+            </div>
+            <div class="sk-tool" data-branch="integration">
+              <div class="sk-tool-name" data-i18n="t_deploy_name">Deployment</div>
+              <p class="sk-tool-desc" data-i18n="t_deploy">Von der Änderung bis live auf GitHub Pages oder Cloudflare — ein Schritt.</p>
+              <div class="sk-tool-tech">CI/CD</div>
+            </div>
+            <div class="sk-tool" data-branch="integration">
+              <div class="sk-tool-name" data-i18n="t_sqlite_name">SQLite &amp; Datenbanken</div>
+              <p class="sk-tool-desc" data-i18n="t_sqlite">Strukturierte Firmendaten abfragen, auswerten, pflegen — direkt aus dem Gespräch heraus.</p>
+              <div class="sk-tool-tech">SQL</div>
+            </div>
+            <div class="sk-tool" data-branch="integration">
+              <div class="sk-tool-name">Notion</div>
+              <p class="sk-tool-desc" data-i18n="t_notion">Wissensdatenbanken und Projektseiten lesen und aktuell halten.</p>
+              <div class="sk-tool-tech">MCP</div>
+            </div>
+            <div class="sk-tool" data-branch="integration">
+              <div class="sk-tool-name" data-i18n="t_slack_name">Slack &amp; Teams</div>
+              <p class="sk-tool-desc" data-i18n="t_slack">Meldungen, Reports und Freigaben direkt dort, wo Ihr Team schon arbeitet.</p>
+              <div class="sk-tool-tech">MCP</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -713,7 +801,33 @@
     works_n3s:{de:`Eine Aufgabe weniger im Kopf`,en:`One less thing on your mind`},
     works_n4t:{de:`Freiraum fürs Tagesgeschäft`,en:`Freed-up time for the real work`},
     works_n4s:{de:`Zeit für das, was zählt`,en:`Time for what matters`},
-    works_caption:{de:`Keine Einmal-Lösung, sondern ein Prinzip: Klarheit schafft Freiraum — und Freiraum den Kopf für das, was als Nächstes zählt.`,en:`Not a one-off fix, but a principle: clarity creates freedom — and freedom, the headspace for what matters next.`},
+    works_tools_eyebrow:{de:`Auszug — was daraus entsteht, nach Branche`,en:`A sample — what comes out of it, by industry`},
+    f_all:{de:`Alle`,en:`All`},
+    f_vertrieb:{de:`Vertrieb`,en:`Sales`},
+    f_hr:{de:`HR`,en:`HR`},
+    f_compliance:{de:`Compliance`,en:`Compliance`},
+    f_finance:{de:`Finance`,en:`Finance`},
+    f_ecommerce:{de:`E-Commerce`,en:`E-Commerce`},
+    f_wissen:{de:`Wissensmanagement`,en:`Knowledge Management`},
+    f_integration:{de:`Integration`,en:`Integration`},
+    t_hunter:{de:`Findet &amp; bewertet Firmen und Ansprechpartner automatisiert — von der Suche bis zum fertigen Score.`,en:`Finds &amp; scores companies and contacts automatically — from search to a finished lead score.`},
+    t_talentbridge:{de:`CV-Parser mit zweisprachigem Kandidaten-Rollen-Matching und Ampel-Bewertung statt Stichwortsuche.`,en:`CV parser with bilingual candidate-role matching and traffic-light scoring instead of keyword search.`},
+    t_waechterscan:{de:`Prüft Geschäftspartner gegen offizielle Sanktionslisten — mit belegbarer Quelle statt Blackbox.`,en:`Checks business partners against official sanctions lists — with a traceable source instead of a black box.`},
+    t_trading_name:{de:`Trading-Bots`,en:`Trading Bots`},
+    t_trading:{de:`Vier parallele automatisierte Handelsstrategien für Krypto-Märkte, unabhängig voneinander laufend.`,en:`Four parallel automated trading strategies for crypto markets, running independently.`},
+    t_marktplatz_name:{de:`Marktplatz-Scanner`,en:`Marketplace Scanner`},
+    t_marktplatz:{de:`Durchsucht über 30 Plattformen nach Produktkategorien und Umsatzsignalen.`,en:`Scans over 30 platforms for product categories and revenue signals.`},
+    t_missioncontrol:{de:`Eigener lokaler Wissens-Kern mit Quellenbeleg — wie NotebookLM, nur selbst gehostet.`,en:`A self-hosted knowledge core with source citations — like NotebookLM, but self-hosted.`},
+    t_google_name:{de:`Google Workspace`,en:`Google Workspace`},
+    t_google:{de:`Mail, Kalender und Drive direkt an Agenten angebunden — lesen, anlegen, beantworten.`,en:`Mail, calendar and Drive connected directly to agents — read, create, reply.`},
+    t_github:{de:`Code lesen, Branches anlegen, Pull Requests erstellen und mergen — ohne Kontextwechsel.`,en:`Read code, create branches, open and merge pull requests — without switching context.`},
+    t_deploy_name:{de:`Deployment`,en:`Deployment`},
+    t_deploy:{de:`Von der Änderung bis live auf GitHub Pages oder Cloudflare — ein Schritt.`,en:`From the change to live on GitHub Pages or Cloudflare — one step.`},
+    t_sqlite_name:{de:`SQLite &amp; Datenbanken`,en:`SQLite &amp; Databases`},
+    t_sqlite:{de:`Strukturierte Firmendaten abfragen, auswerten, pflegen — direkt aus dem Gespräch heraus.`,en:`Query, analyze and maintain structured company data — straight from the conversation.`},
+    t_notion:{de:`Wissensdatenbanken und Projektseiten lesen und aktuell halten.`,en:`Read and keep knowledge bases and project pages up to date.`},
+    t_slack_name:{de:`Slack &amp; Teams`,en:`Slack &amp; Teams`},
+    t_slack:{de:`Meldungen, Reports und Freigaben direkt dort, wo Ihr Team schon arbeitet.`,en:`Notifications, reports and approvals right where your team already works.`},
     bring_label:{de:`Häufige Fragen`,en:`FAQ`},
     bring_h2:{de:`Kurz beantwortet.`,en:`Quick answers.`},
     b1h:{de:`Was kostet ein KI-Training für Unternehmen?`,en:`What does AI training for companies cost?`},
@@ -891,7 +1005,7 @@
   var nodes = [];
   var litState = [false,false,false,false];
 
-  var COMET_SPEED = REDUCED ? 0.00004 : 0.00042;
+  var COMET_SPEED = REDUCED ? 0.00006 : 0.00095;
   var BASE_RING_SPEED = REDUCED ? 0.000006 : 0.000028;
   var START_ANGLE = -Math.PI/2;
   var FONT_STACK = "'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif";
@@ -1053,6 +1167,26 @@
   }
 
   init();
+})();
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var filterBar = document.getElementById('sk-filter');
+  if (!filterBar) return;
+  var buttons = Array.prototype.slice.call(filterBar.querySelectorAll('.sk-filter-btn'));
+  var tools = Array.prototype.slice.call(document.querySelectorAll('#sk-tool-grid .sk-tool'));
+
+  filterBar.addEventListener('click', function(e){
+    var btn = e.target.closest('.sk-filter-btn');
+    if (!btn) return;
+    buttons.forEach(function(b){ b.classList.toggle('active', b===btn); });
+    var branch = btn.dataset.branch;
+    tools.forEach(function(t){
+      t.classList.toggle('sk-hide', branch!=='all' && t.dataset.branch!==branch);
+    });
+  });
 })();
 </script>
 
