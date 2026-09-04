@@ -383,6 +383,7 @@
   .modal-sent{font-size:15px;color:var(--ink);font-weight:600;margin:0 0 20px;line-height:1.5}
   .modal-card-sm .btn{width:100%;justify-content:center}
   #contactForm{display:flex;flex-direction:column;gap:14px}
+  .hp-field{position:absolute!important;left:-9999px!important;top:-9999px;width:1px;height:1px;overflow:hidden}
   #contactForm label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:var(--ink);text-transform:uppercase;letter-spacing:.04em}
   #contactForm input,#contactForm textarea{font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--bg2);
     border:1px solid var(--line);border-radius:10px;padding:11px 13px;width:100%;resize:vertical;font-weight:400;text-transform:none;letter-spacing:0;transition:border-color .18s ease,box-shadow .18s ease}
@@ -439,7 +440,7 @@
         <p class="lead" data-i18n="hero_bridge">Ich unterstütze Privatpersonen und Unternehmen dabei, KI praktisch einzusetzen — mit individuellem <b>KI-Training</b>, persönlicher <b>KI-Beratung</b> und der Entwicklung eigener <b>AI Agents</b> und KI-Automatisierungen.</p>
         <p class="hero-micro" data-i18n="hero_micro">Zertifiziert von Anthropic · 7+ Jahre Enterprise-Sales bei internationalen Marken</p>
         <div class="cta">
-          <button class="btn primary js-contact" type="button" data-i18n="btn_discover">KI-Training entdecken</button>
+          <button class="btn primary js-contact" type="button" data-i18n="btn_discover">Kostenloses Erstgespräch vereinbaren</button>
         </div>
       </div>
       <div class="portrait">
@@ -776,14 +777,15 @@
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="cm-title">
     <button class="modal-x" data-close aria-label="Schließen / Close" type="button">×</button>
     <div class="sec-label" data-i18n="modal_label">Termin sichern</div>
-    <h3 id="cm-title" data-i18n="modal_h3">Kurz vorstellen — ich melde mich.</h3>
-    <p class="modal-sub" data-i18n="modal_sub">Geht direkt an mich — kein E-Mail-Programm nötig.</p>
+    <h3 id="cm-title" data-i18n="modal_h3">Melde dich bei mir für ein kurzes Erstgespräch.</h3>
+    <p class="modal-sub" data-i18n="modal_sub">30 Minuten, kostenlos und unverbindlich — wir lernen uns kennen und ich verstehe, was du brauchst.</p>
     <form id="contactForm">
       <label><span data-i18n="f_name">Name</span><input name="name" autocomplete="name" required></label>
       <label><span data-i18n="f_from">E-Mail</span><input name="from" type="email" autocomplete="email" required></label>
       <label><span data-i18n="f_phone">Telefon (optional)</span><input name="phone" type="tel" autocomplete="tel"></label>
       <label><span data-i18n="f_company">Firma &amp; Rolle</span><input name="company" autocomplete="organization"></label>
       <label><span data-i18n="f_msg">Nachricht an mich</span><textarea name="msg" rows="4"></textarea></label>
+      <label class="hp-field" aria-hidden="true" tabindex="-1"><span>Website</span><input name="website" tabindex="-1" autocomplete="off"></label>
       <button class="btn primary" type="submit" data-i18n="f_submit">Senden</button>
     </form>
   </div>
@@ -806,7 +808,7 @@
     hero_eyebrow:{de:`KI-Training · KI-Beratung · AI Agents · DACH-Raum`,en:`AI Training · AI Consulting · AI Agents · DACH region`},
     hero_h1:{de:`Künstliche Intelligenz verstehen. <span class="grad">Richtig einsetzen.</span> Mehr daraus machen.`,en:`Understand artificial intelligence. <span class="grad">Use it right.</span> Get more out of it.`},
     hero_bridge:{de:`Ich unterstütze Privatpersonen und Unternehmen dabei, KI praktisch einzusetzen — mit individuellem <b>KI-Training</b>, persönlicher <b>KI-Beratung</b> und der Entwicklung eigener <b>AI Agents</b> und KI-Automatisierungen.`,en:`I help individuals and companies put AI to practical use — with individual <b>AI training</b>, personal <b>AI consulting</b>, and the development of custom <b>AI agents</b> and AI automations.`},
-    btn_discover:{de:`KI-Training entdecken`,en:`Discover AI training`},
+    btn_discover:{de:`Kostenloses Erstgespräch vereinbaren`,en:`Schedule a free intro call`},
     hero_micro:{de:`Zertifiziert von Anthropic · 7+ Jahre Enterprise-Sales bei internationalen Marken`,en:`Certified by Anthropic · 7+ years enterprise sales at international brands`},
     hc1_h:{de:`KI-Training`,en:`AI Training`},
     hc2_h:{de:`KI-Beratung`,en:`AI Consulting`},
@@ -932,8 +934,8 @@
     c_sub:{de:`Egal ob du KI lernen, sinnvoll einsetzen oder einen eigenen AI Agent entwickeln möchtest.`,en:`Whether you want to learn AI, use it meaningfully, or develop your own AI agent.`},
     c_btn:{de:`Kostenloses Erstgespräch vereinbaren`,en:`Schedule a free intro call`},
     modal_label:{de:`Termin sichern`,en:`Secure a slot`},
-    modal_h3:{de:`Kurz vorstellen — ich melde mich.`,en:`Introduce yourself — I'll be in touch.`},
-    modal_sub:{de:`Geht direkt an mich — kein E-Mail-Programm nötig.`,en:`Goes straight to me — no email app needed.`},
+    modal_h3:{de:`Melde dich bei mir für ein kurzes Erstgespräch.`,en:`Get in touch for a short intro call.`},
+    modal_sub:{de:`30 Minuten, kostenlos und unverbindlich — wir lernen uns kennen und ich verstehe, was du brauchst.`,en:`30 minutes, free and no obligation — we get to know each other and I get to understand what you need.`},
     modal_sent:{de:`Danke! Ich melde mich.`,en:`Thanks! I'll be in touch.`},
     modal_ok:{de:`Okay`,en:`Okay`},
     f_name:{de:`Name`,en:`Name`},f_from:{de:`E-Mail`,en:`Email`},
@@ -1006,9 +1008,11 @@
   /* ---------- contact modal + small thanks confirmation ---------- */
   const modal=document.getElementById('contactModal');
   const thanks=document.getElementById('thanksModal');
+  let formOpenedAt=0;
   const open=()=>{modal.classList.add('open');modal.setAttribute('aria-hidden','false');
     const form=document.getElementById('contactForm');form.hidden=false;form.reset();
     form.querySelector('button[type="submit"]').disabled=false;
+    formOpenedAt=Date.now();
     const f=modal.querySelector('input');if(f)setTimeout(()=>f.focus(),50);};
   const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');};
   const openThanks=()=>{thanks.classList.add('open');thanks.setAttribute('aria-hidden','false');};
@@ -1030,6 +1034,13 @@
     e.preventDefault();
     const form=e.target,d=new FormData(form);
     const name=(d.get('name')||'').trim(),from=(d.get('from')||'').trim(),phone=(d.get('phone')||'').trim(),comp=(d.get('company')||'').trim(),msg=(d.get('msg')||'').trim();
+    /* Anti-bot: honeypot field ("website") is invisible to real users but often
+       auto-filled by form-spam bots; a genuine human also can't fill out and submit
+       the form in under 1.5s. Either signal → fake a normal success without ever
+       sending, so bots get no feedback that they were caught. */
+    const honeypot=(d.get('website')||'').trim();
+    const tooFast=Date.now()-formOpenedAt<1500;
+    if(honeypot||tooFast){close();openThanks();return;}
     const btn=form.querySelector('button[type="submit"]');
     btn.disabled=true;
     fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams({name,email:from,phone,company:comp,msg,lang:LANG})})
