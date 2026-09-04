@@ -222,6 +222,9 @@
   .prose b{color:var(--ink);font-weight:600}
   .prose .hl{color:var(--teal);font-weight:600}
   .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,64px);align-items:start}
+  .sk-split{align-items:center}
+  .sk-split h3{font-family:var(--serif);font-weight:600;font-size:clamp(22px,2.6vw,28px);
+    line-height:1.28;margin:10px 0 14px;color:var(--ink)}
 
   .pullquote{font-family:var(--serif);font-size:clamp(22px,3.1vw,34px);line-height:1.3;color:var(--ink);
     font-style:italic;border-left:3px solid var(--coral);padding-left:26px;text-wrap:balance;max-width:24ch}
@@ -294,8 +297,8 @@
       linear-gradient(120deg,var(--teal),var(--coral),var(--violet),var(--teal));
     background-clip:padding-box,padding-box,border-box;
     backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    min-height:clamp(340px,32vw,430px);box-shadow:0 24px 48px -30px rgba(20,32,28,.18)}
-  @media (max-width:640px){.sk-canvas-wrap{min-height:460px}}
+    min-height:clamp(300px,26vw,380px);box-shadow:0 24px 48px -30px rgba(20,32,28,.18)}
+  @media (max-width:640px){.sk-canvas-wrap{min-height:380px}}
   .sk-canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 
   .sk-ring-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;
@@ -523,35 +526,42 @@
           <p class="prose" data-i18n="works_intro">Genau dieses Rauschen aus immer neuen Begriffen hören Sie ständig. Was Sie brauchen, ist kein weiteres Wort dafür — <b>sondern jemand, der es für Sie ordnet.</b></p>
         </header>
 
-        <div class="sk-canvas-wrap" id="sk-canvas-wrap" role="img" aria-label="Animierte Visualisierung: Hunderte KI- und IT-Fachbegriffe kreisen in mehreren Ringen chaotisch um ein ruhiges Zentrum – abwechselnd im und gegen den Uhrzeigersinn, wie endloses Marktrauschen. In der Mitte, in einer klaren Zone, dreht sich ein stetiger Lichtpuls im Kreis und aktiviert dabei nacheinander vier feste Stationen: Ihr Alltag, KI gezielt eingesetzt, Ein Prozess läuft von selbst, Freiraum für Ihr Tagesgeschäft. Danach beginnt der Kreislauf von vorn – ein sich selbst erneuernder Prozess inmitten des Begriffs-Rauschens.">
-          <canvas id="sk-noise-canvas"></canvas>
-          <svg class="sk-ring-svg" id="sk-ring-svg" aria-hidden="true">
-            <circle id="sk-ring-base" fill="none" stroke="rgba(20,32,28,.16)" stroke-width="1.2" />
-            <circle id="sk-ring-comet-glow" fill="none" stroke="rgba(14,163,148,.45)" stroke-width="9" stroke-linecap="round" />
-            <circle id="sk-ring-comet" fill="none" stroke="rgba(14,163,148,.95)" stroke-width="1.8" stroke-linecap="round" />
-          </svg>
-          <div class="sk-core-label" data-i18n="works_core">Kreislauf</div>
-          <div class="sk-node" id="sk-node-0">
-            <span class="sk-node-index">01</span>
-            <span class="sk-node-title" data-i18n="works_n1t">Ihr Alltag</span>
-            <span class="sk-node-sub" data-i18n="works_n1s">Die Werkzeuge, die Sie schon nutzen</span>
+        <div class="split sk-split">
+          <div class="sk-canvas-wrap" id="sk-canvas-wrap" role="img" aria-label="Animierte Visualisierung eines Kreislaufs: Ein stetiger Lichtpuls dreht sich im Kreis und aktiviert dabei nacheinander vier feste Stationen: Ihr Alltag, KI gezielt eingesetzt, Ein Prozess läuft von selbst, Freiraum für Ihr Tagesgeschäft. Danach beginnt der Kreislauf von vorn.">
+            <canvas id="sk-noise-canvas"></canvas>
+            <svg class="sk-ring-svg" id="sk-ring-svg" aria-hidden="true">
+              <circle id="sk-ring-base" fill="none" stroke="rgba(20,32,28,.16)" stroke-width="1.2" />
+              <circle id="sk-ring-comet-glow" fill="none" stroke="rgba(14,163,148,.45)" stroke-width="9" stroke-linecap="round" />
+              <circle id="sk-ring-comet" fill="none" stroke="rgba(14,163,148,.95)" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <div class="sk-core-label" data-i18n="works_core">Kreislauf</div>
+            <div class="sk-node" id="sk-node-0">
+              <span class="sk-node-index">01</span>
+              <span class="sk-node-title" data-i18n="works_n1t">Ihr Alltag</span>
+              <span class="sk-node-sub" data-i18n="works_n1s">Die Werkzeuge, die Sie schon nutzen</span>
+            </div>
+            <div class="sk-node" id="sk-node-1">
+              <span class="sk-node-index">02</span>
+              <span class="sk-node-title" data-i18n="works_n2t">KI, gezielt eingesetzt</span>
+              <span class="sk-node-sub" data-i18n="works_n2s">Nicht jeder Trend. Nur was wirkt.</span>
+            </div>
+            <div class="sk-node" id="sk-node-2">
+              <span class="sk-node-index">03</span>
+              <span class="sk-node-title" data-i18n="works_n3t">Ein Prozess läuft von selbst</span>
+              <span class="sk-node-sub" data-i18n="works_n3s">Eine Aufgabe weniger im Kopf</span>
+            </div>
+            <div class="sk-node" id="sk-node-3">
+              <span class="sk-node-index">04</span>
+              <span class="sk-node-title" data-i18n="works_n4t">Freiraum fürs Tagesgeschäft</span>
+              <span class="sk-node-sub" data-i18n="works_n4s">Zeit für das, was zählt</span>
+            </div>
+            <noscript><p class="sk-sr-only">Diese Visualisierung benötigt JavaScript.</p></noscript>
           </div>
-          <div class="sk-node" id="sk-node-1">
-            <span class="sk-node-index">02</span>
-            <span class="sk-node-title" data-i18n="works_n2t">KI, gezielt eingesetzt</span>
-            <span class="sk-node-sub" data-i18n="works_n2s">Nicht jeder Trend. Nur was wirkt.</span>
+          <div>
+            <div class="sec-label" data-i18n="works_explain_label">Was der Kreislauf zeigt</div>
+            <h3 data-i18n="works_explain_h">Am Ende jedes Durchlaufs steht <span class="hl">mehr Zeit</span>.</h3>
+            <p class="prose" data-i18n="works_explain_p">Ihre bestehenden Werkzeuge, gezielt um KI ergänzt. Ein Prozess, der von selbst läuft. Die Zeit, die dadurch frei wird, fließt in den nächsten Schritt — kein einmaliges Projekt, sondern ein Kreislauf, der sich mit jedem Durchlauf selbst verstärkt.</p>
           </div>
-          <div class="sk-node" id="sk-node-2">
-            <span class="sk-node-index">03</span>
-            <span class="sk-node-title" data-i18n="works_n3t">Ein Prozess läuft von selbst</span>
-            <span class="sk-node-sub" data-i18n="works_n3s">Eine Aufgabe weniger im Kopf</span>
-          </div>
-          <div class="sk-node" id="sk-node-3">
-            <span class="sk-node-index">04</span>
-            <span class="sk-node-title" data-i18n="works_n4t">Freiraum fürs Tagesgeschäft</span>
-            <span class="sk-node-sub" data-i18n="works_n4s">Zeit für das, was zählt</span>
-          </div>
-          <noscript><p class="sk-sr-only">Diese Visualisierung benötigt JavaScript.</p></noscript>
         </div>
 
         <div class="sk-tools">
@@ -854,6 +864,9 @@
     works_n3s:{de:`Eine Aufgabe weniger im Kopf`,en:`One less thing on your mind`},
     works_n4t:{de:`Freiraum fürs Tagesgeschäft`,en:`Freed-up time for the real work`},
     works_n4s:{de:`Zeit für das, was zählt`,en:`Time for what matters`},
+    works_explain_label:{de:`Was der Kreislauf zeigt`,en:`What the cycle shows`},
+    works_explain_h:{de:`Am Ende jedes Durchlaufs steht <span class="hl">mehr Zeit</span>.`,en:`At the end of every cycle: <span class="hl">more time</span>.`},
+    works_explain_p:{de:`Ihre bestehenden Werkzeuge, gezielt um KI ergänzt. Ein Prozess, der von selbst läuft. Die Zeit, die dadurch frei wird, fließt in den nächsten Schritt — kein einmaliges Projekt, sondern ein Kreislauf, der sich mit jedem Durchlauf selbst verstärkt.`,en:`Your existing tools, deliberately extended with AI. A process that runs itself. The time that frees up flows into the next step — not a one-off project, but a cycle that reinforces itself with every pass.`},
     works_tools_eyebrow:{de:`Auszug — was daraus entsteht, nach Branche`,en:`A sample — what comes out of it, by industry`},
     f_all:{de:`Alle`,en:`All`},
     f_vertrieb:{de:`Vertrieb`,en:`Sales`},
@@ -1024,22 +1037,12 @@
 </script>
 
 <script>
-/* Signal-im-Rauschen Kreislauf — Canvas kann keine CSS-Custom-Properties lesen,
-   Farben/Fonts hier bewusst als Literale identisch zu --teal/--panel-ink/--sans gehalten. */
+/* Kreislauf-Visualisierung — Canvas kann keine CSS-Custom-Properties lesen,
+   Farben hier bewusst als Literale identisch zu --teal/--ink gehalten. */
 (function(){
   "use strict";
 
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  var TERMS = [
-    'Machine Learning','Deep Learning','Neural Network','Large Language Model','Prompt Engineering','Retrieval-Augmented Generation','Fine-Tuning','Transformer','Computer Vision','Natural Language Processing','Reinforcement Learning','AI Agent','Generative AI','Model Training','Inference','Embeddings','Chatbot','Copilot','AutoML','Sprachmodell','Bilderkennung','Textgenerierung','Wissensgraph','Agentic Workflows','Foundation Model','Multimodalität','Halluzination','Token-Limit',
-    'Big Data','Data Lake','Data Warehouse','ETL-Prozesse','Data Pipeline','Vector Database','SQL','NoSQL','Data Mesh','Data Governance','Business Intelligence','Datenqualität','Datenmodellierung','Data Lineage','Realtime Analytics','Data Streaming','Message Queue','Data Catalog','Master Data','Datenintegration','Reporting','Dashboards','Schema-Design','API-Daten','Metadaten','Datenarchitektur',
-    'Cloud-Native','Kubernetes','Docker','Microservices','Serverless','Container','Edge Computing','Load Balancing','Auto-Scaling','Multi-Cloud','Hybrid Cloud','CI/CD','DevOps','Infrastructure as Code','API Gateway','Service Mesh','Terraform','Virtualisierung','Skalierbarkeit','Latenz','Hochverfügbarkeit','Cloud-Migration','Observability','Monitoring','Deployment Pipeline','Systemarchitektur',
-    'Zero Trust','Cybersecurity','Verschlüsselung','Threat Detection','Penetration Testing','Identity Management','Firewall','Zero-Day','DSGVO-Konformität','Access Control','Security Audit','Incident Response','Endpoint Security','Multi-Faktor-Authentifizierung','Datenschutz','Angriffserkennung','Security Operations Center','Risk Assessment','Backup-Strategie','Disaster Recovery','Security by Design','Patch-Management','Netzwerksicherheit',
-    'Digitalisierung','Prozessautomatisierung','Change Management','Roadmap','Skalierung','Enterprise Architecture','Stakeholder Management','Projektmanagement','Agile Methoden','Scrum','Business Case','Return on Investment','Effizienzsteigerung','Systemintegration','Legacy-Migration','Technologieberatung','Proof of Concept','Use-Case-Analyse','Wertschöpfung','Innovationsmanagement','IT-Strategie','Transformationsprozess','Prozessoptimierung','Wissenstransfer'
-  ];
-  var termCursor = 0;
-  function nextTerm(){ return TERMS[(termCursor++) % TERMS.length]; }
 
   var wrap = document.getElementById('sk-canvas-wrap');
   if (!wrap) return;
@@ -1057,51 +1060,15 @@
 
   var W = 0, H = 0, cx = 0, cy = 0;
   var coreRadius = 0, circumference = 1;
-  var particles = [];
   var nodes = [];
   var litState = [false,false,false,false];
 
   var COMET_SPEED = REDUCED ? 0.00006 : 0.00095;
-  var BASE_RING_SPEED = REDUCED ? 0.000006 : 0.000028;
   var START_ANGLE = -Math.PI/2;
-  var FONT_STACK = "'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif";
 
-  function rand(a,b){ return a + Math.random()*(b-a); }
   function angularDist(a,b){
     var d = ((a-b+Math.PI) % (Math.PI*2) + Math.PI*2) % (Math.PI*2) - Math.PI;
     return Math.abs(d);
-  }
-
-  function layoutChaosRings(){
-    particles = [];
-    termCursor = 0;
-    var clearRadius = coreRadius * 1.55;
-    var maxRadius = Math.max(W,H) * 0.6;
-    var ringCount = 5;
-    for (var i=0;i<ringCount;i++){
-      var radius = clearRadius + (maxRadius-clearRadius) * ((i+0.5)/ringCount);
-      var circumf = 2*Math.PI*radius;
-      var spacing = 58;
-      var count = Math.max(6, Math.round(circumf/spacing));
-      var speed = BASE_RING_SPEED * (i%2===0 ? 1 : -1) / (1 + i*0.32);
-      var phase0 = rand(0, Math.PI*2);
-      for (var k=0;k<count;k++){
-        var sizeRoll = Math.random();
-        var size = sizeRoll<0.08 ? rand(15.5,18.5) : (sizeRoll<0.4 ? rand(12,14.5) : rand(9.5,11.8));
-        var opacityBase = sizeRoll<0.08 ? rand(0.32,0.44) : (sizeRoll<0.4 ? rand(0.19,0.28) : rand(0.11,0.19));
-        particles.push({
-          text: nextTerm(),
-          ringRadius: radius,
-          radiusJitter: rand(2,6),
-          radiusPhase: rand(0, Math.PI*2),
-          baseAngle: phase0 + (Math.PI*2/count)*k + rand(-0.04,0.04),
-          angularSpeed: speed,
-          rotJitter: rand(-12,12),
-          size: size,
-          opacityBase: opacityBase
-        });
-      }
-    }
   }
 
   function computeGeometry(){
@@ -1143,34 +1110,12 @@
       nodeEls[i].style.left = n.x + 'px';
       nodeEls[i].style.top = n.y + 'px';
     });
-
-    layoutChaosRings();
   }
 
   function draw(now){
     ctx.clearRect(0,0,W,H);
 
     var cometAngle = START_ANGLE + now*COMET_SPEED;
-
-    for (var i=0;i<particles.length;i++){
-      var p = particles[i];
-      var angle = p.baseAngle + p.angularSpeed*now;
-      var r = p.ringRadius + Math.sin(now*0.0008 + p.radiusPhase)*p.radiusJitter;
-      var x = cx + r*Math.cos(angle);
-      var y = cy + r*Math.sin(angle);
-      var tangentDeg = (angle*180/Math.PI) + 90 + p.rotJitter;
-
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(tangentDeg * Math.PI/180);
-      ctx.globalAlpha = p.opacityBase;
-      ctx.fillStyle = 'rgb(20,32,28)';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.font = "500 " + p.size + "px " + FONT_STACK;
-      ctx.fillText(p.text, 0, 0);
-      ctx.restore();
-    }
 
     var cometX = cx + coreRadius*Math.cos(cometAngle);
     var cometY = cy + coreRadius*Math.sin(cometAngle);
