@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ChibiTruck Dispatch</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --paper: #eef1f5;
+    --paper-raised: #ffffff;
+    --ink: #1b2130;
+    --ink-soft: #4a5164;
+    --line: #d7dce3;
+    --accent: #c97b2e;
+    --accent-soft: #f3e3d2;
+    --good: #3f7d64;
+    --good-soft: #dbeae2;
+    --risk: #b3524a;
+    --risk-soft: #f3dcda;
+    --neutral-soft: #e4e7ec;
+    --shadow: 0 1px 2px rgba(27,33,48,0.06), 0 8px 24px -12px rgba(27,33,48,0.18);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #171b26;
+      --paper-raised: #1f2431;
+      --ink: #e9ebf2;
+      --ink-soft: #a3aac0;
+      --line: #333a4c;
+      --accent: #e0a15c;
+      --accent-soft: #3a2e1e;
+      --good: #7fbfa1;
+      --good-soft: #21362c;
+      --risk: #e08f88;
+      --risk-soft: #3a2523;
+      --neutral-soft: #2a2f3d;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: "Public Sans", system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    padding: clamp(20px, 4vw, 56px) 0 80px;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  h1, h2, h3 {
+    font-family: "Big Shoulders Display", system-ui, sans-serif;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-bottom: 28px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .masthead h1 {
+    font-size: clamp(38px, 6vw, 58px);
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    line-height: 0.98;
+  }
+
+  .masthead-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 22px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .masthead-meta strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Auth banner ---------- */
+  .auth-banner {
+    background: var(--paper-raised);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .auth-banner h2 { font-size: 18px; }
+  .auth-banner p { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: 68ch; }
+  .auth-banner ol { margin: 0; padding-left: 20px; font-size: 14px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 4px; }
+  .auth-banner a { color: var(--accent); }
+  .auth-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .auth-row input[type=password] {
+    flex: 1;
+    min-width: 240px;
+    font: inherit;
+    font-size: 13.5px;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .auth-btn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    cursor: pointer;
+  }
+  .auth-btn:hover { background: var(--accent); color: #fff; }
+  .auth-error { color: var(--risk); font-size: 13px; margin: 0; }
+
+  .signed-in-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+  .signed-in-row b { color: var(--good); }
+  .signed-in-row button {
+    font-family: inherit;
+    font-size: 11px;
+    color: var(--ink-soft);
+    background: none;
+    border: 1px dashed var(--line);
+    border-radius: 100px;
+    padding: 3px 10px;
+    cursor: pointer;
+  }
+  .signed-in-row button:hover { border-color: var(--risk); color: var(--risk); }
+
+  .locked-note {
+    background: var(--neutral-soft);
+    border-radius: 8px;
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  /* ---------- Stat strip ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .stat {
+    background: var(--paper-raised);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-value {
+    font-family: "Big Shoulders Display", sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- Sections ---------- */
+  section { display: flex; flex-direction: column; gap: 16px; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+
+  .section-num {
+    font-family: "Big Shoulders Display", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 28px;
+  }
+
+  .section-head h2 {
+    font-size: clamp(24px, 3.4vw, 30px);
+    font-weight: 700;
+  }
+
+  .section-body {
+    padding-left: 42px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .section-body p { margin: 0; max-width: 65ch; color: var(--ink); }
+  .section-body p.sub { color: var(--ink-soft); font-size: 15px; }
+
+  .callout {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    max-width: 65ch;
+    box-shadow: var(--shadow);
+  }
+  .callout strong { color: var(--accent); }
+
+  .price-row {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+  }
+  .price-tag {
+    background: var(--neutral-soft);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .price-tag.anchor { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+  /* ---------- Channel table ---------- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; background: var(--paper-raised); }
+  thead th {
+    text-align: left;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--neutral-soft);
+  }
+  tbody td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.channel { font-weight: 600; white-space: nowrap; }
+  td.fee { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--ink-soft); white-space: nowrap; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .pill.good { background: var(--good-soft); color: var(--good); }
+  .pill.ready { background: var(--accent-soft); color: var(--accent); }
+  .pill.neutral { background: var(--neutral-soft); color: var(--ink-soft); }
+  .pill.risk { background: var(--risk-soft); color: var(--risk); }
+
+  /* ---------- Checklist ---------- */
+  .checklist-group h3 {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    font-family: "IBM Plex Mono", monospace;
+    margin-bottom: 8px;
+  }
+  ul.checklist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  ul.checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    max-width: 68ch;
+  }
+  ul.checklist li::before {
+    content: "";
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 4px;
+  }
+  ul.checklist li span { font-size: 14.5px; }
+  ul.checklist li b { font-weight: 600; }
+
+  ul.checklist li.done::before {
+    content: "\2713";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1;
+    color: var(--paper-raised);
+    background: var(--good);
+    border-color: var(--good);
+  }
+  ul.checklist li.done span { color: var(--ink-soft); text-decoration: line-through; }
+  ul.checklist li.done b { color: var(--ink-soft); }
+
+  /* ---------- Risk / footer ---------- */
+  .risk-note {
+    display: flex;
+    gap: 12px;
+    background: var(--risk-soft);
+    border: 1px solid var(--risk);
+    border-radius: 8px;
+    padding: 14px 18px;
+    max-width: 65ch;
+  }
+  .risk-note .pill { flex: none; margin-top: 2px; }
+  .risk-note p { margin: 0; font-size: 14.5px; color: var(--ink); }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  footer a { color: var(--ink-soft); }
+  footer a:hover { color: var(--accent); }
+
+  /* ---------- Comments ---------- */
+  .comments {
+    margin-top: 10px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .comment-list { display: flex; flex-direction: column; gap: 10px; }
+  .comment-item {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    max-width: 68ch;
+  }
+  .comment-item.frage { border-color: var(--accent); background: var(--accent-soft); }
+  .comment-item .meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .comment-item .meta-left { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .comment-item .meta b { color: var(--ink); }
+  .comment-item p { margin: 0; font-size: 14px; white-space: pre-wrap; max-width: none; }
+  .question-badge {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--paper-raised);
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    padding: 1px 8px;
+  }
+  .comment-del {
+    border: none;
+    background: none;
+    color: var(--ink-soft);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 2px 4px;
+    flex: none;
+  }
+  .comment-del:hover { color: var(--risk); }
+  .comment-del.confirm { color: #fff; background: var(--risk); border-radius: 100px; padding: 2px 10px; font-weight: 600; }
+  .comment-form { display: flex; flex-direction: column; gap: 8px; max-width: 68ch; }
+  .comment-form textarea {
+    resize: vertical;
+    min-height: 56px;
+    font: inherit;
+    font-size: 14px;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--paper-raised);
+    color: var(--ink);
+  }
+  .comment-form-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .comment-form-question { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-soft); }
+  .comment-form-question input { width: 14px; height: 14px; accent-color: var(--accent); cursor: pointer; }
+  .comment-btn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    cursor: pointer;
+  }
+  .comment-btn:hover { background: var(--accent); color: #fff; }
+
+  .status {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 100px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .2s, transform .2s;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .status.zeig { opacity: 1; transform: translateY(0); }
+  .status.fehler { border-color: var(--risk); color: var(--risk); }
+
+  @media (max-width: 620px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .section-body { padding-left: 0; }
+  }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- Timeline / Strategy ---------- */
+  .strategy-head { display: flex; flex-direction: column; gap: 8px; }
+  .strategy-head h2 { font-size: clamp(26px, 3.8vw, 34px); }
+  .strategy-head p { max-width: 68ch; color: var(--ink-soft); font-size: 15px; margin: 0; }
+
+  .progress-bar { display: flex; align-items: center; gap: 12px; font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--ink-soft); }
+  .progress-track { flex: 1; height: 8px; border-radius: 100px; background: var(--neutral-soft); overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width .3s; }
+
+  .timeline { position: relative; display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .phase { position: relative; padding: 0 0 34px 34px; }
+  .phase:last-child { padding-bottom: 0; }
+  .phase::before {
+    content: "";
+    position: absolute;
+    left: 5px; top: 4px; bottom: -4px;
+    width: 2px;
+    background: var(--line);
+  }
+  .phase:last-child::before { display: none; }
+  .phase-dot {
+    position: absolute;
+    left: 0; top: 2px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--accent);
+  }
+  .phase.komplett .phase-dot { background: var(--good); border-color: var(--good); }
+  .phase-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; margin-bottom: 4px; }
+  .phase-top h3 { font-size: 19px; font-weight: 700; }
+  .phase-when {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .phase-goal { font-size: 14px; color: var(--ink-soft); margin: 0 0 12px; max-width: 62ch; }
+  .task-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 12px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    max-width: 66ch;
+  }
+  .task-item input { margin-top: 2px; width: 16px; height: 16px; accent-color: var(--good); cursor: pointer; flex: none; }
+  .task-item span.txt { font-size: 14px; }
+  .task-item.done span.txt { color: var(--ink-soft); text-decoration: line-through; }
+  .task-item .task-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; flex: 1; }
+  .claim-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--good);
+    background: var(--good-soft);
+    border-radius: 100px;
+    padding: 2px 9px;
+    cursor: pointer;
+    white-space: nowrap;
+    border: none;
+  }
+  .claim-btn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    background: none;
+    border: 1px dashed var(--line);
+    border-radius: 100px;
+    padding: 2px 9px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .claim-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .claim-tag.confirm { background: var(--risk); color: #fff; }
+  .claim-input-row { display: inline-flex; gap: 6px; align-items: center; }
+  .claim-input-row input {
+    font: inherit;
+    font-size: 12.5px;
+    padding: 3px 8px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    background: var(--paper-raised);
+    color: var(--ink);
+    width: 120px;
+  }
+  .claim-ok {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--good);
+    border: none;
+    border-radius: 100px;
+    padding: 3px 10px;
+    cursor: pointer;
+  }
+
+  .questions-panel {
+    background: var(--paper-raised);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .questions-panel h3 { font-size: 15px; }
+  .questions-panel ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .questions-panel li a {
+    font-size: 13.5px;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .questions-panel li a:hover { color: var(--accent); }
+  .questions-panel .qwo { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .milestone {
+    margin-top: 8px;
+    display: flex;
+    gap: 12px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    max-width: 65ch;
+  }
+  .milestone p { margin: 0; font-size: 14.5px; color: var(--ink); }
+  .milestone b { color: var(--accent); }
+
+  .detail-head { display: flex; flex-direction: column; gap: 6px; padding-top: 8px; border-top: 2px solid var(--ink); }
+  .detail-head h2 { font-size: clamp(22px, 3vw, 28px); }
+  .detail-head p { margin: 0; color: var(--ink-soft); font-size: 14px; }
+
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="masthead">
+    <div class="eyebrow">Gemeinsames Strategie-Briefing · Murat &amp; Nilu</div>
+    <h1>ChibiTruck Dispatch</h1>
+    <div class="masthead-meta">
+      <span><strong>Stand:</strong> 06.09.2026</span>
+      <span><strong>Betrieb:</strong> MetaCommerce Handel e.U., Wien</span>
+      <span><strong>Läuft nur gemeinsam</strong> — dieses Dokument gehört beiden</span>
+    </div>
+  </div>
+
+  <div class="auth-banner" id="auth-banner" hidden>
+    <h2>GitHub-Zugang einrichten</h2>
+    <p>Diese Seite speichert Kommentare und Aufgaben-Status direkt im privaten GitHub-Repo <code>murat-tikic/SkydanceNilu</code>. Dafür braucht sie einmalig deinen eigenen GitHub-Token — der bleibt nur in deinem Browser gespeichert und geht nirgendwo sonst hin.</p>
+    <ol>
+      <li>Öffne <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">github.com/settings/tokens</a> (Fine-grained token)</li>
+      <li>"Generate new token" → Repository access: nur <code>SkydanceNilu</code> auswählen</li>
+      <li>Permissions → "Contents": <b>Read and write</b></li>
+      <li>Token erzeugen, kopieren, hier einfügen</li>
+    </ol>
+    <div class="auth-row">
+      <input type="password" id="token-input" placeholder="github_pat_...">
+      <button class="auth-btn" id="token-save">Speichern &amp; verbinden</button>
+    </div>
+    <p class="auth-error" id="auth-error" hidden></p>
+  </div>
+
+  <div class="signed-in-row" id="signed-in-row" hidden>
+    <span>Verbunden als <b id="gh-username">…</b></span>
+    <button id="token-clear">Token entfernen</button>
+    <button id="manual-refresh">Aktualisieren</button>
+  </div>
+
+  <div id="locked-note" class="locked-note" hidden>Zum Ansehen und Bearbeiten bitte oben den GitHub-Token einrichten.</div>
+
+  <div id="app-content" hidden>
+
+    <div id="questions-panel"></div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">?</div>
+        <div class="stat-label">ChibiTrucks im Lager — noch ungezählt</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">1 / 8</div>
+        <div class="stat-label">Vertriebskanäle aktiv genutzt</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">04/25</div>
+        <div class="stat-label">Letzte Bestellung (Shopify)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">0 €</div>
+        <div class="stat-label">Ausgegeben für ungenutzten Ads-Plan</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="strategy-head">
+        <span class="eyebrow">Strategie &amp; Zeitachse</span>
+        <h2>Vom Optimieren zum Live-Start</h2>
+        <p>Vier Phasen, ein Ziel: alle Kanäle laufen, bevor die Google-Trends-Weihnachtsrampe einsetzt (Peak Ende Nov./Anfang Dez.). Häkchen setzen — der Fortschritt wird direkt im gemeinsamen Repo gespeichert.</p>
+      </div>
+      <div id="timeline-progress"></div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <div class="detail-head">
+      <span class="eyebrow">Hintergrund &amp; Details</span>
+      <h2>Alles Wissen je Bereich</h2>
+      <p>Die Begründung, Zahlen und Kommentare hinter der Strategie oben — nach Themen sortiert.</p>
+    </div>
+
+    <div id="sections"></div>
+
+    <footer>
+      <span>Quellen: WKO/social.at/branchenblatt.at (TikTok Shop AT), Whatnot Blog + Help Center (Live-Selling Europa), check-app.de/kleidio.com (Vinted/Willhaben/Kleinanzeigen-Vergleich), eBay-Preisrecherche RC-Mini-Trucks — Stand 06.09.2026, jeweils zum Recherchezeitpunkt.</span>
+      <span>Daten liegen in <code>murat-tikic/SkydanceNilu/dispatch-state.json</code> — geschrieben mit deinem eigenen GitHub-Token.</span>
+    </footer>
+
+  </div>
+
+</div>
+
+<div class="status" id="status">bereit</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var OWNER = "murat-tikic";
+  var REPO = "SkydanceNilu";
+  var PATH = "dispatch-state.json";
+  var BRANCH = "main";
+  var API = "https://api.github.com/repos/" + OWNER + "/" + REPO + "/contents/" + PATH;
+  var TOKEN_KEY = "chibitruck_gh_pat";
+
+  var SECTIONS = [
+    {
+      id: "0", num: "0", title: "Shopify optimieren — jetzt Priorität",
+      body: '<p>Bevor neue Kanäle Traffic bringen, muss die Hauptseite bereit sein, ihn zu verwandeln. Aus dem SEO/GEO-Audit + Google-Trends-Check (06.09.2026) ergeben sich zwei Ebenen: Texte/Schema, die sofort vorbereitet werden können — und ein Punkt, der Shopify-Admin- bzw. Google-Zugriff braucht.</p>' +
+        '<div class="callout"><strong>Prio 1: Google Merchant Center.</strong> Ungeprüft, ob der Sales-Channel "Google &amp; YouTube" in Shopify aktiv ist. Das ist der schnellste Weg zu Google-Sichtbarkeit (Shopping-Tab, Bildersuche) — er umgeht das Backlink-/Autoritätsproblem komplett, während organisches Ranking gegen Amazon &amp; Co. realistisch Monate dauert. Ohne Merchant-Center-Feed bleibt "hoch gelistet werden" auf Google im Kern ein Zeitproblem, kein Text-Problem.</div>' +
+        '<p class="sub">Copy-paste-fertig — jemand mit Shopify-Adminzugriff muss es nur noch einfügen:</p>' +
+        '<div class="table-wrap"><table><thead><tr><th>Seite</th><th>Neuer Title</th></tr></thead><tbody>' +
+        '<tr><td class="channel">Homepage</td><td>ChibiTruck – Ferngesteuerter Mini-Truck als Geschenk | Gratis Versand AT &amp; DE</td></tr>' +
+        '<tr><td class="channel">/products/tinytruck</td><td>ChibiTruck RC Mini-Truck – 22 cm, Scheinwerfer, 3 Std. Akku | €59,95</td></tr>' +
+        '<tr><td class="channel">/products/chibitruck-tresor</td><td>ChibiTruck Tresor – RC Mini-Truck mit Verstaufach | €59,95</td></tr>' +
+        '</tbody></table></div>' +
+        '<p class="sub">Meta-Descriptions (Ziel: 150–160 Zeichen):</p>' +
+        '<div class="callout"><b>Homepage:</b> „Der ChibiTruck: robuster ferngesteuerter Mini-Truck für drinnen &amp; draußen. Scheinwerfer, Offroad-Fahrwerk, 3&nbsp;Std. Akkulaufzeit. Gratis Versand AT/DE, 15 Tage Rückgaberecht.“<br><b>Produktseiten:</b> „Der ChibiTruck ist ein realistischer RC-Mini-Truck mit Scheinwerfern und Offroad-Fahrwerk — perfekt als Geschenk. €59,95, gratis Versand, 15 Tage Rückgaberecht.“</div>' +
+        '<p class="sub">Weitere Fixes aus dem Audit (jeweils in Shopify-Admin bzw. Judge.me-App):</p>' +
+        '<ul class="checklist">' +
+        '<li><span><b>Alt-Texte</b> für Produktbilder ergänzen (40 von 50 Bildern aktuell leer) — Muster: „ChibiTruck ferngesteuerter Mini-Truck, Offroad-Fahrt im Matsch“, „ChibiTruck Tresor, Frontansicht mit Scheinwerfern“.</span></li>' +
+        '<li><span><b>AggregateRating aktivieren:</b> in der Judge.me-App unter Einstellungen → Rich Snippets/SEO einschalten — die 31 Bewertungen sind schon da, nur unmarkiert. Bringt Sterne direkt im Google-Suchergebnis.</span></li>' +
+        '<li><span><b>FAQPage-Schema</b> auf /pages/faq ergänzen (JSON-LD mit den vorhandenen Fragen „Was genau ist der Chibi Truck?“ usw. — Antworttext 1:1 aus der Live-Seite übernehmen, nicht neu formulieren).</span></li>' +
+        '<li><span><b>Homepage-H1</b> als echten Text setzen (aktuell nur das Logo-Bild), doppelte H1 auf FAQ/Über-uns-Seite auflösen.</span></li>' +
+        '<li><span><b>hreflang</b> von generisch „de“ auf „de-AT“ + „de-DE“ schärfen — Deutschland ist der größere Markt und wird aktuell nicht gezielt adressiert.</span></li>' +
+        '</ul>'
+    },
+    {
+      id: "1", num: "1", title: "ChibiTrucks",
+      body: '<p>Shop funktioniert nachweislich (Checkout getestet), Bewertungen sind stark (4,33★ / 4,87★), Rabattcode <b>CHIBITRUCK10</b> konvertiert seit Monaten zuverlässig. Verkäufe liefen aktiv Ende Feb.–Ende Apr. 2025, dann Stillstand — nicht weil der Shop kaputt ist, sondern weil kein Traffic mehr ankommt.</p>' +
+        '<p class="sub">Preis-Einordnung ggü. Markt (eBay-Vergleich RC-Mini-Trucks, Sept. 2026):</p>' +
+        '<div class="price-row"><span class="price-tag">Markt gesamt: 9,95–90,99 €</span><span class="price-tag">Massenware Ø: 20–45 €</span><span class="price-tag">Typisch rabattiert: −50 %</span><span class="price-tag anchor">ChibiTruck: 59,95 €</span></div>' +
+        '<div class="callout"><strong>Preis halten, nicht senken.</strong> 59,95 € liegt am oberen Rand des Massenmarkts — das trägt nur, solange die Story "Durable Fun" (langlebig statt Wegwerf-Plastik) stärker verkauft wird als der Preis. CHIBITRUCK10 bleibt der reale Kaufanreiz in Ads, nicht ein neuer Dauerrabatt auf der Seite.</div>' +
+        '<p>Sofort-Hebel: Die fertige FB-Ads-Strategie aus dem Drive (Broad DACH 30–55, getrennte Sets Väter/Geschenk-Käuferinnen, 3-2-2-Creative-Test, 20–30 €/Tag, Scaling erst ab ROAS&nbsp;&gt;&nbsp;2,5) ist bereits geschrieben — inklusive Rohvideos und Sound-Assets. Sie muss nur reaktiviert, nicht neu erfunden werden. Volle Tabelle: <code>Projekte/SkydanceNilu/FB_ADS_STRATEGIE.md</code>.</p>' +
+        '<p class="sub">Realistische Meta-Ads-Benchmarks DACH 2026 (aus Nilus Analyse):</p>' +
+        '<div class="price-row"><span class="price-tag">CPM Median: ~6 €</span><span class="price-tag anchor">CPM Q4: bis 32 € (5× Baseline)</span><span class="price-tag">CPC gutes Creative: ~0,40 €</span><span class="price-tag">CTR: ~1,5 %</span></div>' +
+        '<div class="callout"><strong>Budget-Staffelung:</strong> Creative-Tests 20–30 €/Tag (erst nach Margin-Klärung) → Ramp-Up Mitte Oktober 50–80 €/Tag → Q4-Peak (Black Friday/Weihnachten) 100–200 €/Tag bei ROAS&nbsp;&gt;&nbsp;2,5. Q4-CPMs steigen stark — früh starten, Creatives vorher testen, erste 72h nur beobachten statt skalieren.</div>' +
+        '<div class="callout"><strong>Timing-Deadline aus Google Trends (AT, 12 Monate):</strong> "ferngesteuertes auto" zeigt klare Saisonalität — Baseline ~35–55, Spitze Ende Nov.–Ende Dez. (Peak 100 am 07.12.2025). Klassisches Weihnachts-Geschenke-Suchverhalten, deckt sich mit dem "perfektes Geschenk"-Winkel. Alles (Ads, Kanäle, Shopify-Fixes) sollte <b>vor Mitte November</b> live sein, sonst wird die Rampe verpasst. "ChibiTruck" als Markenname wird dagegen praktisch gar nicht gesucht (flache Null übers Jahr) — auf den Markennamen zu ranken bringt allein noch keine neuen Käufer:innen.</div>' +
+        '<p class="sub">Preis-Segmentierung mit benannten Wettbewerbern (aus Nilus Markt-Analyse, 06.09.2026):</p>' +
+        '<div class="table-wrap"><table><thead><tr><th>Segment</th><th>Preisspanne</th><th>Beispiele</th><th>Einordnung</th></tr></thead><tbody>' +
+        '<tr><td>Entry (qualitätsschwach)</td><td class="fee">&lt; 42 €</td><td>Temu, generische Amazon-Marken</td><td><span class="pill neutral">andere Zielgruppe</span></td></tr>' +
+        '<tr><td class="channel">ChibiTruck-Segment</td><td class="fee">43–65 €</td><td>VATOS, HELIFAR, Hot Wheels Tiger Shark</td><td><span class="pill ready">direkte Konkurrenz</span></td></tr>' +
+        '<tr><td>Premium/Hobby-Grade</td><td class="fee">&gt; 200 €</td><td>Traxxas, Arrma</td><td><span class="pill neutral">andere Zielgruppe</span></td></tr>' +
+        '</tbody></table></div>' +
+        '<div class="callout"><strong>Kritisch:</strong> 59,95 € ist marktgerecht, aber der "Durable Fun"-Claim ist nirgendwo auf chibitruck.at belegt — kein Vergleichsvideo, kein Materialtest, kein konkreter Qualitätsnachweis. Temu bietet optisch ähnliche Trucks für 15–25 €. Die Positionierung hält nur über sichtbaren Content (Video, Whatnot-Live-Demos), nicht über den Preis allein.</div>'
+    },
+    {
+      id: "2", num: "2", title: "Weitere Produkte",
+      body: '<p><b>Frauenkleidung (Gr. S/M, guter Zustand):</b> Vinted ist für Einzelstück-Kleidung die richtige Wahl — keine Verkäufergebühr (Käufer zahlt ~5&nbsp;%+0,70&nbsp;€ Schutzgebühr), größte zielgruppenspezifische Community, Versandlabel inklusive. Willhaben/Kleinanzeigen sind nur bei Abholung oder ganzen Kartons konkurrenzfähig, nicht bei Einzelteilen mit Versand.</p>' +
+        '<p><b>LED-Lampe & Schlüsselanhänger:</b> Einzelwert zu gering für einen eigenen Kanal. Besser als Gratis-Beigabe in ChibiTruck-Bestellungen einsetzen — passt direkt in den bestehenden "perfektes Geschenk"-Winkel der Ads. Restmenge notfalls als Sammel-Listing auf Willhaben/Shpock.</p>'
+    },
+    {
+      id: "3", num: "3", title: "Vertriebsquellen",
+      body: '<div class="table-wrap"><table><thead><tr><th>Kanal</th><th>Status</th><th>Passt zu</th><th>Gebühren</th><th>Aufwand bis live</th></tr></thead><tbody>' +
+        '<tr><td class="channel">Shopify (chibitruck.at)</td><td><span class="pill good">läuft bereits</span></td><td>Trucks</td><td class="fee">Standard Shopify-Fees</td><td>0 — schon da</td></tr>' +
+        '<tr><td class="channel">Whatnot (Live-Auktion)</td><td><span class="pill ready">startklar seit 2025</span></td><td>Trucks (Live-Demo!)</td><td class="fee">Provision p. Verkauf</td><td>Bewerbung + 1. Show</td></tr>' +
+        '<tr><td class="channel">TikTok Shop AT</td><td><span class="pill ready">live seit 15.06.2026</span></td><td>Trucks + Kleidung</td><td class="fee">Reg. gratis, Provision/Sale</td><td>Onboarding + GPSR</td></tr>' +
+        '<tr><td class="channel">Vinted</td><td><span class="pill ready">startklar</span></td><td>Kleidung</td><td class="fee">0 € (Verkäufer)</td><td>Konto + Fotos</td></tr>' +
+        '<tr><td class="channel">Willhaben / Shpock</td><td><span class="pill ready">startklar</span></td><td>Kleidung, LED/Anhänger, lokaler Truck-Verkauf</td><td class="fee">0 €</td><td>Anzeige einstellen</td></tr>' +
+        '<tr><td class="channel">Facebook Marketplace</td><td><span class="pill ready">startklar</span></td><td>lokaler Truck-Verkauf (parallel zu Willhaben)</td><td class="fee">0 €</td><td>Anzeige einstellen</td></tr>' +
+        '<tr><td class="channel">eBay</td><td><span class="pill neutral">nachrangig</span></td><td>Nur Sammler-/Nischenteile</td><td class="fee">privat oft 0 €</td><td>—</td></tr>' +
+        '<tr><td class="channel">Reddit (passiv)</td><td><span class="pill neutral">nur organisch</span></td><td>Erwähnung in passenden Threads</td><td class="fee">—</td><td>kein Ads-Kanal, kein eigenes Listing</td></tr>' +
+        '</tbody></table></div>'
+    },
+    {
+      id: "4", num: "4", title: "Schneller Abverkauf",
+      body: '<div class="checklist-group"><h3>Heute</h3><ul class="checklist">' +
+        '<li><span><b>Bestandsaufnahme mit Nilu</b> — echte Stückzahl ChibiTruck (+ ggf. weitere Restposten) zählen. Alles Weitere baut darauf auf, aktuell nur geschätzt.</span></li>' +
+        '<li><span><b>Willhaben-Anzeige</b> für lokalen ChibiTruck-Abverkauf in Wien — sofort zusätzlich zu Shopify, ohne Wartezeit.</span></li>' +
+        '<li><span><b>Facebook-Marketplace-Anzeige</b> parallel zu Willhaben einstellen — gleiche Fotos/Text, zweiter kostenloser lokaler Kanal.</span></li>' +
+        '<li><span><b>Vinted-Konto</b> anlegen, erste 5–10 Kleidungsteile fotografieren & einstellen.</span></li>' +
+        '<li><span><b>Whatnot-Verkäuferkonto</b> beantragen — Prüfung dauert oft ein paar Tage, deshalb jetzt anstoßen.</span></li>' +
+        '<li><span><b>FB-Ads-Kampagne</b> aus dem bestehenden Sheet — Videos & Sounds liegen bereit, aber <b>zuerst mit Nilu abstimmen</b> (Zugriff aufs Werbekonto, Budgetfreigabe), bevor etwas live geschaltet wird.</span></li>' +
+        '</ul></div>' +
+        '<div class="checklist-group"><h3>Diese Woche</h3><ul class="checklist">' +
+        '<li><span><b>TikTok Shop AT</b> registrieren — Gewerbeanmeldung, UID, IBAN und GPSR-Angaben bereithalten.</span></li>' +
+        '<li><span>Erste <b>Whatnot-Live-Show</b> planen, Rohvideos aus dem Drive als Vorlage/Skript nutzen.</span></li>' +
+        '<li><span><b>LED-Lampe & Schlüsselanhänger</b> als Gratis-Bundle in Shopify mit dem ChibiTruck verknüpfen.</span></li>' +
+        '<li><span><b>Preis-Check</b>: 3–5 Konkurrenz-Listings auf eBay/Temu wöchentlich beobachten, Positionierung nicht über den Preis verwässern.</span></li>' +
+        '</ul></div>' +
+        '<div class="risk-note"><span class="pill risk">Offen</span><p><b>Bestand unbekannt:</b> Die reale Stückzahl der ChibiTrucks ist nicht gezählt — Mehrfach-Listing auf Willhaben, FB Marketplace, Whatnot und Shopify gleichzeitig kann sonst zu Überverkauf führen. Erst zählen, dann auf mehreren Kanälen parallel anbieten.</p></div>' +
+        '<div class="risk-note"><span class="pill risk">Offen</span><p><b>GPSR-Konformität</b> (CE-Kennzeichnung, verantwortliche Person in der EU, Sicherheitshinweise) vor dem TikTok-Shop-Listing prüfen — für Elektronikspielzeug seit Dez. 2024 Pflicht. Zusätzlich weiterhin offen: wer hat Zugriff auf den Shopify-Adminbereich und das bestehende Werbeanzeigenkonto?</p></div>'
+    },
+    {
+      id: "5", num: "5", title: "GitHub-Kooperation",
+      body: '<p><b>Dieses Projekt läuft nur gemeinsam mit Nilu.</b> Kanonisches Repo ist <b>murat-tikic/SkydanceNilu</b> (privat) — Nilu ist dort als Collaborator eingetragen. Diese Seite hier speichert direkt in dieses Repo (Datei <code>dispatch-state.json</code>), mit dem jeweils eigenen GitHub-Token.</p>' +
+        '<div class="callout"><strong>Nilus eigene Analyse (06.09.2026):</strong> Ihr "NILU-AGENT OS" hat mit 3 Sub-Agenten (Strategie/GitHub/Markt) <code>ANALYSE.md</code> + <code>chibitruck-analyse.html</code> ins Repo committed. Die wichtigsten neuen Punkte (COGS/Margin-Blocker, Frage nach dem Ads-Stopp April 2025, Preis-Konkurrenz, Ads-Benchmarks) sind bereits oben eingearbeitet — Volltext siehe die Dateien direkt im Repo.</div>' +
+        '<ul class="checklist">' +
+        '<li><span><b>Zwei-Repo-Drift auflösen:</b> beide Analysen (Murat wie Nilu) kommen unabhängig zum selben Schluss — <code>murat-tikic/SkydanceNilu</code> als einzige kanonische Quelle behandeln, die Kopie in <code>nilu-agent-os</code> entweder als reinen Lese-Spiegel führen oder ganz entfernen.</span></li>' +
+        '</ul>' +
+        '<p class="sub">Empfohlener Tech-Stack aus ihrer GitHub-Recherche (Priorität nach Nutzen):</p>' +
+        '<ul class="checklist">' +
+        '<li><span><b>GeLi2001/shopify-mcp</b> (★238) — Shopify-Admin-API als MCP-Server: Lagerstand, Preise, Draft Orders direkt aus Claude Code, ohne Browser-Login. Priorität 1 — braucht nur den Admin-API-Token (<code>shpat_...</code>) von Nilu.</span></li>' +
+        '<li><span><b>facebook/facebook-python-business-sdk</b> (★1589, offiziell) — Meta-Ads-Kampagnen, Targeting, Reporting und Budget-Anpassung automatisiert statt manuell im Ads Manager.</span></li>' +
+        '</ul>'
+    }
+  ];
+
+  var PHASES = [
+    {
+      id: "p1", num: "1", title: "Fundament legen",
+      when: "08.–14.09.2026 · Woche 1",
+      goal: "Bestand kennen, Shopify sichtbar machen, kostenlose Kanäle anstoßen.",
+      tasks: [
+        {id: "p1-1", text: "Bestandsaufnahme mit Nilu — echte Stückzahl ChibiTruck (+ Restposten) zählen"},
+        {id: "p1-2", text: "Google Merchant Center prüfen/einrichten (Sales Channel „Google & YouTube“ in Shopify aktivieren)"},
+        {id: "p1-3", text: "Shopify-SEO-Fixes eintragen: Titles, Meta-Descriptions, Alt-Texte, AggregateRating, FAQPage-Schema, H1, hreflang"},
+        {id: "p1-4", text: "Willhaben-Anzeige für lokalen ChibiTruck-Abverkauf einstellen"},
+        {id: "p1-5", text: "Facebook-Marketplace-Anzeige parallel einstellen"},
+        {id: "p1-6", text: "Vinted-Konto anlegen, erste 5–10 Kleidungsteile einstellen"},
+        {id: "p1-7", text: "Whatnot-Verkäuferkonto beantragen (Prüfung dauert Tage — jetzt anstoßen)"},
+        {id: "p1-8", text: "COGS/Einkaufspreis pro ChibiTruck ermitteln — ohne Marge ist das ROAS-Ziel 2,5 aussagelos (aus Nilus Strategie-Analyse, 06.09.2026)"},
+        {id: "p1-9", text: "Klären: Warum wurden die FB-Ads im April 2025 gestoppt? (Budget, ROAS, Kontosperre?) — vor Neustart beantworten, sonst wiederholt sich der Fehler mit echtem Geld"}
+      ]
+    },
+    {
+      id: "p2", num: "2", title: "Kostenlose Kanäle scharf schalten",
+      when: "15.–21.09.2026 · Woche 2",
+      goal: "TikTok Shop und Whatnot live, Compliance-Pflichten abgehakt.",
+      tasks: [
+        {id: "p2-1", text: "GPSR-Konformität klären (CE-Kennzeichnung, EU-Verantwortliche Person, Sicherheitshinweise) — Pflicht vor TikTok-Shop-Listing"},
+        {id: "p2-2", text: "TikTok Shop AT registrieren (Gewerbeanmeldung, UID, IBAN, GPSR-Angaben)"},
+        {id: "p2-3", text: "Erste Whatnot-Live-Show durchführen (Rohvideos aus dem Drive als Skript)"},
+        {id: "p2-4", text: "LED-Lampe & Schlüsselanhänger als Gratis-Bundle in Shopify verknüpfen"}
+      ]
+    },
+    {
+      id: "p3", num: "3", title: "FB-Ads-Kampagne live schalten",
+      when: "22.09.–05.10.2026 · Woche 3–4",
+      goal: "Die fertige Ads-Strategie aus dem Drive reaktivieren, nicht neu erfinden.",
+      tasks: [
+        {id: "p3-1", text: "Werbekonto-Zugriff & Budgetfreigabe mit Nilu klären, bevor etwas live geschaltet wird"},
+        {id: "p3-2", text: "FB-Ads-Strategie aus Drive (Ecommerce MT/Facebook) reaktivieren: Broad DACH 30–55, getrennte Sets Väter/Geschenk-Käuferinnen"},
+        {id: "p3-3", text: "3-2-2-Creative-Test aufsetzen (3 Videos, 2 Headlines, 2 Primary Texts) mit den vorhandenen Rohvideos"},
+        {id: "p3-4", text: "CAPI (Conversions API) + Pixel-Tracking prüfen, bevor Budget fließt"},
+        {id: "p3-5", text: "Kampagne mit 20–30 €/Tag starten, Hook-Rate (3s Views) & ROAS ab Tag 1 beobachten"}
+      ]
+    },
+    {
+      id: "p4", num: "4", title: "Skalieren vor der Weihnachts-Rampe",
+      when: "06.10.–14.11.2026",
+      goal: "Alle Kanäle parallel, Budget nur bei belegter Performance erhöhen.",
+      tasks: [
+        {id: "p4-1", text: "Scaling nur bei ROAS > 2,5 — Budget alle 48h um max. 20 % erhöhen"},
+        {id: "p4-2", text: "Retargeting/DPA für Warenkorb-Abbrecher aktivieren"},
+        {id: "p4-3", text: "Wöchentlicher Preis-Check gegen eBay/Temu — Positionierung nicht über den Preis verwässern"},
+        {id: "p4-4", text: "Bestand über alle Kanäle im Blick behalten (Willhaben, FB Marketplace, Whatnot, Shopify, TikTok) — Überverkauf vermeiden"}
+      ]
+    }
+  ];
+
+  var DEFAULT_STATE = { comments: {}, tasks: {}, claims: {} };
+
+  var STATE = JSON.parse(JSON.stringify(DEFAULT_STATE));
+  var currentSha = null;
+  var ghUsername = null;
+  var armed = {};
+  var armedTimers = {};
+  var activeClaimInput = null;
+  var busy = false;
+  var pollTimer = null;
+
+  SECTIONS.forEach(function(s){ STATE.comments[s.id] = []; });
+  PHASES.forEach(function(p){ STATE.comments[p.id] = []; });
+
+  var SCOPE_LABELS = {};
+  SECTIONS.forEach(function(s){ SCOPE_LABELS[s.id] = s.title; });
+  PHASES.forEach(function(p){ SCOPE_LABELS[p.id] = "Phase " + p.num + " — " + p.title; });
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function fmtTs(iso){
+    try {
+      var d = new Date(iso);
+      return d.toLocaleString("de-AT", {dateStyle:"medium", timeStyle:"short"});
+    } catch(e){ return iso; }
+  }
+
+  function utf8ToB64(str){
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+  function b64ToUtf8(b64){
+    return decodeURIComponent(escape(atob(b64.replace(/\n/g, ""))));
+  }
+
+  function getToken(){ return localStorage.getItem(TOKEN_KEY) || ""; }
+  function setToken(t){ localStorage.setItem(TOKEN_KEY, t); }
+  function clearToken(){ localStorage.removeItem(TOKEN_KEY); }
+
+  function ghHeaders(){
+    return {
+      "Authorization": "token " + getToken(),
+      "Accept": "application/vnd.github+json"
+    };
+  }
+
+  function showStatus(text, isError){
+    var el = document.getElementById("status");
+    el.textContent = text;
+    el.className = "status zeig" + (isError ? " fehler" : "");
+    clearTimeout(showStatus._t);
+    showStatus._t = setTimeout(function(){ el.className = "status"; }, 2400);
+  }
+
+  function normalizeState(obj){
+    var out = { comments: {}, tasks: {}, claims: {} };
+    if (obj && obj.comments) out.comments = obj.comments;
+    if (obj && obj.tasks) out.tasks = obj.tasks;
+    if (obj && obj.claims) out.claims = obj.claims;
+    SECTIONS.forEach(function(s){ if (!out.comments[s.id]) out.comments[s.id] = []; });
+    PHASES.forEach(function(p){ if (!out.comments[p.id]) out.comments[p.id] = []; });
+    return out;
+  }
+
+  function ghGetFile(){
+    return fetch(API + "?ref=" + BRANCH, { headers: ghHeaders() }).then(function(res){
+      if (res.status === 404) {
+        return { json: JSON.parse(JSON.stringify(DEFAULT_STATE)), sha: null };
+      }
+      if (!res.ok) {
+        return res.json().catch(function(){ return {}; }).then(function(body){
+          var err = new Error((body && body.message) || ("HTTP " + res.status));
+          err.status = res.status;
+          throw err;
+        });
+      }
+      return res.json().then(function(body){
+        var content = JSON.parse(b64ToUtf8(body.content));
+        return { json: content, sha: body.sha };
+      });
+    });
+  }
+
+  function ghPutFile(contentObj, sha, message){
+    var body = {
+      message: message,
+      content: utf8ToB64(JSON.stringify(contentObj, null, 2)),
+      branch: BRANCH
+    };
+    if (sha) body.sha = sha;
+    return fetch(API, {
+      method: "PUT",
+      headers: Object.assign({ "Content-Type": "application/json" }, ghHeaders()),
+      body: JSON.stringify(body)
+    }).then(function(res){
+      if (!res.ok) {
+        return res.json().catch(function(){ return {}; }).then(function(errBody){
+          var err = new Error((errBody && errBody.message) || ("HTTP " + res.status));
+          err.status = res.status;
+          throw err;
+        });
+      }
+      return res.json();
+    });
+  }
+
+  function withRemoteMutation(message, mutateFn){
+    if (busy) return;
+    busy = true;
+    showStatus("speichere …");
+    var attempts = 0;
+
+    function attempt(){
+      attempts++;
+      return ghGetFile().then(function(res){
+        var remote = normalizeState(res.json);
+        mutateFn(remote);
+        return ghPutFile(remote, res.sha, message).then(function(putRes){
+          STATE = remote;
+          currentSha = putRes.content && putRes.content.sha;
+          busy = false;
+          renderAll();
+          showStatus("gespeichert");
+        });
+      }).catch(function(err){
+        if (err.status === 409 && attempts < 4) {
+          return attempt();
+        }
+        busy = false;
+        if (err.status === 401 || err.status === 403) {
+          showStatus("Zugriff verweigert — Token prüfen", true);
+        } else {
+          showStatus("Fehler beim Speichern", true);
+        }
+      });
+    }
+    return attempt();
+  }
+
+  function loadState(){
+    showStatus("lade …");
+    return ghGetFile().then(function(res){
+      STATE = normalizeState(res.json);
+      currentSha = res.sha;
+      showStatus("bereit");
+      renderAll();
+    }).catch(function(err){
+      if (err.status === 401 || err.status === 403 || err.status === 404) {
+        showAuthError("Zugriff fehlgeschlagen (" + (err.status || "?") + "): " + err.message + " — Token/Repo-Rechte prüfen.");
+        showAuthBanner();
+      } else {
+        showStatus("Fehler beim Laden", true);
+      }
+    });
+  }
+
+  function fetchGhUser(){
+    return fetch("https://api.github.com/user", { headers: ghHeaders() }).then(function(res){
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.json();
+    }).then(function(u){
+      ghUsername = u.login;
+      return u.login;
+    });
+  }
+
+  function arm(key){
+    armed[key] = true;
+    clearTimeout(armedTimers[key]);
+    armedTimers[key] = setTimeout(function(){ delete armed[key]; renderAll(); }, 4000);
+  }
+  function disarm(key){ delete armed[key]; clearTimeout(armedTimers[key]); }
+
+  function renderComments(id){
+    var list = STATE.comments[id] || [];
+    var itemsHtml = list.map(function(c){
+      var delKey = 'del:' + id + ':' + c.id;
+      var delBtn = armed[delKey]
+        ? '<button class="comment-del confirm" data-scope="' + id + '" data-id="' + c.id + '" title="Klicke erneut zum Bestätigen">Wirklich löschen?</button>'
+        : '<button class="comment-del" data-scope="' + id + '" data-id="' + c.id + '" title="Kommentar löschen">Löschen</button>';
+      return '<div class="comment-item' + (c.question ? ' frage' : '') + '">' +
+        '<div class="meta"><div class="meta-left"><b>' + escapeHtml(c.author) + '</b><span>' + escapeHtml(fmtTs(c.ts)) + '</span>' +
+        (c.question ? '<span class="question-badge">❓ Offene Frage</span>' : '') + '</div>' + delBtn + '</div>' +
+        '<p>' + escapeHtml(c.text) + '</p></div>';
+    }).join("");
+    var formHtml = '<div class="comment-form">' +
+      '<textarea data-section="' + id + '" class="comment-input" placeholder="Kommentar hinzufügen… (Strg+Enter zum Absenden)"></textarea>' +
+      '<div class="comment-form-row">' +
+        '<label class="comment-form-question"><input type="checkbox" class="comment-question" data-section="' + id + '"> Offene Frage</label>' +
+        '<button class="comment-btn" data-section="' + id + '">Kommentieren als ' + escapeHtml(ghUsername || "…") + '</button>' +
+      '</div>' +
+    '</div>';
+    return '<div class="comments" id="comments-' + id + '" data-section="' + id + '">' +
+      '<span class="eyebrow">Kommentare' + (list.length ? ' (' + list.length + ')' : '') + '</span>' +
+      '<div class="comment-list">' + itemsHtml + '</div>' +
+      formHtml +
+    '</div>';
+  }
+
+  function questionsHtml(){
+    var open = [];
+    Object.keys(STATE.comments).forEach(function(scopeId){
+      (STATE.comments[scopeId] || []).forEach(function(c){
+        if (c.question) open.push({scope: scopeId, comment: c});
+      });
+    });
+    if (!open.length) return "";
+    open.sort(function(a, b){ return new Date(b.comment.ts) - new Date(a.comment.ts); });
+    var itemsHtml = open.map(function(o){
+      var label = SCOPE_LABELS[o.scope] || o.scope;
+      return '<li><a href="#comments-' + o.scope + '"><span class="qwo">' + escapeHtml(label) + '</span>„' + escapeHtml(o.comment.text) + '" — ' + escapeHtml(o.comment.author) + '</a></li>';
+    }).join("");
+    return '<div class="questions-panel"><h3>❓ Offene Fragen (' + open.length + ')</h3><ul>' + itemsHtml + '</ul></div>';
+  }
+
+  function sectionsHtml(){
+    return SECTIONS.map(function(s){
+      return '<section><div class="section-head"><span class="section-num">' + s.num + '</span><h2>' + escapeHtml(s.title) + '</h2></div>' +
+        '<div class="section-body">' + s.body + renderComments(s.id) + '</div></section>';
+    }).join("");
+  }
+
+  function allTasks(){
+    var out = [];
+    PHASES.forEach(function(p){ p.tasks.forEach(function(t){ out.push(t); }); });
+    return out;
+  }
+
+  function progressHtml(){
+    var all = allTasks();
+    var done = all.filter(function(t){ return !!STATE.tasks[t.id]; }).length;
+    var pct = all.length ? Math.round((done / all.length) * 100) : 0;
+    return '<div class="progress-bar"><span>' + done + ' / ' + all.length + ' erledigt</span>' +
+      '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
+      '<span>' + pct + ' %</span></div>';
+  }
+
+  function timelineHtml(){
+    return PHASES.map(function(p){
+      var doneCount = p.tasks.filter(function(t){ return !!STATE.tasks[t.id]; }).length;
+      var komplett = doneCount === p.tasks.length;
+      var tasksHtml = p.tasks.map(function(t){
+        var done = !!STATE.tasks[t.id];
+        var claimant = STATE.claims[t.id];
+        var claimHtml;
+        if (claimant) {
+          var relKey = 'release:' + t.id;
+          claimHtml = armed[relKey]
+            ? '<button class="claim-tag confirm" data-task="' + t.id + '" title="Klicke erneut zum Bestätigen">Freigeben?</button>'
+            : '<button class="claim-tag" data-task="' + t.id + '" title="Klicken zum Freigeben">👤 ' + escapeHtml(claimant) + '</button>';
+        } else if (activeClaimInput === t.id) {
+          claimHtml = '<span class="claim-input-row"><input type="text" class="claim-input" data-task="' + t.id + '" placeholder="Dein Name" value="' + escapeHtml(ghUsername || "") + '">' +
+            '<button class="claim-ok" data-task="' + t.id + '">OK</button></span>';
+        } else {
+          claimHtml = '<button class="claim-btn" data-task="' + t.id + '">beanspruchen</button>';
+        }
+        return '<li class="task-item' + (done ? ' done' : '') + '" data-task="' + t.id + '">' +
+          '<input type="checkbox" id="task-' + t.id + '"' + (done ? ' checked' : '') + '>' +
+          '<div class="task-row"><span class="txt">' + escapeHtml(t.text) + '</span>' + claimHtml + '</div></li>';
+      }).join("");
+      return '<div class="phase' + (komplett ? ' komplett' : '') + '" data-phase="' + p.id + '">' +
+        '<div class="phase-dot"></div>' +
+        '<div class="phase-top"><h3>Phase ' + p.num + ' — ' + escapeHtml(p.title) + '</h3><span class="phase-when">' + escapeHtml(p.when) + '</span></div>' +
+        '<p class="phase-goal">' + escapeHtml(p.goal) + '</p>' +
+        '<ul class="task-list">' + tasksHtml + '</ul>' +
+        renderComments(p.id) +
+      '</div>';
+    }).join("") +
+    '<div class="milestone"><span class="pill risk">Ziel</span><p><b>Spätestens 14.11.2026</b> müssen alle Kanäle live sein — „ferngesteuertes auto" zeigt laut Google Trends den Nachfrage-Peak Ende November/Anfang Dezember. Danach ist die Rampe verpasst. Nilus Strategie-Analyse (06.09.2026) setzt zwei härtere Zwischen-Deadlines: <b>Meta Ads spätestens 01.11.</b>, <b>TikTok Shop AT spätestens 15.11.</b> — beide Onboardings brauchen Vorlaufzeit.</p></div>';
+  }
+
+  function renderAll(){
+    document.getElementById("sections").innerHTML = sectionsHtml();
+    document.getElementById("timeline").innerHTML = timelineHtml();
+    document.getElementById("timeline-progress").innerHTML = progressHtml();
+    document.getElementById("questions-panel").innerHTML = questionsHtml();
+  }
+
+  function addComment(scopeId){
+    var ta = document.querySelector('.comment-input[data-section="' + scopeId + '"]');
+    if (!ta) return;
+    var text = ta.value.trim();
+    if (!text) return;
+    var questionInput = document.querySelector('.comment-question[data-section="' + scopeId + '"]');
+    var isQuestion = !!(questionInput && questionInput.checked);
+    var newComment = {
+      id: scopeId + "-" + Date.now(),
+      author: ghUsername || "Anonym",
+      text: text,
+      question: isQuestion,
+      ts: new Date().toISOString()
+    };
+    withRemoteMutation("Kommentar von " + (ghUsername || "?") + " in " + scopeId, function(remote){
+      if (!remote.comments[scopeId]) remote.comments[scopeId] = [];
+      remote.comments[scopeId].push(newComment);
+    });
+  }
+
+  function deleteComment(scopeId, commentId){
+    withRemoteMutation("Kommentar gelöscht von " + (ghUsername || "?"), function(remote){
+      remote.comments[scopeId] = (remote.comments[scopeId] || []).filter(function(c){ return c.id !== commentId; });
+    });
+  }
+
+  function toggleTask(taskId, done){
+    withRemoteMutation((done ? "Erledigt: " : "Wieder offen: ") + taskId, function(remote){
+      remote.tasks[taskId] = done;
+    });
+  }
+
+  function releaseClaim(taskId){
+    withRemoteMutation("Freigegeben: " + taskId, function(remote){
+      delete remote.claims[taskId];
+    });
+  }
+
+  function submitClaim(taskId){
+    var input = document.querySelector('.claim-input[data-task="' + taskId + '"]');
+    var name = (input && input.value.trim()) || ghUsername || "Anonym";
+    activeClaimInput = null;
+    withRemoteMutation("Beansprucht von " + name + ": " + taskId, function(remote){
+      remote.claims[taskId] = name;
+    });
+  }
+
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest(".comment-btn");
+    if (btn){ addComment(btn.getAttribute("data-section")); return; }
+
+    var del = e.target.closest(".comment-del");
+    if (del){
+      var delKey = 'del:' + del.getAttribute("data-scope") + ':' + del.getAttribute("data-id");
+      if (armed[delKey]){
+        disarm(delKey);
+        deleteComment(del.getAttribute("data-scope"), del.getAttribute("data-id"));
+      } else {
+        arm(delKey);
+        renderAll();
+      }
+      return;
+    }
+
+    var claimTag = e.target.closest(".claim-tag");
+    if (claimTag){
+      var taskId = claimTag.getAttribute("data-task");
+      var relKey = 'release:' + taskId;
+      if (armed[relKey]){
+        disarm(relKey);
+        releaseClaim(taskId);
+      } else {
+        arm(relKey);
+        renderAll();
+      }
+      return;
+    }
+
+    var claimBtn = e.target.closest(".claim-btn");
+    if (claimBtn){
+      activeClaimInput = claimBtn.getAttribute("data-task");
+      renderAll();
+      var inp = document.querySelector('.claim-input[data-task="' + activeClaimInput + '"]');
+      if (inp) inp.focus();
+      return;
+    }
+
+    var claimOk = e.target.closest(".claim-ok");
+    if (claimOk){ submitClaim(claimOk.getAttribute("data-task")); return; }
+  });
+
+  document.addEventListener("change", function(e){
+    if (e.target.matches && e.target.matches(".task-item input[type=checkbox]")){
+      var li = e.target.closest(".task-item");
+      toggleTask(li.getAttribute("data-task"), e.target.checked);
+    }
+  });
+
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Enter" && e.ctrlKey && e.target.classList && e.target.classList.contains("comment-input")){
+      e.preventDefault();
+      addComment(e.target.getAttribute("data-section"));
+    }
+    if (e.key === "Enter" && e.target.classList && e.target.classList.contains("claim-input")){
+      e.preventDefault();
+      submitClaim(e.target.getAttribute("data-task"));
+    }
+    if (e.key === "Escape" && e.target.classList && e.target.classList.contains("claim-input")){
+      activeClaimInput = null;
+      renderAll();
+    }
+  });
+
+  function showAuthBanner(){
+    document.getElementById("auth-banner").hidden = false;
+    document.getElementById("signed-in-row").hidden = true;
+    document.getElementById("app-content").hidden = true;
+    document.getElementById("locked-note").hidden = true;
+  }
+  function showAuthError(msg){
+    var el = document.getElementById("auth-error");
+    el.textContent = msg;
+    el.hidden = false;
+  }
+  function showApp(){
+    document.getElementById("auth-banner").hidden = true;
+    document.getElementById("signed-in-row").hidden = false;
+    document.getElementById("app-content").hidden = false;
+    document.getElementById("locked-note").hidden = true;
+    document.getElementById("gh-username").textContent = ghUsername || "?";
+  }
+
+  function connect(){
+    if (!getToken()) { showAuthBanner(); return; }
+    document.getElementById("locked-note").hidden = false;
+    fetchGhUser().then(function(){
+      showApp();
+      return loadState();
+      }).then(function(){
+      if (pollTimer) clearInterval(pollTimer);
+      pollTimer = setInterval(function(){
+        if (!busy) loadState();
+      }, 25000);
+    }).catch(function(err){
+      showAuthError("Verbindung fehlgeschlagen: " + err.message);
+      showAuthBanner();
+    });
+  }
+
+  document.getElementById("token-save").addEventListener("click", function(){
+    var val = document.getElementById("token-input").value.trim();
+    if (!val) return;
+    setToken(val);
+    document.getElementById("auth-error").hidden = true;
+    connect();
+  });
+
+  document.getElementById("token-clear").addEventListener("click", function(){
+    clearToken();
+    ghUsername = null;
+    if (pollTimer) clearInterval(pollTimer);
+    document.getElementById("token-input").value = "";
+    showAuthBanner();
+  });
+
+  document.getElementById("manual-refresh").addEventListener("click", function(){
+    if (!busy) loadState();
+  });
+
+  connect();
+})();
+</script>
+</body>
+</html>
