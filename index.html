@@ -2,20 +2,20 @@
 <html lang="de">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Murat Tikic — Enterprise Sales · SaaS &amp; Technology</title>
-<meta name="description" content="Enterprise Account Executive für SaaS &amp; KI-Software in Wien. 7+ Jahre B2B-Vertrieb, C-Level-Verhandlung, internationale Märkte — und ich baue meine Vertriebs-Tools selbst.">
+<title>Murat Tikic — Enterprise Sales: Hunter, Farmer, Tool-Builder</title>
+<meta name="description" content="Enterprise-B2B-Vertrieb in Wien: Neugeschäft und Bestandsausbau in einer Hand — 7+ Jahre, zwölf Branchen, Kunden wie Hitachi Rail, Fresenius, Hilti und L'Oréal. Und die Vertriebssoftware dazu baue ich selbst.">
 <meta name="google-site-verification" content="A-XYwDyqSL-FymBUs9aH6AK4hnuq8T7VHFWNPDXQQCo" />
 <link rel="canonical" href="https://murat-tikic.github.io/">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Murat Tikic — Enterprise Sales · SaaS &amp; Technology">
-<meta property="og:description" content="Enterprise Account Executive für SaaS &amp; KI-Software in Wien. 7+ Jahre B2B-Vertrieb — und ich baue meine Vertriebs-Tools selbst.">
+<meta property="og:title" content="Murat Tikic — Enterprise Sales: Hunter, Farmer, Tool-Builder">
+<meta property="og:description" content="Neugeschäft und Bestandsausbau in einer Hand — 7+ Jahre Enterprise-B2B, zwölf Branchen. Und die Vertriebssoftware dazu baue ich selbst.">
 <meta property="og:url" content="https://murat-tikic.github.io/">
 <meta property="og:locale" content="de_AT">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Murat Tikic — Enterprise Sales · SaaS &amp; Technology">
-<meta name="twitter:description" content="Enterprise Account Executive für SaaS &amp; KI-Software in Wien. 7+ Jahre B2B-Vertrieb — und ich baue meine Vertriebs-Tools selbst.">
+<meta name="twitter:title" content="Murat Tikic — Enterprise Sales: Hunter, Farmer, Tool-Builder">
+<meta name="twitter:description" content="Neugeschäft und Bestandsausbau in einer Hand — 7+ Jahre Enterprise-B2B, zwölf Branchen. Und die Vertriebssoftware dazu baue ich selbst.">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Murat Tikic","jobTitle":"Enterprise Account Executive","url":"https://murat-tikic.github.io/","sameAs":["https://linkedin.com/in/murat-tikic"],"address":{"@type":"PostalAddress","addressLocality":"Wien","addressCountry":"AT"}}
+{"@context":"https://schema.org","@type":"Person","name":"Murat Tikic","jobTitle":"Senior Key Account Manager / Enterprise Account Executive","url":"https://murat-tikic.github.io/","sameAs":["https://linkedin.com/in/murat-tikic"],"knowsLanguage":[{"@type":"Language","name":"German"},{"@type":"Language","name":"English"},{"@type":"Language","name":"Turkish"}],"knowsAbout":["Enterprise B2B Sales","New Business Development","Key Account Management","Solution Selling","Framework Agreements","Sales Automation","EU AI Act","GDPR"],"address":{"@type":"PostalAddress","addressLocality":"Wien","addressCountry":"AT"}}
 </script>
 <style>
   :root{
@@ -207,12 +207,112 @@
   .card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
   .tag{font-family:var(--mono);font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
 
-  .logo-strip{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(16px,2.5vw,28px)}
-  .logo-strip img{height:44px;width:auto;max-width:180px;object-fit:contain;display:block;
-    background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 18px}
-  .logo-strip img[src*="lindt"],.logo-strip img[src*="off-white"]{height:60px}
-  @media (max-width:600px){.logo-strip{gap:14px}.logo-strip img{height:34px;padding:10px 14px}
-    .logo-strip img[src*="lindt"],.logo-strip img[src*="off-white"]{height:44px}}
+  /* ---- CLIENT PORTFOLIO — each client is a card carrying two facts: who (the logo)
+     and which industry (icon + label). The industry line is the actual argument of this
+     section: the same person sold into rail, construction, pharma, FMCG, sport and
+     fashion, so the breadth is the proof, not any single name. Logos keep their own
+     brand colours on a neutral tile; the icon row below is monochrome so it reads as
+     our annotation rather than part of the client's brand. ---- */
+  .pf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .pf{background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    padding:20px 18px 14px;display:flex;flex-direction:column;gap:14px;
+    transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+  .pf:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--teal) 45%,var(--line));
+    box-shadow:0 18px 40px -24px rgba(0,0,0,.42)}
+  .pf .shot{flex:1;display:flex;align-items:center;justify-content:center;min-height:52px}
+  .pf .shot img{max-height:38px;max-width:100%;width:auto;object-fit:contain;display:block}
+  .pf .shot img[src*="lindt"],.pf .shot img[src*="off-white"]{max-height:50px}
+  .pf .shot .wordmark{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);
+    letter-spacing:-.01em;text-align:center;line-height:1.15}
+  .pf .biz{display:flex;align-items:center;gap:9px;border-top:1px solid var(--line);padding-top:12px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+  .pf .biz svg{width:19px;height:19px;flex:none;color:var(--teal)}
+  .pf-note{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:20px;letter-spacing:.03em}
+
+  /* ---- HUNTER / FARMER — a deliberate pair, not a card grid: the whole point is that
+     these are two opposite motions (win new / grow existing) held by one person, so they
+     sit side by side at equal weight with a mirrored accent (coral = hunt, teal = grow). ---- */
+  .modes{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .mode{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(26px,3vw,36px);
+    position:relative;overflow:hidden}
+  .mode::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--mode-c)}
+  .mode.hunt{--mode-c:var(--coral)}
+  .mode.farm{--mode-c:var(--teal)}
+  .mode .mh{display:flex;align-items:center;gap:13px;margin-bottom:6px}
+  .mode .mh svg{width:26px;height:26px;color:var(--mode-c);flex:none}
+  .mode .mh h3{font-family:var(--serif);font-size:clamp(23px,2.6vw,29px);font-weight:600;margin:0;color:var(--ink)}
+  .mode .mrole{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mode-c);margin-bottom:16px}
+  .mode > p{font-size:15px;color:var(--muted);line-height:1.62;margin:0 0 20px}
+  .mode ul{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:9px}
+  .mode li{font-size:14px;color:var(--muted);line-height:1.5;padding-left:20px;position:relative}
+  .mode li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:2px;
+    background:var(--mode-c);opacity:.75}
+  .mode .mproof{border-top:1px solid var(--line);padding-top:16px}
+  .mode .mproof .fig{font-family:var(--mono);font-weight:600;font-size:clamp(22px,2.6vw,30px);
+    color:var(--mode-c);font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em;
+    white-space:nowrap;margin-bottom:9px}
+  .mode .mproof .lab{font-size:12.5px;color:var(--muted);line-height:1.45}
+
+  /* ---- CHAIN — genuinely a sequence (a deal runs through these stages in order), which
+     is why this one earns numbered steps where the rest of the page avoids them. ---- */
+  .chain{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:8px}
+  .chain .step{position:relative;padding:0 16px 0 0}
+  .chain .step::before{content:"";position:absolute;left:0;top:13px;right:0;height:2px;
+    background:linear-gradient(90deg,var(--teal),color-mix(in srgb,var(--teal) 30%,transparent))}
+  /* The last station ends the chain — a trailing line would promise a sixth step. */
+  .chain .step:last-child::before{display:none}
+  .chain .no{position:relative;z-index:1;width:28px;height:28px;border-radius:50%;background:var(--bg);
+    border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:12px;font-weight:600;color:var(--teal)}
+  .chain .step:last-child .no{border-color:var(--coral);color:var(--coral)}
+  .chain .st{font-weight:600;font-size:15px;color:var(--ink);margin:16px 0 7px;line-height:1.3}
+  .chain .sd{font-size:13.5px;color:var(--muted);line-height:1.5;padding-right:10px}
+  .chain-note{margin-top:32px;font-size:clamp(16px,1.6vw,19px);color:var(--ink);max-width:60ch;line-height:1.6}
+  .chain-note b{color:var(--teal)}
+
+  /* ---- DEPTH — a flat tag cloud claims everything equally, which reads as noise to a
+     technical reader. These three bands say how deep each group actually goes: daily
+     driver, reach for it when the job needs it, professional ground knowledge. The
+     accent fades band by band so the hierarchy is visible before a word is read. ---- */
+  .depth{display:flex;flex-direction:column;gap:30px}
+  .band{display:grid;grid-template-columns:minmax(190px,.28fr) 1fr;gap:clamp(16px,3vw,40px);
+    align-items:start;padding-top:22px;border-top:2px solid var(--band-c)}
+  .band.d1{--band-c:var(--teal)}
+  .band.d2{--band-c:color-mix(in srgb,var(--teal) 45%,transparent)}
+  .band.d3{--band-c:var(--line)}
+  .band .bt{font-weight:600;font-size:16.5px;color:var(--ink);margin-bottom:7px}
+  .band .bd{font-size:13px;color:var(--muted);line-height:1.5}
+  .band .chips{display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start}
+  .band .chip{font-family:var(--mono);font-size:11.5px;color:var(--ink);background:var(--surface);
+    border:1px solid var(--line);border-radius:7px;padding:5px 11px;line-height:1.35}
+  .band.d1 .chip{border-color:color-mix(in srgb,var(--teal) 40%,var(--line));
+    color:var(--ink);font-weight:600}
+  .band.d3 .chip{color:var(--muted);background:transparent}
+
+  .certs{margin-top:clamp(40px,5vw,60px);border-top:1px solid var(--line);padding-top:26px}
+  .certs .cl{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--teal);margin-bottom:14px}
+  .cert-row{display:flex;flex-wrap:wrap;gap:9px}
+  .cert{font-family:var(--mono);font-size:11.5px;color:var(--ink);text-decoration:none;
+    border:1px solid color-mix(in srgb,var(--teal) 42%,var(--line));border-radius:8px;
+    padding:8px 13px;display:inline-flex;align-items:center;gap:8px;
+    transition:border-color .18s ease,transform .18s ease,color .18s ease}
+  .cert:hover,.cert:focus-visible{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+  .cert svg{width:14px;height:14px;flex:none;color:var(--teal)}
+  .honest{margin-top:34px;font-size:15px;color:var(--muted);line-height:1.65;max-width:62ch;
+    border-left:2px solid var(--coral);padding-left:18px}
+  .honest b{color:var(--ink);font-weight:600}
+  @media (max-width:760px){.band{grid-template-columns:1fr;gap:14px}}
+
+  @media (max-width:1000px){.pf-grid{grid-template-columns:repeat(3,1fr)}
+    .chain{grid-template-columns:repeat(2,1fr);gap:26px 0}
+    .chain .step:nth-child(2)::before{background:linear-gradient(90deg,var(--teal),transparent)}}
+  @media (max-width:720px){.modes{grid-template-columns:1fr}}
+  @media (max-width:560px){.pf-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+    .pf{padding:16px 14px 12px}.pf .shot img{max-height:30px}
+    .chain{grid-template-columns:1fr;gap:22px}
+    .chain .step::before{display:none}}
 
   .diffs{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
   .diff{border-top:2px solid var(--line);padding-top:22px;transition:border-color .3s ease}
@@ -276,6 +376,8 @@
   @media (max-width:520px){.stats{grid-template-columns:1fr}.arc{grid-template-columns:1fr}}
 </style>
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><defs><symbol id="i-train-front" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3.1V7a4 4 0 0 0 8 0V3.1" /> <path d="m9 15-1-1" /> <path d="m15 15 1-1" /> <path d="M9 19c-2.8 0-5-2.2-5-5v-4a8 8 0 0 1 16 0v4c0 2.8-2.2 5-5 5Z" /> <path d="m8 19-2 3" /> <path d="m16 19 2 3" /></symbol><symbol id="i-shield-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /></symbol><symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></symbol><symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2" /> <path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2" /> <path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3" /> <path d="M4 22h16" /> <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" /> <path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3" /></symbol><symbol id="i-car-front" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /> <path d="M7 14h.01" /> <path d="M17 14h.01" /> <rect width="18" height="8" x="3" y="10" rx="2" /> <path d="M5 18v2" /> <path d="M19 18v2" /></symbol><symbol id="i-heart-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /> <path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" /></symbol><symbol id="i-candy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 7v10.9" /> <path d="M14 6.1V17" /> <path d="M16 7V3a1 1 0 0 1 1.707-.707 2.5 2.5 0 0 0 2.152.717 1 1 0 0 1 1.131 1.131 2.5 2.5 0 0 0 .717 2.152A1 1 0 0 1 21 8h-4" /> <path d="M16.536 7.465a5 5 0 0 0-7.072 0l-2 2a5 5 0 0 0 0 7.07 5 5 0 0 0 7.072 0l2-2a5 5 0 0 0 0-7.07" /> <path d="M8 17v4a1 1 0 0 1-1.707.707 2.5 2.5 0 0 0-2.152-.717 1 1 0 0 1-1.131-1.131 2.5 2.5 0 0 0-.717-2.152A1 1 0 0 1 3 16h4" /></symbol><symbol id="i-hammer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" /> <path d="m18 15 4-4" /> <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" /></symbol><symbol id="i-shirt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" /></symbol><symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /></symbol><symbol id="i-cup-soda" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8" /> <path d="M5 8h14" /> <path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0" /> <path d="m12 8 1-6h2" /></symbol><symbol id="i-dices" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2" ry="2" /> <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6" /> <path d="M6 18h.01" /> <path d="M10 14h.01" /> <path d="M15 6h.01" /> <path d="M18 9h.01" /></symbol><symbol id="i-crosshair" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /> <line x1="22" x2="18" y1="12" y2="12" /> <line x1="6" x2="2" y1="12" y2="12" /> <line x1="12" x2="12" y1="6" y2="2" /> <line x1="12" x2="12" y1="22" y2="18" /></symbol><symbol id="i-sprout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3" /> <path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4" /> <path d="M5 21h14" /></symbol><symbol id="i-badge-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /> <path d="m16 9-5.5 5.5L8 12" /></symbol></defs></svg>
+
 <div class="progress" id="progress"></div>
 
 <div class="langsw" role="group" aria-label="Sprache / Language">
@@ -299,9 +401,9 @@
     <div class="hero-grid">
       <div>
         <div class="hero-name">Murat Tikic<span class="dot">.</span></div>
-        <div class="eyebrow" data-i18n="hero_eyebrow">Enterprise Sales · SaaS & Technologie</div>
-        <h1 data-i18n="hero_h1">Enterprise Sales. <span class="grad">Mit technischer Tiefe.</span></h1>
-        <p class="lead" data-i18n="hero_bridge">7+ Jahre Enterprise-B2B-Vertrieb: C-Level-Verhandlungen, internationale Märkte, messbare Ergebnisse. Mein Unterschied: <b>Ich baue eigene Software</b> — und verstehe dadurch, wie die Produkte, die ich verkaufe, wirklich funktionieren.</p>
+        <div class="eyebrow" data-i18n="hero_eyebrow">Enterprise B2B · Neugeschäft &amp; Bestandsausbau</div>
+        <h1 data-i18n="hero_h1">Hunter und Farmer. <span class="grad">Mit eigener Werkzeugkiste.</span></h1>
+        <p class="lead" data-i18n="hero_bridge">Sieben Jahre Enterprise-Vertrieb, gelernt in der Personalvermittlung: Bedarf verstehen, Rahmenverträge schließen, Projekte liefern. <b>Seit 2025 baue ich die Software, die diese Arbeit trägt</b> — und verkaufe nichts mehr, was ich nicht selbst durchdrungen habe.</p>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 4px" aria-label="Sprachen">
           <span class="tag" data-i18n="lang_de">Deutsch · Muttersprache</span><span class="tag" data-i18n="lang_en">Englisch · verhandlungssicher</span><span class="tag" data-i18n="lang_tr">Türkisch · Muttersprache</span>
         </div>
@@ -323,109 +425,156 @@
 </header>
 
 <main>
-  <!-- HOOK -->
-  <section>
-    <div class="wrap reveal">
-      <div class="sec-label" data-i18n="hook_label">Antrieb</div>
-      <div class="split">
-        <h2 data-i18n="hook_h2">Neugier als Prinzip.</h2>
-        <div class="prose">
-          <p data-i18n="hook_p">Vom Werkzeugmechaniker über den Vertrieb bis zur eigenen Software – ich habe nie aufgehört, dazuzulernen.
-          <b>Diese Bandbreite ist kein Umweg, sie ist der Grund, warum ich Software verkaufe, die ich wirklich verstehe.</b></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHO I AM + TIMELINE -->
-  <section class="panel">
-    <div class="wrap reveal sticky-grid">
-      <div class="sticky-head">
-        <div class="sec-label" data-i18n="who_label">Wer ich bin</div>
-        <h2 data-i18n="who_h2">Vom Werkzeugmechaniker zum Software-Vertrieb.</h2>
-        <p class="prose" data-i18n="who_p">Kein geradliniger Lebenslauf: Werkzeugmechaniker,
-        dann Vertrieb, heute Enterprise-Software.
-        <b>An der Werkbank angefangen, jeden Schritt selbst erarbeitet</b> — diese Spanne ist mein Vorteil,
-        keine Ausnahme.</p>
-      </div>
-      <div class="arc" style="margin-top:0">
-        <div class="node"><div class="yr">2001 – 2009</div><div class="t" data-i18n="n1t">Industrie</div><div class="d" data-i18n="n1d">Werkzeugmechaniker · Audi, Daimler</div></div>
-        <div class="node"><div class="yr">2014 – 2018</div><div class="t" data-i18n="n2t">Retail</div><div class="d" data-i18n="n2d">Sales Consultant · LG, Sky, MediaMarkt</div></div>
-        <div class="node"><div class="yr">2018 – 2026</div><div class="t" data-i18n="n3t">Enterprise Sales</div><div class="d" data-i18n="n3d">Standort-/Teamaufbau (Elevate, Adecco) → Senior KAM</div></div>
-        <div class="node dest"><div class="yr" data-i18n="n4y">2025 → heute</div><div class="t" data-i18n="n4t">Software-Builder</div><div class="d" data-i18n="n4d">Eigene SaaS-Tools, Multi-Agent, EU AI Act</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- THE PROOF: AI DEPTH (heart) -->
-  <section>
-    <div class="wrap reveal">
-      <div class="sec-label" data-i18n="proof_label">Technische Tiefe</div>
-      <h2 data-i18n="proof_h2">Meine Tiefe — selbst gebaut, nicht eingekauft.</h2>
-      <p class="prose" style="margin-bottom:36px" data-i18n="proof_intro">Claude Code als Kommandozentrale. Spezialisierte Subagenten und ein autonomer Partner — orchestriert, koordiniert, kostenbewusst:</p>
-      <div class="diffs">
-        <div class="diff">
-          <div class="n">01</div>
-          <h3 data-i18n="cap1_h">Agenten-System</h3>
-          <p data-i18n="cap1_p">Claude Code + Subagenten + Hermes (24/7) — angebunden an Gemini, DBs, n8n. Infrastruktur.</p>
-        </div>
-        <div class="diff">
-          <div class="n">02</div>
-          <h3 data-i18n="cap2_h">Eigene Tools</h3>
-          <p data-i18n="cap2_p">Datenbank, API, RAG, n8n-Workflows. Ich verkaufe was ich baue — und baue was ich verkaufe.</p>
-        </div>
-        <div class="diff">
-          <div class="n">03</div>
-          <h3 data-i18n="cap3_h">WiredGeist</h3>
-          <p data-i18n="cap3_p">KI-Plattform für den Mittelstand — Nebenprojekt, GTM &amp; Vertrieb aufgebaut, an das Gründerteam übergeben.</p>
-        </div>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:30px" aria-label="Tech-Stack">
-        <span class="tag">Claude Code</span><span class="tag">MCP</span><span class="tag">Multi-Agent</span><span class="tag">Hermes</span><span class="tag">Gemini</span><span class="tag">n8n</span><span class="tag">RAG</span><span class="tag">API</span>
-      </div>
-      <p class="pullquote" style="margin-top:44px" data-i18n="proof_close">Ich verstehe Software, weil ich sie <span class="hl">selbst baue</span>.</p>
-    </div>
-  </section>
-
-  <!-- RESULT: mini-story + stats -->
-  <section class="panel">
-    <div class="wrap reveal">
-      <div class="sec-label" data-i18n="res_label">Ergebnisse</div>
-      <div class="story-grid" style="margin-bottom:44px">
-        <h2 data-i18n="res_h2">Zahlen, die für sich sprechen.</h2>
-        <p class="prose" data-i18n="res_story">HUNTER ist entstanden, weil ich meine eigene Vertriebs-Recherche nicht auslagern wollte:
-        ein System, das Firmen findet, qualifiziert und mit Ansprechpartnern anreichert. Das Ergebnis:
-        <b><span class="hl">+25 % Effizienz</span></b> in meiner täglichen Vertriebsarbeit.</p>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="fig"><span class="u">+</span><span data-count="25">0</span><span class="u">%</span></div><div class="lab" data-i18n="stat1">Outbound-Effizienz durch selbst gebautes Sales-System</div></div>
-        <div class="stat"><div class="fig"><span data-count="1" data-dec="1">0</span><span class="u" data-i18n="u_mio"> Mio €</span></div><div class="lab" data-i18n="stat2">End-to-End verantwortetes Projekt</div></div>
-        <div class="stat"><div class="fig"><span data-count="7">0</span><span class="u" data-i18n="u_yrs">+ J.</span></div><div class="lab" data-i18n="stat3">Enterprise-B2B-Vertrieb &amp; C-Level-Verhandlung</div></div>
-        <div class="stat"><div class="fig"><span data-count="5">0</span><span class="u" data-i18n="u_markets"> Länder</span></div><div class="lab" data-i18n="stat4">Internationale Märkte (DACH, FR, PT, BE, USA)</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- REFERENCES -->
+  <!-- CLIENT PORTFOLIO — the proof comes first, before any claim about it -->
   <section>
     <div class="wrap reveal">
       <div class="sec-label" data-i18n="ref_label">Kundenportfolio</div>
-      <h2 data-i18n="ref_h2">7+ Jahre Kundenportfolio.</h2>
-      <p class="prose" style="margin-bottom:24px" data-i18n="ref_p">Enterprise-Kunden aus internationalen Projekten — B2B, C-Level, branchenübergreifend:</p>
-      <div class="logo-strip">
-        <img src="assets/logos/lindt.svg" alt="Lindt &amp; Sprüngli">
-        <img src="assets/logos/hitachi-rail.svg" alt="Hitachi Rail">
-        <img src="assets/logos/loreal.svg" alt="L'Oréal">
-        <img src="assets/logos/uefa.svg" alt="UEFA">
-        <img src="assets/logos/auto1.svg" alt="Auto1 Group">
-        <img src="assets/logos/fresenius.svg" alt="Fresenius">
-        <img src="assets/logos/pke-holding.svg" alt="PKE Holding AG">
-        <img src="assets/logos/hilti.svg" alt="Hilti">
-        <img src="assets/logos/off-white.png" alt="Off-White">
+      <h2 data-i18n="ref_h2">Für diese Häuser habe ich geliefert.</h2>
+      <p class="prose" style="margin-bottom:30px" data-i18n="ref_p">Sieben Jahre, elf Branchen, ein Muster: komplexer Bedarf, technische Entscheider, lange Zyklen. <b>Vom Schienenfahrzeugbau bis zur Modemarke — verkauft wird in jeder Branche anders.</b></p>
+      <div class="pf-grid">
+        <div class="pf">
+          <div class="shot"><img src="assets/logos/hitachi-rail.svg" alt="Hitachi Rail"></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-train-front"/></svg><span data-i18n="biz_rail">Bahntechnik</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><img src="assets/logos/pke-holding.svg" alt="PKE Holding AG"></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-shield-check"/></svg><span data-i18n="biz_sec">Sicherheitstechnik</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><img src="assets/logos/fresenius.svg" alt="Fresenius"></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-heart-pulse"/></svg><span data-i18n="biz_med">Medizintechnik</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><img src="assets/logos/hilti.svg" alt="Hilti"></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-hammer"/></svg><span data-i18n="biz_build">Bau &amp; Werkzeug</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><img src="assets/logos/loreal.svg" alt="L'Oréal"></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-sparkles"/></svg><span data-i18n="biz_beauty">Kosmetik</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><img src="assets/logos/lindt.svg" alt="Lindt &amp; Sprüngli"></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-candy"/></svg><span data-i18n="biz_food">Süßwaren</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><span class="wordmark">Coca-Cola</span></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-cup-soda"/></svg><span data-i18n="biz_drink">Getränke</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><img src="assets/logos/uefa.svg" alt="UEFA"></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-trophy"/></svg><span data-i18n="biz_sport">Sport</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><img src="assets/logos/auto1.svg" alt="Auto1 Group"></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-car-front"/></svg><span data-i18n="biz_auto">Automotive</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><img src="assets/logos/off-white.png" alt="Off-White"></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-shirt"/></svg><span data-i18n="biz_fashion">Mode</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><span class="wordmark">Worldcoin</span></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-globe"/></svg><span data-i18n="biz_web3">Digitale Identität</span></div>
+        </div>
+        <div class="pf">
+          <div class="shot"><span class="wordmark">Novomatic</span></div>
+          <div class="biz"><svg aria-hidden="true"><use href="#i-dices"/></svg><span data-i18n="biz_gaming">Gaming</span></div>
+        </div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px" aria-label="Weitere Kunden">
-        <span class="tag">Worldcoin</span><span class="tag">Coca-Cola</span><span class="tag">Novomatic</span>
+      <p class="pf-note" data-i18n="ref_note">Ausschnitt — die größten Namen aus sieben Jahren.</p>
+    </div>
+  </section>
+
+  <!-- HUNTER & FARMER — the two motions, made explicit -->
+  <section class="panel">
+    <div class="wrap reveal">
+      <div class="sec-label" data-i18n="mode_label">Zwei Rollen, eine Person</div>
+      <h2 data-i18n="mode_h2">Die meisten können eins von beidem.</h2>
+      <p class="prose" style="margin-bottom:38px" data-i18n="mode_intro">Jagen und entwickeln sind gegensätzliche Arbeitsweisen: Die eine braucht Ausdauer gegen Ablehnung, die andere Geduld über Jahre. <b>Ich habe beide Seiten verantwortet — und für beide eigene Werkzeuge gebaut.</b></p>
+      <div class="modes">
+        <div class="mode hunt">
+          <div class="mh"><svg aria-hidden="true"><use href="#i-crosshair"/></svg><h3 data-i18n="hunt_h">Hunter</h3></div>
+          <div class="mrole" data-i18n="hunt_role">Neugeschäft</div>
+          <p data-i18n="hunt_p">Von der leeren Liste zum unterschriebenen Vertrag. Zwei Standorte habe ich von null aufgebaut — Österreich für Elevate Global, die Niederlassung Wiener Neustadt für Adecco.</p>
+          <ul>
+            <li data-i18n="hunt_l1">Marktanalyse und Zielkundenrecherche</li>
+            <li data-i18n="hunt_l2">Kaltakquise bis zum richtigen Entscheider</li>
+            <li data-i18n="hunt_l3">Erstgespräch, Angebot, Verhandlung, Abschluss</li>
+          </ul>
+          <div class="mproof">
+            <div class="fig"><span class="u">+</span><span data-count="25">0</span>%</div>
+            <div class="lab" data-i18n="hunt_proof">mehr Outbound-Durchsatz, seit mein eigenes Recherche-System die Vorarbeit macht</div>
+          </div>
+        </div>
+        <div class="mode farm">
+          <div class="mh"><svg aria-hidden="true"><use href="#i-sprout"/></svg><h3 data-i18n="farm_h">Farmer</h3></div>
+          <div class="mrole" data-i18n="farm_role">Bestandsausbau</div>
+          <p data-i18n="farm_p">Aus einem Auftrag einen Rahmenvertrag machen, aus einer Abteilung einen Konzern. Bestandskunden wachsen nur, wenn die Lieferung stimmt — deshalb hört meine Verantwortung nicht beim Abschluss auf.</p>
+          <ul>
+            <li data-i18n="farm_l1">Rahmenverträge, Cross- und Upselling</li>
+            <li data-i18n="farm_l2">Deckungsbeitrag je Account steuern</li>
+            <li data-i18n="farm_l3">Liefer- und Qualitätsverantwortung, C-Level-Reporting</li>
+          </ul>
+          <div class="mproof">
+            <div class="fig">14,7 → 2,1 %</div>
+            <div class="lab" data-i18n="farm_proof">Ausfallquote gesenkt, durch datengetriebene Account-Betreuung statt Bauchgefühl</div>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- THE TURN: 2025 -->
+  <section>
+    <div class="wrap reveal sticky-grid">
+      <div class="sticky-head">
+        <div class="sec-label" data-i18n="who_label">Der Umbau</div>
+        <h2 data-i18n="who_h2">Erst den Prozess gemacht. Dann gebaut.</h2>
+        <p class="prose" data-i18n="who_p">Ich komme aus der Personalvermittlung. Dort lernt man das Handwerk, auf das es im Softwarevertrieb ankommt: Bedarf auseinandernehmen, Anforderung und Lösung zusammenbringen, Vertrag, Lieferung, Governance.
+        <b>2025 habe ich angefangen, genau diesen Prozess als Software zu bauen</b> — Recherche, Qualifizierung, Nachfassen, Compliance-Prüfung. Seitdem verkaufe ich Technologie nicht mehr aus der Broschüre, sondern aus der eigenen Werkstatt.</p>
+      </div>
+      <div class="arc" style="margin-top:0">
+        <div class="node"><div class="yr">2001 – 2009</div><div class="t" data-i18n="n1t">Werkbank</div><div class="d" data-i18n="n1d">Werkzeugmechaniker · Audi, Daimler</div></div>
+        <div class="node"><div class="yr">2014 – 2018</div><div class="t" data-i18n="n2t">Verkaufen gelernt</div><div class="d" data-i18n="n2d">Sales Consultant · LG, Sky, MediaMarkt</div></div>
+        <div class="node"><div class="yr">2018 – 2024</div><div class="t" data-i18n="n3t">Aufbauen</div><div class="d" data-i18n="n3d">Standort AT (Elevate), Filiale Wr. Neustadt (Adecco)</div></div>
+        <div class="node dest"><div class="yr" data-i18n="n4y">2025 → heute</div><div class="t" data-i18n="n4t">Selbst bauen</div><div class="d" data-i18n="n4d">Eigene Vertriebssoftware, Multi-Agent, EU AI Act</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CHAIN -->
+  <section class="panel">
+    <div class="wrap reveal">
+      <div class="sec-label" data-i18n="chain_label">Was dadurch zusammenkommt</div>
+      <h2 data-i18n="chain_h2">Ein Deal läuft durch fünf Stationen. Ich halte alle fünf.</h2>
+      <div class="chain">
+        <div class="step">
+          <div class="no">1</div>
+          <div class="st" data-i18n="ch1t">Bedarf erkennen</div>
+          <div class="sd" data-i18n="ch1d">Recherche, Erstkontakt, echte Bedarfsanalyse statt Produktpitch.</div>
+        </div>
+        <div class="step">
+          <div class="no">2</div>
+          <div class="st" data-i18n="ch2t">IT-Landschaft verstehen</div>
+          <div class="sd" data-i18n="ch2d">Bestehende Systeme, Schnittstellen, Prozesse — mit dem Kunden durchgegangen.</div>
+        </div>
+        <div class="step">
+          <div class="no">3</div>
+          <div class="st" data-i18n="ch3t">Lösung definieren</div>
+          <div class="sd" data-i18n="ch3d">Gemeinsam mit der Technik: Umfang, Architektur, Umsetzungsplan.</div>
+        </div>
+        <div class="step">
+          <div class="no">4</div>
+          <div class="st" data-i18n="ch4t">Vertrag schließen</div>
+          <div class="sd" data-i18n="ch4d">Rahmenvertrag, Compliance, Preis — inklusive EU AI Act und DSGVO.</div>
+        </div>
+        <div class="step">
+          <div class="no">5</div>
+          <div class="st" data-i18n="ch5t">Liefern und automatisieren</div>
+          <div class="sd" data-i18n="ch5d">Umsetzung begleiten, danach den wiederkehrenden Teil in Software gießen.</div>
+        </div>
+      </div>
+      <p class="chain-note" data-i18n="chain_note">In den meisten Organisationen sind das vier verschiedene Rollen: SDR, Account Executive, Solution Engineer, Customer Success. <b>Ich bringe die Kette in einer Person mit — und die Software, die sie schneller macht.</b></p>
     </div>
   </section>
 
@@ -434,53 +583,93 @@
     <div class="wrap reveal sticky-grid">
       <div class="sticky-head">
         <div class="sec-label" data-i18n="works_label">Selbst gebaut</div>
-        <h2 data-i18n="works_h2">Der Beweis in Produktform.</h2>
-        <p class="prose" data-i18n="works_intro">Drei Tools, drei verschiedene Domänen — das zeigt, dass die technische Fähigkeit nicht an ein einzelnes Thema gebunden ist:</p>
+        <h2 data-i18n="works_h2">Drei Engpässe, drei Werkzeuge.</h2>
+        <p class="prose" data-i18n="works_intro">Keines davon ist aus einer Produktidee entstanden, sondern aus einer Stelle, an der meine eigene Arbeit zu langsam war. <b>Jedes läuft im Tagesgeschäft.</b></p>
       </div>
       <div class="cards">
         <div class="card">
-          <div class="kicker">Sales Intelligence</div>
+          <div class="kicker" data-i18n="k_hunter">Station 1 · Bedarf erkennen</div>
           <h3>HUNTER</h3>
-          <p data-i18n="hunter_p">Vertriebs-Recherche: findet &amp; qualifiziert Firmen &amp; Ansprechpartner — mit Scoring, Anreicherung, Multi-Agent-Automation.</p>
+          <p data-i18n="hunter_p">Findet und qualifiziert Firmen und Ansprechpartner, reichert sie an und bewertet sie — die Vorarbeit, für die vorher Stunden draufgingen.</p>
           <div class="tags"><span class="tag">Multi-Agent</span><span class="tag">Claude Code</span><span class="tag">Scoring</span></div>
         </div>
         <div class="card">
-          <div class="kicker">HR-Tech · DE/EN</div>
+          <div class="kicker" data-i18n="k_tb">Aus der Personalvermittlung</div>
           <h3>TalentBridge</h3>
-          <p data-i18n="tb_p">Zweisprachiges Kandidaten-Rollen-Matching mit Ampel-Logik — aus meiner Personalvertriebs-Zeit, technisch selbst umgesetzt.</p>
+          <p data-i18n="tb_p">Gleicht Kandidatenprofile gegen Stellenanforderungen ab und zeigt per Ampel, wo es passt und wo nicht — zweisprachig, DE und EN.</p>
           <div class="tags"><span class="tag">LLM-Matching</span><span class="tag">DE/EN</span><span class="tag" data-i18n="t_demo">Demo-Modus</span></div>
         </div>
         <div class="card">
-          <div class="kicker">Compliance</div>
+          <div class="kicker" data-i18n="k_ws">Station 4 · Vertrag &amp; Compliance</div>
           <h3>WächterScan</h3>
-          <p data-i18n="ws_p">Sanktions- &amp; PEP-Screening: prüft Geschäftspartner gegen offizielle Listen mit quellenbelegtem Urteil.</p>
+          <p data-i18n="ws_p">Prüft Geschäftspartner gegen offizielle Sanktions- und PEP-Listen und begründet jedes Urteil mit der Quelle.</p>
           <div class="tags"><span class="tag" data-i18n="t_sanc">Sanktionslisten</span><span class="tag" data-i18n="t_eulaw">EU-Recht</span><span class="tag">RAG</span></div>
         </div>
       </div>
     </div>
+    <div class="wrap reveal" style="margin-top:clamp(36px,5vw,58px)">
+      <p class="pullquote" data-i18n="proof_close">Ich verkaufe keine Technologie, die ich nur <span class="hl">erklären</span> kann.</p>
+    </div>
   </section>
 
-  <!-- WHAT I BRING -->
+  <!-- TOOLKIT: depth, not a tag cloud -->
   <section class="panel">
     <div class="wrap reveal">
-      <div class="sec-label" data-i18n="bring_label">Was ich einbringe</div>
-      <h2 data-i18n="bring_h2">Drei Dinge, die selten zusammenkommen.</h2>
-      <div class="diffs">
-        <div class="diff">
-          <div class="n">01</div>
-          <h3 data-i18n="b1h">Vertrieb, der abschließt</h3>
-          <p data-i18n="b1p">Vollen Sales-Zyklus verantwortet — von Kaltakquise bis Abschluss. Zwei Standorte von Grund auf aufgebaut. 7+ Jahre Enterprise-B2B.</p>
+      <div class="sec-label" data-i18n="stack_label">Werkzeugkasten</div>
+      <h2 data-i18n="stack_h2">Womit ich arbeite — und wie tief.</h2>
+      <p class="prose" style="margin-bottom:42px" data-i18n="stack_intro">Eine Liste, in der alles gleich gewichtet ist, sagt nichts. Deshalb nach Tiefe sortiert: <b>was täglich läuft, was ich hole wenn die Aufgabe es verlangt, und was fachliches Fundament ist.</b></p>
+
+      <div class="depth">
+        <div class="band d1">
+          <div>
+            <div class="bt" data-i18n="d1t">Täglich im Einsatz</div>
+            <div class="bd" data-i18n="d1d">Damit baue und betreibe ich meine eigenen Systeme — seit 2025 fast jeden Tag.</div>
+          </div>
+          <div class="chips">
+            <span class="chip">Claude Code</span><span class="chip">Claude API</span><span class="chip">MCP-Server</span>
+            <span class="chip">Multi-Agent-Orchestrierung</span><span class="chip">Prompt Engineering</span>
+            <span class="chip">Python</span><span class="chip">Streamlit</span><span class="chip">SQLite / SQL</span>
+            <span class="chip">n8n</span><span class="chip">Git / GitHub</span><span class="chip">REST-APIs</span>
+          </div>
         </div>
-        <div class="diff">
-          <div class="n">02</div>
-          <h3 data-i18n="b2h">Technik, die ich selbst baue</h3>
-          <p data-i18n="b2p">Multi-Agent-Systeme, Automatisierung, eigene SaaS-Tools — im produktiven Einsatz. Ich verstehe Software, weil ich sie baue.</p>
+
+        <div class="band d2">
+          <div>
+            <div class="bt" data-i18n="d2t">Sicher im Griff</div>
+            <div class="bd" data-i18n="d2d">Setze ich ein, wenn ein Projekt es braucht — gebaut, zum Laufen gebracht, im Einsatz gehabt.</div>
+          </div>
+          <div class="chips">
+            <span class="chip">FastAPI</span><span class="chip">RAG / Embeddings</span><span class="chip">Gemini &amp; OpenAI SDK</span>
+            <span class="chip">Playwright</span><span class="chip">Web-Scraping / Extraktion</span>
+            <span class="chip">HTML / CSS / JavaScript</span><span class="chip">Cloudflare Pages &amp; Workers</span>
+            <span class="chip">PowerShell &amp; Task Scheduler</span><span class="chip">IMAP / SMTP</span>
+            <span class="chip">CCXT / Börsen-APIs</span><span class="chip">faster-whisper</span><span class="chip">OpenStreetMap / Overpass</span>
+          </div>
         </div>
-        <div class="diff">
-          <div class="n">03</div>
-          <h3 data-i18n="b3h">Regulatorische Sicherheit</h3>
-          <p data-i18n="b3p">Praxiswissen zu EU AI Act und Datenschutz. Ich nehme Verträgen das Risiko, bevor es zum Problem wird.</p>
+
+        <div class="band d3">
+          <div>
+            <div class="bt" data-i18n="d3t">Fachliches Fundament</div>
+            <div class="bd" data-i18n="d3d">Aus dem Vertriebsalltag und dem Studium — die Seite, die Technikprojekte zum Abschluss bringt.</div>
+          </div>
+          <div class="chips">
+            <span class="chip">Salesforce</span><span class="chip">HubSpot</span><span class="chip">SAP S/4HANA</span>
+            <span class="chip">EU AI Act</span><span class="chip">DSGVO</span><span class="chip">Rahmenverträge</span>
+            <span class="chip">Sanktions- &amp; PEP-Screening</span><span class="chip">Deckungsbeitragsrechnung</span>
+            <span class="chip" data-i18n="d3_law">Wirtschaftsrecht (Dipl.-Kfm.)</span>
+          </div>
         </div>
+      </div>
+
+      <div class="certs">
+        <div class="cl" data-i18n="certs_label">Zertifiziert von Anthropic · Claude Academy</div>
+        <div class="cert-row">
+          <a class="cert" href="https://academy.claude.com/verify/d481b6ae8b0c1cfd0e5e9dbf9552b630" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-badge-check"/></svg>Claude Code 101</a>
+          <a class="cert" href="https://academy.claude.com/verify/a05bc48cc2ee1afb98d9a50335e572a9" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-badge-check"/></svg>Claude Code in Action</a>
+          <a class="cert" href="https://academy.claude.com/verify/a2a059ae90d88d14728a8662d648f5a1" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-badge-check"/></svg>Introduction to Model Context Protocol</a>
+          <a class="cert" href="https://academy.claude.com/verify/6545b511b53359877e72efce5000b60c" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-badge-check"/></svg>AI Fluency for Small Businesses</a>
+        </div>
+        <p class="honest" data-i18n="honest">Was ich nicht bin: Softwarearchitekt für Systeme mit tausend Nutzern. <b>Ich baue Werkzeuge, die meine eigene Arbeit tragen — und ich weiß genau, wo diese Grenze verläuft.</b> Genau das macht mich in technischen Gesprächen glaubwürdig: Ich kann mitreden, ohne zu behaupten, was ich nicht liefern kann.</p>
       </div>
     </div>
   </section>
@@ -530,69 +719,106 @@
 
   /* ---------- i18n ---------- */
   const dict = {
-    hero_eyebrow:{de:`Enterprise Sales · SaaS & Technologie`,en:`Enterprise Sales · SaaS & Technology`},
-    hero_h1:{de:`Enterprise Sales. <span class="grad">Mit technischer Tiefe.</span>`,en:`Enterprise Sales. <span class="grad">With technical depth.</span>`},
-    hero_bridge:{de:`7+ Jahre Enterprise-B2B-Vertrieb: C-Level-Verhandlungen, internationale Märkte, messbare Ergebnisse. Mein Unterschied: <b>Ich baue eigene Software</b> — und verstehe dadurch, wie die Produkte, die ich verkaufe, wirklich funktionieren.`,en:`7+ years of enterprise B2B sales: C-level negotiations, international markets, measurable results. What sets me apart: <b>I build my own software</b> — so I understand how the products I sell actually work.`},
+    hero_eyebrow:{de:`Enterprise B2B · Neugeschäft &amp; Bestandsausbau`,en:`Enterprise B2B · New business &amp; account growth`},
+    hero_h1:{de:`Hunter und Farmer. <span class="grad">Mit eigener Werkzeugkiste.</span>`,en:`Hunter and farmer. <span class="grad">With my own toolkit.</span>`},
+    hero_bridge:{de:`Sieben Jahre Enterprise-Vertrieb, gelernt in der Personalvermittlung: Bedarf verstehen, Rahmenverträge schließen, Projekte liefern. <b>Seit 2025 baue ich die Software, die diese Arbeit trägt</b> — und verkaufe nichts mehr, was ich nicht selbst durchdrungen habe.`,en:`Seven years of enterprise sales, learned in staffing: understand the need, close the framework agreement, deliver the project. <b>Since 2025 I build the software that carries this work</b> — and no longer sell anything I haven't worked through myself.`},
     lang_de:{de:`Deutsch · Muttersprache`,en:`German · native`},
     lang_en:{de:`Englisch · verhandlungssicher`,en:`English · fluent`},
     lang_tr:{de:`Türkisch · Muttersprache`,en:`Turkish · native`},
     btn_cv:{de:`Lebenslauf ansehen →`,en:`View résumé →`},
     btn_talk:{de:`Mich direkt kontaktieren`,en:`Contact me directly`},
     badge:{de:`<b>7+ Jahre</b> Enterprise Sales`,en:`<b>7+ yrs</b> Enterprise Sales`},
-    hook_label:{de:`Antrieb`,en:`Drive`},
-    hook_h2:{de:`Neugier als Prinzip.`,en:`Curiosity as a principle.`},
-    hook_p:{de:`Vom Werkzeugmechaniker über den Vertrieb bis zur eigenen Software – ich habe nie aufgehört, dazuzulernen. <b>Diese Bandbreite ist kein Umweg, sie ist der Grund, warum ich Software verkaufe, die ich wirklich verstehe.</b>`,en:`From toolmaker to sales to building my own software — I've never stopped learning. <b>That range isn't a detour; it's why I sell software I actually understand.</b>`},
-    who_label:{de:`Wer ich bin`,en:`Who I am`},
-    who_h2:{de:`Vom Werkzeugmechaniker zum Software-Vertrieb.`,en:`From toolmaker to software sales.`},
-    who_p:{de:`Kein geradliniger Lebenslauf: Werkzeugmechaniker, dann Vertrieb, heute Enterprise-Software. <b>An der Werkbank angefangen, jeden Schritt selbst erarbeitet</b> — diese Spanne ist mein Vorteil, keine Ausnahme.`,en:`Not a straight line: toolmaker, then sales, today enterprise software. <b>Started at the workbench, earned every step</b> — that range is my advantage, not an exception.`},
-    n1t:{de:`Industrie`,en:`Industry`},
+
+    ref_label:{de:`Kundenportfolio`,en:`Client portfolio`},
+    ref_h2:{de:`Für diese Häuser habe ich geliefert.`,en:`These are the houses I've delivered for.`},
+    ref_p:{de:`Sieben Jahre, zwölf Branchen, ein Muster: komplexer Bedarf, technische Entscheider, lange Zyklen. <b>Vom Schienenfahrzeugbau bis zur Modemarke — verkauft wird in jeder Branche anders.</b>`,en:`Seven years, twelve industries, one pattern: complex needs, technical decision-makers, long cycles. <b>From rolling stock to a fashion label — every industry buys differently.</b>`},
+    ref_note:{de:`Ausschnitt — die größten Namen aus sieben Jahren.`,en:`A selection — the biggest names from seven years.`},
+    biz_rail:{de:`Bahntechnik`,en:`Rail technology`},
+    biz_sec:{de:`Sicherheitstechnik`,en:`Security systems`},
+    biz_med:{de:`Medizintechnik`,en:`Medical technology`},
+    biz_build:{de:`Bau &amp; Werkzeug`,en:`Construction &amp; tools`},
+    biz_beauty:{de:`Kosmetik`,en:`Cosmetics`},
+    biz_food:{de:`Süßwaren`,en:`Confectionery`},
+    biz_drink:{de:`Getränke`,en:`Beverages`},
+    biz_sport:{de:`Sport`,en:`Sport`},
+    biz_auto:{de:`Automotive`,en:`Automotive`},
+    biz_fashion:{de:`Mode`,en:`Fashion`},
+    biz_web3:{de:`Digitale Identität`,en:`Digital identity`},
+    biz_gaming:{de:`Gaming`,en:`Gaming`},
+
+    mode_label:{de:`Zwei Rollen, eine Person`,en:`Two roles, one person`},
+    mode_h2:{de:`Die meisten können eins von beidem.`,en:`Most people do one or the other.`},
+    mode_intro:{de:`Jagen und entwickeln sind gegensätzliche Arbeitsweisen: Die eine braucht Ausdauer gegen Ablehnung, die andere Geduld über Jahre. <b>Ich habe beide Seiten verantwortet — und für beide eigene Werkzeuge gebaut.</b>`,en:`Hunting and farming pull in opposite directions: one needs stamina against rejection, the other patience over years. <b>I've owned both sides — and built my own tools for each.</b>`},
+    hunt_h:{de:`Hunter`,en:`Hunter`},
+    hunt_role:{de:`Neugeschäft`,en:`New business`},
+    hunt_p:{de:`Von der leeren Liste zum unterschriebenen Vertrag. Zwei Standorte habe ich von null aufgebaut — Österreich für Elevate Global, die Niederlassung Wiener Neustadt für Adecco.`,en:`From an empty list to a signed contract. I built two locations from nothing — Austria for Elevate Global, the Wiener Neustadt branch for Adecco.`},
+    hunt_l1:{de:`Marktanalyse und Zielkundenrecherche`,en:`Market analysis and target account research`},
+    hunt_l2:{de:`Kaltakquise bis zum richtigen Entscheider`,en:`Cold outreach through to the right decision-maker`},
+    hunt_l3:{de:`Erstgespräch, Angebot, Verhandlung, Abschluss`,en:`First meeting, proposal, negotiation, close`},
+    hunt_proof:{de:`mehr Outbound-Durchsatz, seit mein eigenes Recherche-System die Vorarbeit macht`,en:`more outbound throughput since my own research system does the groundwork`},
+    farm_h:{de:`Farmer`,en:`Farmer`},
+    farm_role:{de:`Bestandsausbau`,en:`Account growth`},
+    farm_p:{de:`Aus einem Auftrag einen Rahmenvertrag machen, aus einer Abteilung einen Konzern. Bestandskunden wachsen nur, wenn die Lieferung stimmt — deshalb hört meine Verantwortung nicht beim Abschluss auf.`,en:`Turn one order into a framework agreement, one department into a group-wide account. Existing clients only grow when delivery holds up — which is why my responsibility doesn't end at the signature.`},
+    farm_l1:{de:`Rahmenverträge, Cross- und Upselling`,en:`Framework agreements, cross- and upselling`},
+    farm_l2:{de:`Deckungsbeitrag je Account steuern`,en:`Managing contribution margin per account`},
+    farm_l3:{de:`Liefer- und Qualitätsverantwortung, C-Level-Reporting`,en:`Delivery and quality ownership, C-level reporting`},
+    farm_proof:{de:`Ausfallquote gesenkt, durch datengetriebene Account-Betreuung statt Bauchgefühl`,en:`drop-out rate reduced, through data-driven account care instead of gut feel`},
+
+    who_label:{de:`Der Umbau`,en:`The rebuild`},
+    who_h2:{de:`Erst den Prozess gemacht. Dann gebaut.`,en:`First I ran the process. Then I built it.`},
+    who_p:{de:`Ich komme aus der Personalvermittlung. Dort lernt man das Handwerk, auf das es im Softwarevertrieb ankommt: Bedarf auseinandernehmen, Anforderung und Lösung zusammenbringen, Vertrag, Lieferung, Governance. <b>2025 habe ich angefangen, genau diesen Prozess als Software zu bauen</b> — Recherche, Qualifizierung, Nachfassen, Compliance-Prüfung. Seitdem verkaufe ich Technologie nicht mehr aus der Broschüre, sondern aus der eigenen Werkstatt.`,en:`I come from staffing. That is where you learn the craft software sales actually runs on: take a requirement apart, bring need and solution together, contract, delivery, governance. <b>In 2025 I started building exactly that process as software</b> — research, qualification, follow-up, compliance checks. Since then I don't sell technology from a brochure, but from my own workshop.`},
+    n1t:{de:`Werkbank`,en:`Workbench`},
     n1d:{de:`Werkzeugmechaniker · Audi, Daimler`,en:`Toolmaker · Audi, Daimler`},
-    n2t:{de:`Retail`,en:`Retail`},
+    n2t:{de:`Verkaufen gelernt`,en:`Learned to sell`},
     n2d:{de:`Sales Consultant · LG, Sky, MediaMarkt`,en:`Sales Consultant · LG, Sky, MediaMarkt`},
-    n3t:{de:`Enterprise Sales`,en:`Enterprise Sales`},
-    n3d:{de:`Standort-/Teamaufbau (Elevate, Adecco) → Senior KAM`,en:`Built sites/teams (Elevate, Adecco) → Senior KAM`},
+    n3t:{de:`Aufbauen`,en:`Building up`},
+    n3d:{de:`Standort AT (Elevate), Filiale Wr. Neustadt (Adecco)`,en:`AT location (Elevate), Wr. Neustadt branch (Adecco)`},
     n4y:{de:`2025 → heute`,en:`2025 → today`},
-    n4t:{de:`Software-Builder`,en:`Software Builder`},
-    n4d:{de:`Eigene SaaS-Tools, Multi-Agent, EU AI Act`,en:`Own SaaS tools, multi-agent, EU AI Act`},
-    proof_label:{de:`Technische Tiefe`,en:`Technical Depth`},
-    proof_h2:{de:`Meine Tiefe — selbst gebaut, nicht eingekauft.`,en:`My depth — built myself, not bought.`},
-    proof_intro:{de:`Claude Code als Kommandozentrale. Spezialisierte Subagenten und ein autonomer Partner — orchestriert, koordiniert, kostenbewusst:`,en:`Claude Code as command center. Specialized sub-agents and an autonomous partner — orchestrated, coordinated, cost-aware:`},
-    cap1_h:{de:`Agenten-System`,en:`Agent System`},
-    cap1_p:{de:`Claude Code + Subagenten + Hermes (24/7) — angebunden an Gemini, DBs, n8n. Infrastruktur.`,en:`Claude Code + sub-agents + Hermes (24/7) — connected to Gemini, DBs, n8n. Infrastructure.`},
-    cap2_h:{de:`Eigene Tools`,en:`My Own Tools`},
-    cap2_p:{de:`Datenbank, API, RAG, n8n-Workflows. Ich verkaufe was ich baue — und baue was ich verkaufe.`,en:`Database, API, RAG, n8n workflows. I sell what I build — and build what I sell.`},
-    cap3_h:{de:`WiredGeist`,en:`WiredGeist`},
-    cap3_p:{de:`KI-Plattform für den Mittelstand — Nebenprojekt, GTM &amp; Vertrieb aufgebaut, an das Gründerteam übergeben.`,en:`AI platform for mid-market — side project, built GTM &amp; sales, handed over to the founding team.`},
-    proof_close:{de:`Ich verstehe Software, weil ich sie <span class="hl">selbst baue</span>.`,en:`I understand software because I <span class="hl">build it myself</span>.`},
-    res_label:{de:`Ergebnisse`,en:`Results`},
-    res_h2:{de:`Zahlen, die für sich sprechen.`,en:`Numbers that speak for themselves.`},
-    res_story:{de:`HUNTER ist entstanden, weil ich meine eigene Vertriebs-Recherche nicht auslagern wollte: ein System, das Firmen findet, qualifiziert und mit Ansprechpartnern anreichert. Das Ergebnis: <b><span class="hl">+25 % Effizienz</span></b> in meiner täglichen Vertriebsarbeit.`,en:`HUNTER exists because I didn't want to outsource my own sales research: a system that finds companies, qualifies them and enriches them with contacts. The result: <b><span class="hl">+25% efficiency</span></b> in my daily sales work.`},
-    stat1:{de:`Outbound-Effizienz durch selbst gebautes Sales-System`,en:`Outbound efficiency via a self-built sales system`},
-    stat2:{de:`End-to-End verantwortetes Projekt`,en:`Project owned end-to-end`},
-    stat3:{de:`Enterprise-B2B-Vertrieb &amp; C-Level-Verhandlung`,en:`Enterprise B2B sales &amp; C-level negotiation`},
-    stat4:{de:`Internationale Märkte (DACH, FR, PT, BE, USA)`,en:`International markets (DACH, FR, PT, BE, USA)`},
-    u_mio:{de:` Mio €`,en:` M€`},u_yrs:{de:`+ J.`,en:`+ yrs`},u_markets:{de:` Länder`,en:` markets`},
-    ref_label:{de:`Kundenportfolio`,en:`Client Portfolio`},
-    ref_h2:{de:`7+ Jahre Kundenportfolio.`,en:`7+ years of client portfolio.`},
-    ref_p:{de:`Enterprise-Kunden aus internationalen Projekten — B2B, C-Level, branchenübergreifend:`,en:`Enterprise clients from international projects — B2B, C-level, across industries:`},
+    n4t:{de:`Selbst bauen`,en:`Building myself`},
+    n4d:{de:`Eigene Vertriebssoftware, Multi-Agent, EU AI Act`,en:`Own sales software, multi-agent, EU AI Act`},
+
+    chain_label:{de:`Was dadurch zusammenkommt`,en:`What this brings together`},
+    chain_h2:{de:`Ein Deal läuft durch fünf Stationen. Ich halte alle fünf.`,en:`A deal runs through five stations. I hold all five.`},
+    ch1t:{de:`Bedarf erkennen`,en:`Spot the need`},
+    ch1d:{de:`Recherche, Erstkontakt, echte Bedarfsanalyse statt Produktpitch.`,en:`Research, first contact, a real needs analysis instead of a product pitch.`},
+    ch2t:{de:`IT-Landschaft verstehen`,en:`Understand the IT landscape`},
+    ch2d:{de:`Bestehende Systeme, Schnittstellen, Prozesse — mit dem Kunden durchgegangen.`,en:`Existing systems, interfaces, processes — walked through with the client.`},
+    ch3t:{de:`Lösung definieren`,en:`Define the solution`},
+    ch3d:{de:`Gemeinsam mit der Technik: Umfang, Architektur, Umsetzungsplan.`,en:`Together with the engineers: scope, architecture, implementation plan.`},
+    ch4t:{de:`Vertrag schließen`,en:`Close the contract`},
+    ch4d:{de:`Rahmenvertrag, Compliance, Preis — inklusive EU AI Act und DSGVO.`,en:`Framework agreement, compliance, pricing — including EU AI Act and GDPR.`},
+    ch5t:{de:`Liefern und automatisieren`,en:`Deliver and automate`},
+    ch5d:{de:`Umsetzung begleiten, danach den wiederkehrenden Teil in Software gießen.`,en:`See implementation through, then turn the repeating part into software.`},
+    chain_note:{de:`In den meisten Organisationen sind das vier verschiedene Rollen: SDR, Account Executive, Solution Engineer, Customer Success. <b>Ich bringe die Kette in einer Person mit — und die Software, die sie schneller macht.</b>`,en:`In most organisations these are four separate roles: SDR, account executive, solution engineer, customer success. <b>I bring the whole chain in one person — plus the software that speeds it up.</b>`},
+
     works_label:{de:`Selbst gebaut`,en:`Built by me`},
-    works_h2:{de:`Der Beweis in Produktform.`,en:`The proof, as products.`},
-    works_intro:{de:`Drei Tools, drei verschiedene Domänen — das zeigt, dass die technische Fähigkeit nicht an ein einzelnes Thema gebunden ist:`,en:`Three tools, three different domains — proof that the technical skill isn't tied to one narrow topic:`},
-    hunter_p:{de:`Vertriebs-Recherche: findet &amp; qualifiziert Firmen &amp; Ansprechpartner — mit Scoring, Anreicherung, Multi-Agent-Automation.`,en:`Sales research: finds & qualifies companies & contacts — with scoring, enrichment, multi-agent automation.`},
-    tb_p:{de:`Zweisprachiges Kandidaten-Rollen-Matching mit Ampel-Logik — aus meiner Personalvertriebs-Zeit, technisch selbst umgesetzt.`,en:`Bilingual candidate-role matching with traffic-light logic — from my staffing years, built by myself.`},
-    ws_p:{de:`Sanktions- &amp; PEP-Screening: prüft Geschäftspartner gegen offizielle Listen mit quellenbelegtem Urteil.`,en:`Sanctions & PEP screening: checks partners against official lists with source-backed verdict.`},
+    works_h2:{de:`Drei Engpässe, drei Werkzeuge.`,en:`Three bottlenecks, three tools.`},
+    works_intro:{de:`Keines davon ist aus einer Produktidee entstanden, sondern aus einer Stelle, an der meine eigene Arbeit zu langsam war. <b>Jedes läuft im Tagesgeschäft.</b>`,en:`None of these came from a product idea — each came from a point where my own work was too slow. <b>All three run in daily business.</b>`},
+    k_hunter:{de:`Station 1 · Bedarf erkennen`,en:`Station 1 · Spot the need`},
+    k_tb:{de:`Aus der Personalvermittlung`,en:`From my staffing years`},
+    k_ws:{de:`Station 4 · Vertrag &amp; Compliance`,en:`Station 4 · Contract &amp; compliance`},
+    hunter_p:{de:`Findet und qualifiziert Firmen und Ansprechpartner, reichert sie an und bewertet sie — die Vorarbeit, für die vorher Stunden draufgingen.`,en:`Finds and qualifies companies and contacts, enriches and scores them — the groundwork that used to eat hours.`},
+    tb_p:{de:`Gleicht Kandidatenprofile gegen Stellenanforderungen ab und zeigt per Ampel, wo es passt und wo nicht — zweisprachig, DE und EN.`,en:`Matches candidate profiles against role requirements and shows in traffic-light logic where it fits and where it doesn't — bilingual, DE and EN.`},
+    ws_p:{de:`Prüft Geschäftspartner gegen offizielle Sanktions- und PEP-Listen und begründet jedes Urteil mit der Quelle.`,en:`Checks business partners against official sanctions and PEP lists, and backs every verdict with its source.`},
     t_demo:{de:`Demo-Modus`,en:`Demo mode`},t_sanc:{de:`Sanktionslisten`,en:`Sanctions lists`},t_eulaw:{de:`EU-Recht`,en:`EU law`},
-    bring_label:{de:`Was ich einbringe`,en:`What I bring`},
-    bring_h2:{de:`Drei Dinge, die selten zusammenkommen.`,en:`Three things that rarely come together.`},
-    b1h:{de:`Vertrieb, der abschließt`,en:`Sales that closes`},
-    b1p:{de:`Vollen Sales-Zyklus verantwortet — von Kaltakquise bis Abschluss. Zwei Standorte von Grund auf aufgebaut. 7+ Jahre Enterprise-B2B.`,en:`Owned the full sales cycle — from cold outreach to close. Built two locations from scratch. 7+ years enterprise B2B.`},
-    b2h:{de:`Technik, die ich selbst baue`,en:`Technology I build myself`},
-    b2p:{de:`Multi-Agent-Systeme, Automatisierung, eigene SaaS-Tools — im produktiven Einsatz. Ich verstehe Software, weil ich sie baue.`,en:`Multi-agent systems, automation, my own SaaS tools — in daily use. I understand software because I build it.`},
-    b3h:{de:`Regulatorische Sicherheit`,en:`Regulatory certainty`},
-    b3p:{de:`Praxiswissen zu EU AI Act und Datenschutz. Ich nehme Verträgen das Risiko, bevor es zum Problem wird.`,en:`Hands-on knowledge of the EU AI Act and data protection. I take risk out of contracts before they become problems.`},
+    proof_close:{de:`Ich verkaufe keine Technologie, die ich nur <span class="hl">erklären</span> kann.`,en:`I don't sell technology I can only <span class="hl">explain</span>.`},
+
+    stack_label:{de:`Werkzeugkasten`,en:`Toolkit`},
+    stack_h2:{de:`Womit ich arbeite — und wie tief.`,en:`What I work with — and how deep it goes.`},
+    stack_intro:{de:`Eine Liste, in der alles gleich gewichtet ist, sagt nichts. Deshalb nach Tiefe sortiert: <b>was täglich läuft, was ich hole wenn die Aufgabe es verlangt, und was fachliches Fundament ist.</b>`,en:`A list that weights everything equally says nothing. So here it is sorted by depth: <b>what runs daily, what I reach for when the task calls for it, and what is professional groundwork.</b>`},
+    d1t:{de:`Täglich im Einsatz`,en:`Daily driver`},
+    d1d:{de:`Damit baue und betreibe ich meine eigenen Systeme — seit 2025 fast jeden Tag.`,en:`This is what I build and run my own systems with — almost every day since 2025.`},
+    d2t:{de:`Sicher im Griff`,en:`Solid command`},
+    d2d:{de:`Setze ich ein, wenn ein Projekt es braucht — gebaut, zum Laufen gebracht, im Einsatz gehabt.`,en:`I reach for these when a project needs them — built with, got running, used in production.`},
+    d3t:{de:`Fachliches Fundament`,en:`Professional groundwork`},
+    d3d:{de:`Aus dem Vertriebsalltag und dem Studium — die Seite, die Technikprojekte zum Abschluss bringt.`,en:`From daily sales work and my degree — the side that gets technical projects signed.`},
+    d3_law:{de:`Wirtschaftsrecht (Dipl.-Kfm.)`,en:`Business law (Dipl.-Kfm.)`},
+    certs_label:{de:`Zertifiziert von Anthropic · Claude Academy`,en:`Certified by Anthropic · Claude Academy`},
+    honest:{de:`Was ich nicht bin: Softwarearchitekt für Systeme mit tausend Nutzern. <b>Ich baue Werkzeuge, die meine eigene Arbeit tragen — und ich weiß genau, wo diese Grenze verläuft.</b> Genau das macht mich in technischen Gesprächen glaubwürdig: Ich kann mitreden, ohne zu behaupten, was ich nicht liefern kann.`,en:`What I'm not: a software architect for systems serving thousands of users. <b>I build tools that carry my own work — and I know exactly where that line runs.</b> That is what makes me credible in technical conversations: I can hold my end without claiming what I can't deliver.`},
+
     c_label:{de:`Kontakt`,en:`Contact`},
     c_h2:{de:`Sprechen wir über Ergebnisse.`,en:`Let's talk about results.`},
-    c_sub:{de:`Vertrieb mit Substanz und echter technischer Kompetenz? Zwanzig Minuten zeigen, ob wir zueinander passen.`,en:`Sales with substance and real technical competence? Twenty minutes show whether we match.`},
+    c_sub:{de:`Sie suchen jemanden, der Neugeschäft holt, Bestandskunden ausbaut und die Technik dahinter versteht? Zwanzig Minuten zeigen, ob es passt.`,en:`Looking for someone who wins new business, grows existing accounts and understands the technology behind it? Twenty minutes will show whether it fits.`},
     btn_talk2:{de:`Mich direkt kontaktieren →`,en:`Contact me directly →`},
     modal_label:{de:`Mich direkt kontaktieren`,en:`Contact me directly`},
     modal_h3:{de:`Kurz vorstellen — ich melde mich.`,en:`Introduce yourself — I'll be in touch.`},
@@ -604,7 +830,7 @@
     f_company:{de:`Firma &amp; Rolle`,en:`Company &amp; role`},
     f_msg:{de:`Nachricht an mich`,en:`Message to me`},
     f_submit:{de:`Senden`,en:`Send`},
-    footer:{de:`Murat Tikic · Enterprise Sales · SaaS &amp; Technology · Wien, Österreich`,en:`Murat Tikic · Enterprise Sales · SaaS &amp; Technology · Vienna, Austria`}
+    footer:{de:`Murat Tikic · Enterprise Sales · Wien, Österreich`,en:`Murat Tikic · Enterprise Sales · Vienna, Austria`}
   };
   let LANG='de';
   function setLang(l){
