@@ -207,6 +207,13 @@
   .card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
   .tag{font-family:var(--mono);font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
 
+  .logo-strip{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(16px,2.5vw,28px)}
+  .logo-strip img{height:44px;width:auto;max-width:180px;object-fit:contain;display:block;
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 18px}
+  .logo-strip img[src*="lindt"],.logo-strip img[src*="off-white"]{height:60px}
+  @media (max-width:600px){.logo-strip{gap:14px}.logo-strip img{height:34px;padding:10px 14px}
+    .logo-strip img[src*="lindt"],.logo-strip img[src*="off-white"]{height:44px}}
+
   .diffs{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
   .diff{border-top:2px solid var(--line);padding-top:22px;transition:border-color .3s ease}
   .diff:hover{border-color:var(--teal)}
@@ -402,11 +409,22 @@
   <!-- REFERENCES -->
   <section>
     <div class="wrap reveal">
-      <div class="sec-label" data-i18n="ref_label">Referenzen</div>
-      <h2 data-i18n="ref_h2">Namen, bei denen ich geliefert habe.</h2>
+      <div class="sec-label" data-i18n="ref_label">Kundenportfolio</div>
+      <h2 data-i18n="ref_h2">7+ Jahre Kundenportfolio.</h2>
       <p class="prose" style="margin-bottom:24px" data-i18n="ref_p">Enterprise-Kunden aus internationalen Projekten — B2B, C-Level, branchenübergreifend:</p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px" aria-label="Referenzen">
-        <span class="tag">Worldcoin</span><span class="tag">Coca-Cola</span><span class="tag">L'Oréal</span><span class="tag">UEFA</span><span class="tag">Hilti</span><span class="tag">Fresenius</span><span class="tag">Lindt &amp; Sprüngli</span><span class="tag">Auto1 Group</span><span class="tag">Novomatic</span>
+      <div class="logo-strip">
+        <img src="assets/logos/lindt.svg" alt="Lindt &amp; Sprüngli">
+        <img src="assets/logos/hitachi-rail.svg" alt="Hitachi Rail">
+        <img src="assets/logos/loreal.svg" alt="L'Oréal">
+        <img src="assets/logos/uefa.svg" alt="UEFA">
+        <img src="assets/logos/auto1.svg" alt="Auto1 Group">
+        <img src="assets/logos/fresenius.svg" alt="Fresenius">
+        <img src="assets/logos/pke-holding.svg" alt="PKE Holding AG">
+        <img src="assets/logos/hilti.svg" alt="Hilti">
+        <img src="assets/logos/off-white.png" alt="Off-White">
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px" aria-label="Weitere Kunden">
+        <span class="tag">Worldcoin</span><span class="tag">Coca-Cola</span><span class="tag">Novomatic</span>
       </div>
     </div>
   </section>
@@ -554,8 +572,8 @@
     stat3:{de:`Enterprise-B2B-Vertrieb &amp; C-Level-Verhandlung`,en:`Enterprise B2B sales &amp; C-level negotiation`},
     stat4:{de:`Internationale Märkte (DACH, FR, PT, BE, USA)`,en:`International markets (DACH, FR, PT, BE, USA)`},
     u_mio:{de:` Mio €`,en:` M€`},u_yrs:{de:`+ J.`,en:`+ yrs`},u_markets:{de:` Länder`,en:` markets`},
-    ref_label:{de:`Referenzen`,en:`References`},
-    ref_h2:{de:`Namen, bei denen ich geliefert habe.`,en:`Names I've delivered for.`},
+    ref_label:{de:`Kundenportfolio`,en:`Client Portfolio`},
+    ref_h2:{de:`7+ Jahre Kundenportfolio.`,en:`7+ years of client portfolio.`},
     ref_p:{de:`Enterprise-Kunden aus internationalen Projekten — B2B, C-Level, branchenübergreifend:`,en:`Enterprise clients from international projects — B2B, C-level, across industries:`},
     works_label:{de:`Selbst gebaut`,en:`Built by me`},
     works_h2:{de:`Der Beweis in Produktform.`,en:`The proof, as products.`},
