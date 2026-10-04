@@ -333,3 +333,12 @@ footer{padding:40px 0 100px;background:var(--kohle);border-top:1px solid var(--l
   address{font-size:15.5px}
   .anruf-leiste{min-height:48px;font-size:15px;bottom:10px}
 }
+
+/* ---- Handy/Tablet: Foto nicht als Bogen, sondern als ruhige Stimmung im Hintergrund ---- */
+@media (max-width:900px){
+  .hero-bild{display:none}
+  .hero{padding-top:64px;padding-bottom:110px;align-content:center}
+  .hero::before{content:"";position:absolute;left:0;right:0;top:0;height:62%;z-index:0;background:url(img/laden-abend.jpg) 50% 30%/cover no-repeat;filter:blur(2.5px) saturate(1.15) brightness(.5);-webkit-mask-image:linear-gradient(#000 25%,transparent 100%);mask-image:linear-gradient(#000 25%,transparent 100%);opacity:.9}
+  .hero-text{padding-top:6vh}
+  .hero .lead{max-width:26em}
+}
