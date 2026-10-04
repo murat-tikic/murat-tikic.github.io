@@ -355,3 +355,23 @@ footer{padding:40px 0 100px;background:var(--kohle);border-top:1px solid var(--l
   .anruf-leiste{min-height:46px}
   footer{padding-bottom:84px}
 }
+
+/* ---- Abschnitte optisch klar trennen: jeder bekommt seinen eigenen Hintergrund ---- */
+.vergleich{background:radial-gradient(700px 360px at 85% 0,rgba(217,42,28,.28),transparent 70%),linear-gradient(#240a08,#150706);border-top:3px solid var(--rot)}
+.baukasten{background:var(--creme);color:#2a140f;position:relative;clip-path:polygon(0 clamp(14px,3vw,44px),100% 0,100% calc(100% - clamp(14px,3vw,44px)),0 100%);margin:calc(-1 * clamp(14px,3vw,44px)) 0;padding-top:calc(clamp(70px,10vw,140px) + clamp(14px,3vw,44px));padding-bottom:calc(clamp(70px,10vw,140px) + clamp(14px,3vw,44px));z-index:2}
+.baukasten .gross{color:#2a140f}
+.baukasten legend{color:#b3190f}
+.baukasten fieldset span{background:#fff;border-color:#e3d3bb;color:#2a140f}
+.baukasten fieldset span:hover{border-color:var(--rot)}
+.baukasten fieldset input:checked+span{background:var(--rot);border-color:var(--rot);color:#fff}
+.karte{background:radial-gradient(rgba(255,255,255,.055) 1.2px,transparent 1.4px) 0 0/24px 24px,var(--glut);padding-top:calc(clamp(70px,10vw,140px) + clamp(14px,3vw,44px))}
+.menues{background:radial-gradient(600px 300px at 15% 0,rgba(255,122,26,.3),transparent 70%),linear-gradient(160deg,#8a1a10,#3f0b08 75%);position:relative;clip-path:polygon(0 0,100% clamp(14px,3vw,44px),100% 100%,0 calc(100% - clamp(14px,3vw,44px)));margin:calc(-1 * clamp(14px,3vw,44px)) 0;padding-top:calc(clamp(60px,9vw,120px) + clamp(14px,3vw,44px));padding-bottom:calc(clamp(60px,9vw,120px) + clamp(14px,3vw,44px));z-index:2}
+.menues .menue{background:linear-gradient(160deg,rgba(13,10,9,.88),rgba(13,10,9,.7));border-color:rgba(255,200,61,.25)}
+.firmen{position:relative;z-index:1}
+@media (max-width:600px){
+  .karte{padding-top:calc(44px + 14px)}
+  .baukasten{padding-top:calc(44px + 14px);padding-bottom:calc(44px + 14px)}
+  .menues{padding-top:calc(44px + 14px);padding-bottom:calc(44px + 14px)}
+}
+.baukasten .bau-ergebnis{color:var(--creme)}
+.baukasten .bau-ergebnis .knopf{color:#fff}
