@@ -182,8 +182,8 @@ fieldset span:hover{border-color:var(--flamme)}
 /* Menüs */
 .menues{padding:clamp(60px,9vw,120px) 0;background:var(--kohle)}
 .menue-raster{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
-.menue{background:linear-gradient(160deg,var(--glut2),var(--glut));border:1px solid var(--linie);border-radius:var(--r);padding:22px 20px;display:flex;flex-direction:column;gap:8px;transition:transform .25s,border-color .25s}
-.menue:hover{transform:translateY(-6px) rotate(-.6deg);border-color:var(--flamme)}
+.menue{background:linear-gradient(160deg,var(--glut2),var(--glut));border:1px solid var(--linie);border-radius:var(--r);padding:22px 20px;display:flex;flex-direction:column;gap:8px;transition:border-color .25s,box-shadow .25s}
+.menue:hover{border-color:var(--flamme);box-shadow:0 14px 40px rgba(255,122,26,.2)}
 .menue h3{font-size:34px;text-transform:uppercase;color:var(--flamme)}
 .menue p{color:var(--sand);font-size:15px;flex:1}
 .menue b{font:700 54px/1 var(--kopf);color:var(--gelb)}
@@ -341,4 +341,27 @@ footer{padding:40px 0 100px;background:var(--kohle);border-top:1px solid var(--l
   .hero::before{content:"";position:absolute;left:0;right:0;top:0;height:62%;z-index:0;background:url(img/laden-abend.jpg) 50% 30%/cover no-repeat;filter:blur(2.5px) saturate(1.15) brightness(.5);-webkit-mask-image:linear-gradient(#000 25%,transparent 100%);mask-image:linear-gradient(#000 25%,transparent 100%);opacity:.9}
   .hero-text{padding-top:6vh}
   .hero .lead{max-width:26em}
+}
+
+/* ---- Handy: weniger auf einmal zeigen (Progressive Disclosure), nichts abschneiden ---- */
+.mehr-knopf{display:block;margin:16px auto 0;min-height:46px;padding:10px 22px;border-radius:99px;border:2px solid var(--gelb);background:transparent;color:var(--gelb);font:700 16px var(--text);cursor:pointer}
+.mehr-knopf:hover{background:var(--gelb);color:#2a140f}
+.liste li.versteckt{display:none}
+@media (max-width:600px){
+  .reveal-dunkel h2{text-align:center;padding:0 16px;font-size:clamp(48px,17vw,72px);line-height:.95}
+  .menue-raster{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:14px -16px 0;padding:4px 16px 12px;scrollbar-width:none}
+  .menue-raster::-webkit-scrollbar{display:none}
+  .menue{flex:0 0 76%;scroll-snap-align:center;padding:18px 16px}
+  .menue:hover{transform:none}
+  .zitate blockquote:nth-child(n+2){display:none}
+  .zitate{grid-template-columns:1fr}
+  .vgl-bild.mini-karte{aspect-ratio:auto}
+  .mini-karte .stempel{position:static;justify-self:end;margin-top:4px}
+  .karte-schema{min-height:200px}
+  .vergleich,.baukasten,.karte,.menues,.stimmen,.anfrage,.besuch{padding:44px 0}
+  .stimmen-kopf{margin:6px 0 20px;gap:10px}
+  .firmen{padding:32px 0}
+  .intro{padding:44px 18px}
+  .anruf-leiste{min-height:46px}
+  footer{padding-bottom:84px}
 }

@@ -76,6 +76,14 @@
       li.innerHTML = '<span>' + z[0] + (z[1] ? '<small>' + z[1] + '</small>' : '') + '</span><b>' + euro(z[2]) + ' €</b>';
       liste.appendChild(li);
     });
+    // Handy: nur die ersten 8 Gerichte zeigen, Rest per Knopf (weniger überfüllt)
+    var mehr = $("#mehr"), klein = window.matchMedia("(max-width:600px)").matches, alle = $$("li", liste);
+    if (klein && alle.length > 8) {
+      alle.slice(8).forEach(function (li) { li.classList.add("versteckt"); });
+      mehr.textContent = "Alle " + alle.length + " Gerichte zeigen";
+      mehr.hidden = false;
+      mehr.onclick = function () { alle.forEach(function (li) { li.classList.remove("versteckt"); }); mehr.hidden = true; if (window.ScrollTrigger) setTimeout(ScrollTrigger.refresh, 50); };
+    } else { mehr.hidden = true; }
   }
   Object.keys(KARTE).forEach(function (k, i) {
     var b = document.createElement("button");
@@ -249,7 +257,7 @@
   gsap.from(".stempel", { scale: 2.4, opacity: 0, rotate: -12, duration: .5, delay: .9, ease: "power4.in", stagger: .25, scrollTrigger: { trigger: ".vgl-raster", start: "top 75%", once: true } });
 
   // Menüs und Stimmen: sanft einfahren
-  gsap.from(".menue", { y: 60, opacity: 0, stagger: .1, duration: .7, ease: "power3.out", scrollTrigger: { trigger: ".menue-raster", start: "top 85%", once: true } });
+  gsap.from(".menue", { y: 60, opacity: 0, stagger: .1, duration: .7, ease: "power3.out", clearProps: "transform,opacity", scrollTrigger: { trigger: ".menue-raster", start: "top 85%", once: true } });
   gsap.from(".zitate blockquote", { y: 40, opacity: 0, stagger: .12, duration: .7, ease: "power3.out", scrollTrigger: { trigger: ".zitate", start: "top 88%", once: true } });
   gsap.from(".gross-zahl", { scale: .6, opacity: 0, duration: .9, ease: "back.out(1.4)", scrollTrigger: { trigger: ".stimmen-kopf", start: "top 85%", once: true } });
   gsap.from(".gross-ic", { x: -140, rotate: -10, duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".firmen", start: "top 85%", once: true } });
