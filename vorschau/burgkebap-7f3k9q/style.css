@@ -375,3 +375,8 @@ footer{padding:40px 0 100px;background:var(--kohle);border-top:1px solid var(--l
 }
 .baukasten .bau-ergebnis{color:var(--creme)}
 .baukasten .bau-ergebnis .knopf{color:#fff}
+
+/* Entwurf-Hinweis steht jetzt ganz unten im Fuß */
+footer #hinweis{background:transparent;color:var(--sand);border:1px dashed rgba(255,200,61,.55);border-radius:10px;margin-top:18px;padding:10px 14px;text-align:left;font-size:13px}
+footer #hinweis strong{background:var(--rot);color:#fff}
+footer #status{color:#8f8175}
