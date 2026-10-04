@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>BurgKebap Neudenau – Döner, Pide &amp; Pizza (Entwurf)</title>
+<meta name="description" content="Entwurf: BurgKebap in Neudenau. Döner Kebap, Pide, Pizza und Lahmacun. Täglich geöffnet, Abholung und Lieferung.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23D92A1C%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2734%27 font-family=%27Arial%27 font-weight=%27700%27 fill=%27white%27 text-anchor=%27middle%27%3EBK%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-tel" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-uhr" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-stern" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+  <symbol id="i-roller" viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="3"/><circle cx="18.5" cy="17.5" r="3"/><path d="M8.5 17.5H14l3-8h-4M12 6h3"/></symbol>
+  <symbol id="i-flamme" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+  <symbol id="i-auto" viewBox="0 0 24 24"><path d="M14 16H9m10 0h3v-3.2a1 1 0 0 0-.2-.6l-2.1-2.8a1 1 0 0 0-.8-.4H14V16M2 16h1m0 0V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v10H3z"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></symbol>
+  <symbol id="i-haus" viewBox="0 0 24 24"><path d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
+</svg>
+
+<div id="fortschritt" aria-hidden="true"></div>
+
+<div id="hinweis" role="note">
+  <strong>Entwurf</strong> für BurgKebap. Fotos, Preise (Stand Flyer 2021) und Texte sind Platzhalter. Telefonnummer und Öffnungszeiten werden vor dem Livegang geprüft.
+  <span id="status"></span>
+</div>
+
+<header id="kopf">
+  <a class="logo" href="#top" aria-label="BurgKebap, nach oben"><span>BURG</span><b>KEBAP</b></a>
+  <nav aria-label="Hauptnavigation">
+    <a href="#karte">Karte</a>
+    <a href="#doener">Dein Döner</a>
+    <a href="#anfrage">Bestellen</a>
+    <a href="#besuch">Anfahrt</a>
+  </nav>
+  <a class="knopf knopf-klein" href="tel:+4962649288433"><svg class="ic"><use href="#i-tel"/></svg><span>06264 92 88 433</span></a>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <canvas id="glut" aria-hidden="true"></canvas>
+  <div class="hero-text">
+    <p class="status-chip" id="offen-chip"><i></i><span id="offen-text">Täglich 11:00 bis 22:30 Uhr</span></p>
+    <h1 class="split">Frisch vom Spieß.<br>Mitten in Neudenau.</h1>
+    <p class="lead">Döner, Pide, Pizza und Lahmacun. Zum Mitnehmen, vor Ort oder zu dir nach Hause.</p>
+    <div class="hero-knoepfe">
+      <a class="knopf" href="tel:+4962649288433"><svg class="ic"><use href="#i-tel"/></svg>Jetzt anrufen</a>
+      <a class="knopf knopf-hell" href="#karte">Karte ansehen</a>
+    </div>
+    <p class="bewertung"><span class="sterne" aria-hidden="true"><svg class="ic"><use href="#i-stern"/></svg><svg class="ic"><use href="#i-stern"/></svg><svg class="ic"><use href="#i-stern"/></svg><svg class="ic"><use href="#i-stern"/></svg><svg class="ic halb"><use href="#i-stern"/></svg></span> <b>4,6</b> bei 93 Google-Bewertungen</p>
+  </div>
+  <div class="hero-bild">
+    <div class="bogen"><img src="img/laden-tag.jpg" alt="Eingang von BurgKebap mit Schaufenster und Schild" width="567" height="677"></div>
+    <svg class="siegel" viewBox="0 0 200 200" aria-hidden="true">
+      <defs><path id="kreis" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+      <circle cx="100" cy="100" r="96" class="s-bg"/>
+      <text class="s-ring"><textPath href="#kreis">Seit Oktober 2021 · Neudenau · Herbolzheim · Döner &amp; Pizza ·</textPath></text>
+      <text x="100" y="108" class="s-zahl">4,6</text>
+      <text x="100" y="132" class="s-klein">Google</text>
+    </svg>
+  </div>
+  <a class="runter" href="#laufband" aria-label="Nach unten scrollen"><span></span></a>
+</section>
+
+<!-- LAUFBAND -->
+<div id="laufband" class="laufband" aria-hidden="true">
+  <div class="spur"><span>Döner Kebap</span><i></i><span>Pide</span><i></i><span>Pizza</span><i></i><span>Lahmacun</span><i></i><span>Falafel</span><i></i><span>Baklava</span><i></i>
+  <span>Döner Kebap</span><i></i><span>Pide</span><i></i><span>Pizza</span><i></i><span>Lahmacun</span><i></i><span>Falafel</span><i></i><span>Baklava</span><i></i></div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <p class="intro-satz" data-split>Hungrig? Dann bist du hier richtig. Jeden Tag frisch vom Spieß, ohne Ruhetag, mit Parkplatz direkt vor der Tür.</p>
+</section>
+
+<!-- REVEAL -->
+<section id="laden" class="reveal">
+  <div class="reveal-dunkel"><h2>Schau vorbei.</h2></div>
+  <div class="reveal-hell">
+    <div class="reveal-raster">
+      <figure class="reveal-foto"><img src="img/laden-abend.jpg" alt="BurgKebap am Abend, beleuchtet, mit Blick auf Theke und Drehspieß" width="551" height="467"><figcaption>Neudenauer Str. 12</figcaption></figure>
+      <div class="zahlen">
+        <div><b data-zaehl="4.6" data-dez="1">4,6</b><span>Sterne bei Google</span></div>
+        <div><b data-zaehl="93">93</b><span>Bewertungen</span></div>
+        <div><b data-zaehl="7">7</b><span>Tage die Woche offen</span></div>
+        <div><b>11:00</b><span>Küche startet täglich</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPIESS -->
+<section id="spiess" class="spiess-szene">
+  <div class="spiess-pin">
+    <div class="spiess-wrap">
+      <div class="spiess" aria-hidden="true"><div class="stab"></div><div class="fleisch"></div></div>
+    </div>
+    <div class="spiess-text">
+      <h2>So wird dein Döner</h2>
+      <ol class="schritte">
+        <li class="aktiv"><h3>Vom Drehspieß</h3><p>Hackfleisch, Hähnchen oder Kalb, frisch geschnitten, wenn du bestellst.</p></li>
+        <li><h3>Ins Brot</h3><p>Fladenbrot, Yufka oder als Teller, ganz nach Hunger.</p></li>
+        <li><h3>Salat und Soße</h3><p>Knackiger Salat, deine Soße. Auf Wunsch mit Pommes.</p></li>
+        <li><h3>Fertig zum Mitnehmen</h3><p>Warm in die Hand oder bis vor deine Tür.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- VORHER / NACHHER -->
+<section id="vergleich" class="vergleich">
+  <div class="wrap">
+    <h2 class="gross">Deine Karte bei Google<br>ist drei Jahre alt.</h2>
+    <p class="lead">Wer dich sucht, sieht dort eine alte Speisekarte, die ein Gast hochgeladen hat. Auf dieser Seite sieht er immer die aktuelle.</p>
+    <div class="vgl-raster">
+      <figure class="vgl alt">
+        <div class="vgl-bild"><img src="img/karte-2021.jpg" alt="Alte Speisekarte aus dem Google-Eintrag, Stand 2021" width="1130" height="791" loading="lazy"><span class="stempel">Stand 2021</span></div>
+        <figcaption><b>Heute bei Google</b> Foto einer Karte von 2021, schwer lesbar, ohne Änderungen.</figcaption>
+      </figure>
+      <figure class="vgl neu">
+        <div class="vgl-bild mini-karte" aria-hidden="true">
+          <p>Döner Kebap im Fladenbrot <b>5,00</b></p><p>Döner Kebap im Yufka <b>5,50</b></p><p>Pide mit Sucuk <b>7,50</b></p><p>Pizza Burg <b>8,50</b></p><p>Ayran <b>1,00</b></p>
+          <span class="stempel gruen">Immer aktuell</span>
+        </div>
+        <figcaption><b>Mit eigener Seite</b> Karte, Preise und Öffnungszeiten ändert ihr selbst oder wir für euch.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- DEIN DÖNER -->
+<section id="doener" class="baukasten">
+  <div class="wrap">
+    <h2 class="gross">Stell dir deinen Döner zusammen.</h2>
+    <div class="bau-raster">
+      <div class="bau-wahl">
+        <fieldset><legend>Fleisch</legend>
+          <label><input type="radio" name="fleisch" value="hack" checked><span>Hackfleisch</span></label>
+          <label><input type="radio" name="fleisch" value="haehn"><span>Hähnchen</span></label>
+          <label><input type="radio" name="fleisch" value="kalb"><span>Kalb</span></label>
+        </fieldset>
+        <fieldset><legend>Wie hättest du ihn gern?</legend>
+          <label><input type="radio" name="form" value="fladen" checked><span>Im Fladenbrot</span></label>
+          <label><input type="radio" name="form" value="yufka"><span>Im Yufka</span></label>
+          <label><input type="radio" name="form" value="teller"><span>Teller mit Salat</span></label>
+          <label><input type="radio" name="form" value="pommes"><span>Teller mit Salat und Pommes</span></label>
+        </fieldset>
+      </div>
+      <div class="bau-ergebnis" aria-live="polite">
+        <p class="bau-name" id="bau-name">Hackfleisch im Fladenbrot</p>
+        <p class="bau-preis"><span id="bau-preis">5,00</span> €</p>
+        <p class="bau-hinweis">Preis laut Flyer von 2021, wird aktualisiert.</p>
+        <button class="knopf" id="bau-weiter" type="button">In die Anfrage übernehmen</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KARTE -->
+<section id="karte" class="karte">
+  <div class="wrap">
+    <h2 class="gross">Die Karte</h2>
+    <p class="hinweis-karte">Beispielkarte aus dem Flyer von 2021. Die Preise werden mit dem Inhaber aktualisiert, Allergene folgen.</p>
+    <div class="tabs" role="tablist" aria-label="Kategorien"></div>
+    <ul class="liste" id="karten-liste"></ul>
+  </div>
+</section>
+
+<!-- MENÜS -->
+<section class="menues">
+  <div class="wrap">
+    <h2 class="gross">Menüs für den großen Hunger</h2>
+    <div class="menue-raster" id="menue-raster"></div>
+  </div>
+</section>
+
+<!-- FIRMEN -->
+<section class="firmen">
+  <div class="wrap firmen-raster">
+    <svg class="ic gross-ic" aria-hidden="true"><use href="#i-roller"/></svg>
+    <div>
+      <h2>Mittagspause im Büro?</h2>
+      <p>Wir liefern Firmen pünktlich zur Mittagspause. Lieferung laut Flyer ab 15 € Bestellwert in Herbolzheim und Neudenau, ab 20 € im Umkreis von 15 km.</p>
+    </div>
+    <a class="knopf knopf-hell" href="#anfrage">Anfrage stellen</a>
+  </div>
+</section>
+
+<!-- BEWERTUNGEN -->
+<section class="stimmen">
+  <div class="wrap">
+    <h2 class="gross">Das sagen die Gäste.</h2>
+    <div class="stimmen-kopf">
+      <b class="gross-zahl">4,6</b>
+      <div><span class="sterne" aria-hidden="true"><svg class="ic"><use href="#i-stern"/></svg><svg class="ic"><use href="#i-stern"/></svg><svg class="ic"><use href="#i-stern"/></svg><svg class="ic"><use href="#i-stern"/></svg><svg class="ic halb"><use href="#i-stern"/></svg></span><p>93 Bewertungen bei Google. Am häufigsten genannt: die Pide mit Sucuk und Ei.</p></div>
+    </div>
+    <div class="zitate">
+      <blockquote class="platzhalter">Kundenzitat folgt, sobald der Inhaber zustimmt.</blockquote>
+      <blockquote class="platzhalter">Kundenzitat folgt, sobald der Inhaber zustimmt.</blockquote>
+      <blockquote class="platzhalter">Kundenzitat folgt, sobald der Inhaber zustimmt.</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ANFRAGE -->
+<section id="anfrage" class="anfrage">
+  <div class="wrap anfrage-raster">
+    <div>
+      <h2 class="gross">Bestell vor,<br>wir machen ihn fertig.</h2>
+      <p class="lead">Schick uns deine Anfrage. Wir melden uns kurz zurück, dann steht alles bereit. Oder ruf einfach an:</p>
+      <a class="riesen-tel" href="tel:+4962649288433">06264 92 88 433</a>
+    </div>
+    <form id="formular" novalidate>
+      <label>Name<input name="name" autocomplete="name" required></label>
+      <label>Telefon<input name="tel" type="tel" autocomplete="tel" required></label>
+      <fieldset class="umschalter"><legend>Wie möchtest du ihn haben?</legend>
+        <label><input type="radio" name="art" value="Abholung" checked><span>Abholung</span></label>
+        <label><input type="radio" name="art" value="Lieferung"><span>Lieferung</span></label>
+      </fieldset>
+      <label>Was darf es sein?<textarea name="wunsch" rows="3" placeholder="z. B. 2 Döner im Fladenbrot, 1 Pide mit Sucuk"></textarea></label>
+      <label>Wann?<input name="zeit" placeholder="z. B. heute 18:30"></label>
+      <button class="knopf" type="submit">Anfrage senden</button>
+      <p class="form-hinweis" id="form-meldung" role="status">Demo: Auf der echten Seite landet die Anfrage direkt auf dem Handy des Inhabers.</p>
+    </form>
+  </div>
+</section>
+
+<!-- BESUCH -->
+<section id="besuch" class="besuch">
+  <div class="wrap besuch-raster">
+    <div class="besuch-info">
+      <h2 class="gross">So findest du uns.</h2>
+      <address>
+        <p><svg class="ic"><use href="#i-pin"/></svg>Neudenauer Str. 12<br>74861 Neudenau</p>
+        <p><svg class="ic"><use href="#i-tel"/></svg><a href="tel:+4962649288433">06264 92 88 433</a></p>
+        <p><svg class="ic"><use href="#i-uhr"/></svg>Montag bis Sonntag, 11:00 bis 22:30 Uhr<br><small>Öffnungszeiten werden vor dem Livegang geprüft.</small></p>
+        <p><svg class="ic"><use href="#i-auto"/></svg>Kostenlose Parkplätze und Parken an der Straße</p>
+      </address>
+      <a class="knopf" href="https://maps.google.com/maps?cid=3448607529805047058" target="_blank" rel="noopener">In Google Maps öffnen</a>
+    </div>
+    <div class="karte-schema" aria-hidden="true">
+      <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="300" fill="#1B1412"/>
+        <path d="M-10 210 C80 190 140 230 230 205 S360 160 410 180" stroke="#2a3a44" stroke-width="26" fill="none"/>
+        <path d="M20 40 L380 90 M60 260 L330 20 M0 130 L400 150" stroke="#2b211e" stroke-width="10" fill="none"/>
+        <path d="M200 -10 L215 310" stroke="#3a2a24" stroke-width="12" fill="none"/>
+        <circle cx="206" cy="148" r="38" fill="rgba(217,42,28,.18)"/><circle cx="206" cy="148" r="16" fill="rgba(217,42,28,.35)"/>
+        <path d="M206 128c-9 0-16 7-16 16 0 12 16 28 16 28s16-16 16-28c0-9-7-16-16-16z" fill="#D92A1C"/><circle cx="206" cy="144" r="6" fill="#fff"/>
+        <text x="206" y="196" text-anchor="middle" fill="#F7EDE0" font-size="15" font-weight="700">BurgKebap</text>
+      </svg>
+      <span class="platz">Kartenschema, wird durch die echte Karte ersetzt</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap fuss">
+    <div class="logo"><span>BURG</span><b>KEBAP</b></div>
+    <p>Neudenauer Str. 12, 74861 Neudenau</p>
+    <p><span class="platz-inline">Impressum und Datenschutz folgen mit den Angaben des Inhabers</span></p>
+  </div>
+</footer>
+
+<a class="anruf-leiste" href="tel:+4962649288433"><svg class="ic"><use href="#i-tel"/></svg>Jetzt anrufen · 06264 92 88 433</a>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/SplitText.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
