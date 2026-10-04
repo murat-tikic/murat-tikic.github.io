@@ -262,3 +262,74 @@ footer{padding:40px 0 100px;background:var(--kohle);border-top:1px solid var(--l
 .reduziert .reveal-hell{position:relative;clip-path:none;padding:60px 20px}
 .reduziert .wort{opacity:1}
 .reduziert .schritte li{opacity:1}
+
+/* ---- Handy-Feinschliff (<= 600px): kleinere Schrift, schlanker Kopf, kleineres Hero-Bild ---- */
+@media (max-width:600px){
+  body{font-size:16px;line-height:1.5}
+  #hinweis{font-size:11.5px;padding:6px 12px}
+  #status{font-size:11px}
+  #kopf{padding:8px 14px}
+  .logo{font-size:22px}
+  #kopf .knopf-klein{min-height:38px;padding:0 11px}
+  #kopf .knopf-klein .ic{width:1.1em;height:1.1em}
+  .wrap{width:min(1160px,100% - 32px)}
+  .lead{font-size:16px}
+  .gross{font-size:clamp(30px,9.4vw,40px);margin-bottom:14px;line-height:1}
+  .knopf{min-height:46px;padding:10px 20px;font-size:16px}
+  .hero{min-height:0;padding:20px 16px 96px;gap:14px}
+  .hero-bild{width:min(56%,224px);margin-bottom:2px}
+  .bogen{box-shadow:0 0 0 5px rgba(217,42,28,.2),0 18px 40px rgba(0,0,0,.55),0 0 50px rgba(255,122,26,.3);border-width:1.5px}
+  .siegel{width:88px;height:88px;right:-26px;bottom:14px}
+  .siegel .s-ring{font-size:17px}
+  .status-chip{font-size:12.5px;padding:5px 11px;margin-bottom:14px}
+  .hero h1{font-size:clamp(32px,9.4vw,40px);margin-bottom:12px;line-height:1}
+  .hero .lead{margin-bottom:16px}
+  .hero-knoepfe{margin-bottom:16px;gap:10px}
+  .hero-knoepfe .knopf:first-child{display:none}
+  .bewertung{font-size:13px;flex-wrap:wrap;gap:6px}
+  .bewertung b{font-size:16px}
+  .sterne .ic{width:16px;height:16px}
+  .runter{display:none}
+  .laufband{padding:9px 0}
+  .spur span{font-size:24px}
+  .intro{padding:56px 18px}
+  .intro-satz{font-size:clamp(24px,7vw,30px)}
+  .reveal-dunkel h2{font-size:clamp(56px,20vw,92px)}
+  .reveal-hell{padding:12px}
+  .reveal-foto img{max-height:30svh}
+  .reveal-foto figcaption{font-size:15px}
+  .zahlen{gap:12px}
+  .zahlen b{font-size:clamp(40px,12vw,56px)}
+  .zahlen span{font-size:13px}
+  .spiess-wrap{height:240px}
+  .spiess{width:150px}
+  .spiess-text h2{font-size:clamp(30px,9vw,38px);margin-bottom:14px}
+  .schritte li{padding:10px 0 10px 54px}
+  .schritte li::before{width:38px;height:38px;font-size:20px;top:9px}
+  .schritte h3{font-size:22px}
+  .schritte p{font-size:14.5px}
+  .vergleich,.baukasten,.karte,.menues,.stimmen,.anfrage,.besuch{padding:52px 0}
+  .stempel{font-size:18px;padding:1px 9px}
+  .vgl figcaption b{font-size:20px}
+  .mini-karte{padding:14px 16px;gap:6px}
+  .mini-karte p{font-size:14px}
+  .mini-karte b{font-size:20px}
+  legend{font-size:21px}
+  fieldset span{padding:9px 15px;font-size:14.5px}
+  .bau-ergebnis{padding:20px}
+  .bau-name{font-size:26px}
+  .bau-preis{font-size:68px}
+  .hinweis-karte{font-size:12.5px}
+  .tabs button{font-size:17px;min-height:42px;padding:6px 16px}
+  .liste li{padding:10px 0;font-size:15px}
+  .liste li b{font-size:22px}
+  .menue h3{font-size:28px}
+  .menue b{font-size:42px}
+  .firmen h2{font-size:clamp(28px,8vw,34px)}
+  .firmen p{font-size:15px}
+  .gross-zahl{font-size:92px}
+  .riesen-tel{font-size:36px}
+  form{padding:18px}
+  address{font-size:15.5px}
+  .anruf-leiste{min-height:48px;font-size:15px;bottom:10px}
+}
