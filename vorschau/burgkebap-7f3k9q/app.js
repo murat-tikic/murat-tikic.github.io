@@ -160,6 +160,81 @@
   funken();
 
 
+
+  /* ---------- Drehspieß (SVG): Fleischlagen mit unregelmäßigem Rand, Kruste, Fettglanz, Stange und Standplatte ---------- */
+  var Spiess = (function () {
+    var host = $("#spiess-host"); if (!host) return { scroll: function () {} };
+    var NS = "http://www.w3.org/2000/svg", seed = 7;
+    function rnd() { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+    function el(tag, at, par) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (par) par.appendChild(e); return e; }
+    var svg = el("svg", { "class": "spiess-svg", viewBox: "0 0 300 540", preserveAspectRatio: "xMidYMid meet" });
+    var defs = el("defs", {}, svg);
+
+    // Fleisch-Texturen (drei Varianten, bewegen sich verschieden schnell = Tiefe beim Drehen)
+    var PAL = [["#7d3b19", "#a2501f", "#6a2e14", "#b9672b", "#4e210e"], ["#8d4a22", "#b86a30", "#7a3a18", "#c98240", "#5a2a10"], ["#6f3416", "#964818", "#5b2810", "#ad5e26", "#431c0a"]];
+    var pats = PAL.map(function (pal, i) {
+      var p = el("pattern", { id: "tx" + i, width: 150, height: 110, patternUnits: "userSpaceOnUse" }, defs);
+      el("rect", { width: 150, height: 110, fill: pal[0] }, p);
+      for (var n = 0; n < 34; n++) {
+        var w = 4 + rnd() * 20, x = rnd() * 150, y = rnd() * 110;
+        el("rect", { x: x, y: y, width: w, height: 6 + rnd() * 26, rx: 3, fill: pal[Math.floor(rnd() * pal.length)], opacity: .55 + rnd() * .4 }, p);
+        if (x + w > 150) el("rect", { x: x - 150, y: y, width: w, height: 14, rx: 3, fill: pal[1], opacity: .6 }, p);
+      }
+      for (var m = 0; m < 26; m++) el("circle", { cx: rnd() * 150, cy: rnd() * 110, r: .8 + rnd() * 2.2, fill: rnd() < .5 ? "#f2c58a" : "#2a0f05", opacity: .25 + rnd() * .35 }, p);
+      return p;
+    });
+
+    // Zylinder-Schattierung und Metall
+    var zyl = el("linearGradient", { id: "zyl", x1: 0, x2: 1, y1: 0, y2: 0 }, defs);
+    [[0, "#000", .82], [.16, "#000", .3], [.36, "#ffd9a0", .34], [.52, "#ffffff", .05], [.72, "#000", .22], [.9, "#000", .6], [1, "#000", .86]].forEach(function (s) { el("stop", { offset: s[0], "stop-color": s[1], "stop-opacity": s[2] }, zyl); });
+    var met = el("linearGradient", { id: "met", x1: 0, x2: 1, y1: 0, y2: 0 }, defs);
+    [[0, "#6b6b6b"], [.35, "#f1f1f1"], [.6, "#9a9a9a"], [1, "#4d4d4d"]].forEach(function (s) { el("stop", { offset: s[0], "stop-color": s[1] }, met); });
+    var kap = el("radialGradient", { id: "kap", cx: .5, cy: .4, r: .7 }, defs);
+    [[0, "#f0b878"], [.6, "#c2763a"], [1, "#7d3b19"]].forEach(function (s) { el("stop", { offset: s[0], "stop-color": s[1] }, kap); });
+    var clip = el("clipPath", { id: "meatClip" }, defs);
+
+    // Stange
+    el("rect", { x: 146, y: 0, width: 8, height: 540, rx: 4, fill: "url(#met)" }, svg);
+
+    // Fleischlagen: oben breit, unten schmal, jede Lage mit eigener Kontur
+    var Y0 = 54, Y1 = 478, y = Y0, i = 0, g = el("g", {}, svg), shine = [];
+    function halb(yy) { var t = (yy - Y0) / (Y1 - Y0); return 128 - 62 * Math.pow(t, .9) + Math.sin(t * 9) * 3; }
+    while (y < Y1 - 14) {
+      var hgt = 26 + rnd() * 22, y2 = Math.min(Y1, y + hgt);
+      var l1 = 150 - halb(y) - rnd() * 7, r1 = 150 + halb(y) + rnd() * 7, l2 = 150 - halb(y2) - rnd() * 8, r2 = 150 + halb(y2) + rnd() * 8;
+      var d = "M" + l1 + "," + y + " Q150," + (y - 5) + " " + r1 + "," + y + " L" + r2 + "," + y2 + " Q150," + (y2 + 6) + " " + l2 + "," + y2 + " Z";
+      el("path", { d: d, fill: "url(#tx" + (i % 3) + ")", stroke: "rgba(28,9,2,.7)", "stroke-width": 1.5 }, g);
+      el("path", { d: d }, clip);
+      // Kruste (dunkler Rand oben)
+      el("path", { d: "M" + l1 + "," + y + " Q150," + (y - 5) + " " + r1 + "," + y, fill: "none", stroke: "rgba(22,6,0," + (.35 + rnd() * .3) + ")", "stroke-width": 3 + rnd() * 2 }, svg);
+      if (rnd() < .65) shine.push([150 + (rnd() - .55) * 120, y + hgt * (.35 + rnd() * .3), 10 + rnd() * 20, 2 + rnd() * 2.5]);
+      y = y2; i++;
+    }
+    el("rect", { x: 0, y: Y0 - 14, width: 300, height: Y1 - Y0 + 40, fill: "url(#zyl)", "clip-path": "url(#meatClip)" }, svg);
+    shine.forEach(function (s) { el("ellipse", { cx: s[0], cy: s[1], rx: s[2], ry: s[3], fill: "#ffe2b0", opacity: .2, "clip-path": "url(#meatClip)" }, svg); });
+    // Deckel (angeschnittene Oberseite) und Tropfen
+    el("ellipse", { cx: 150, cy: Y0 - 2, rx: halb(Y0) + 5, ry: 13, fill: "url(#kap)", stroke: "rgba(28,9,2,.7)", "stroke-width": 1.5 }, svg);
+    el("ellipse", { cx: 135, cy: Y0 - 4, rx: 30, ry: 4, fill: "#ffe2b0", opacity: .35 }, svg);
+    [[118, 484, 4], [176, 490, 3.2], [150, 486, 3.6]].forEach(function (t) { el("path", { d: "M" + t[0] + "," + t[1] + " q-" + t[2] + ",8 0," + (t[2] * 3) + " q" + t[2] + ",-" + (t[2] * 2) + " 0,-" + (t[2] * 3) + "z", fill: "#e0a35a", opacity: .85 }, svg); });
+    // Standplatte und Griff
+    el("ellipse", { cx: 150, cy: 508, rx: 78, ry: 11, fill: "#3a3a3a" }, svg);
+    el("ellipse", { cx: 150, cy: 504, rx: 78, ry: 11, fill: "url(#met)" }, svg);
+    el("circle", { cx: 150, cy: 8, r: 9, fill: "url(#met)" }, svg);
+    host.appendChild(svg);
+
+    // Antrieb: Scroll (PC) oder Dauerdrehung (Handy), eine eigene Schleife, unabhängig von GSAP
+    var K = [1, .72, 1.28], rot = 0, ziel = 0, sc = false, an = true;
+    if (window.IntersectionObserver) new IntersectionObserver(function (e) { an = e[0].isIntersecting; }).observe(host);
+    function tick(t) {
+      requestAnimationFrame(tick);
+      if (!an) return;
+      if (sc) { rot += (ziel - rot) * .14; } else if (!reduce) { rot = -t * .035; }
+      pats.forEach(function (p, n) { p.setAttribute("patternTransform", "translate(" + (rot * K[n]).toFixed(1) + " 0)"); });
+    }
+    requestAnimationFrame(tick);
+    return { scroll: function (p) { sc = true; ziel = -p * 1500; } };
+  })();
+
   if (!animiert) return;
   var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
   fontsReady.then(function () {
@@ -225,22 +300,22 @@
 
   // Spieß: dreht sich beim Scrollen, Schritte leuchten der Reihe nach auf
   var mm = gsap.matchMedia();
-  var schritte = $$(".schritte li"), fl = $(".fleisch");
+  var schritte = $$(".schritte li");
   function setzeSchritt(i) { schritte.forEach(function (s, k) { s.classList.toggle("aktiv", k === i); }); }
   mm.add("(min-width: 901px)", function () {
     ScrollTrigger.create({
       trigger: ".spiess-szene", start: "top top", end: "+=260%", pin: ".spiess-pin", scrub: true,
-      onUpdate: function (s) {
-        fl.style.setProperty("--bx", (-s.progress * 1400) + "px");
-        setzeSchritt(Math.min(3, Math.floor(s.progress * 4)));
-      }
+      onUpdate: function (s) { Spiess.scroll(s.progress); setzeSchritt(Math.min(3, Math.floor(s.progress * 4))); }
     });
   });
   mm.add("(max-width: 900px)", function () {
-    schritte.forEach(function (s) { s.classList.add("aktiv"); });
-    var o = { x: 0 };
-    var t = gsap.to(o, { x: -140, duration: 4, ease: "none", repeat: -1, onUpdate: function () { fl.style.setProperty("--bx", o.x + "px"); } });
-    return function () { t.kill(); };
+    // Handy: Schritt leuchtet auf, sobald er in der Bildschirmmitte steht
+    if (!window.IntersectionObserver) { schritte.forEach(function (s) { s.classList.add("aktiv"); }); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) en.target.classList.add("aktiv"); });
+    }, { rootMargin: "0px 0px -35% 0px" });
+    schritte.forEach(function (s, k) { if (k > 0) s.classList.remove("aktiv"); io.observe(s); });
+    return function () { io.disconnect(); };
   });
 
   // Überschriften der Abschnitte: Zeilen-Reveal
